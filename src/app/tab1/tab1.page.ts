@@ -14,7 +14,7 @@ export class Tab1Page implements OnInit {
   sliderConfig = {
 spaceBetween: 10,
 centeredSlides: false,
-slidesPerView:3.2
+slidesPerView:2.2
   }
   constructor(private getcategoriesService:GetcategoriesService , private router:Router){}
 
