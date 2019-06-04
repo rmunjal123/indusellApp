@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class GetcategoriesService {
+
+  categories: any[];
 
   private data = [
     {
@@ -35,9 +39,17 @@ export class GetcategoriesService {
     }
   ]
 
-  constructor() { }
+  constructor(private http:Http) {
+  http.get('https://indusell.com/cate?slug=electrical')
+  .subscribe(response =>{
+    console.log(response.json())
+  });
+}
 
 getListings(){
+  return this.data;
+}
+getCategories(){
   return this.data;
 }
 }

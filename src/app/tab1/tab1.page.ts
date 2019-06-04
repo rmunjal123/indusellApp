@@ -12,9 +12,9 @@ export class Tab1Page implements OnInit {
   listings = [];
 
   sliderConfig = {
-spaceBetween: 10,
+spaceBetween: 5,
 centeredSlides: false,
-slidesPerView:2.2
+slidesPerView:2.4
   }
   constructor(private getcategoriesService:GetcategoriesService , private router:Router){}
 
