@@ -16,11 +16,11 @@
         </ion-col>
       </ion-row>
     <ion-slides [options]="sliderConfig">
-      <ion-slide *ngFor= "let listing of cat.listings">
+      <ion-slide *ngFor= "let listing of cat.listings" (click)="onGoToListingDetail(listing)">
         <ion-card class="category-block">
           <ion-img src="/assets/shapes.svg"></ion-img>
           <ion-card-header>
-            <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+            <ion-card-subtitle>{{listing.id}}</ion-card-subtitle>
             <ion-card-title>
               {{listing.name}} - S${{listing.price}}
             </ion-card-title>

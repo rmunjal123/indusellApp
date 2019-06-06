@@ -6,11 +6,12 @@ const routes: Routes = [
   { path: '', loadChildren: './tabs/tabs.module#TabsPageModule' },
   { path: 'categories/:id', loadChildren: './pages/categories/categories.module#CategoriesPageModule',
     canActivate: [AuthGuard] },
-  { path: 'addlisting', loadChildren: './pages/addlisting/addlisting.module#AddlistingPageModule' }
+  { path: 'addlisting', loadChildren: './pages/addlisting/addlisting.module#AddlistingPageModule' },
+  { path: 'addetails', loadChildren: './pages/addetails/addetails.module#AddetailsPageModule' }
 ];
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+  RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
   ],
   exports: [RouterModule]
 })

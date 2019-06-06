@@ -8,7 +8,7 @@ import { Http } from '@angular/http';
 export class GetcategoriesService {
 
   categories: any[];
-
+  currentlisting: any;
   private data = [
     {
       category: 'Electrical',

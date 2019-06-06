@@ -9,7 +9,7 @@ import { IonInfiniteScroll } from '@ionic/angular';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page implements OnInit {
-    listings = [];
+    listings =  [];
     data = [];
 
     sliderConfig = {
@@ -18,9 +18,9 @@ export class Tab2Page implements OnInit {
   slidesPerView:2.4
     }
     constructor(private getcategoriesService:GetcategoriesService , private router:Router){}
-
+    
     ngOnInit(){
-  this.listings = this.getcategoriesService.getListings();
+     this.listings = this.getcategoriesService.getListings();
     }
   loadData(event){
   console.log(event);
@@ -34,5 +34,9 @@ export class Tab2Page implements OnInit {
       event.target.disabled = true;
     }
   }, 5000);
+}
+onGoToListingDetail(listing){
+  this.getcategoriesService.currentlisting = listing;
+  this.router.navigate(['/addetails']);
 }
 }

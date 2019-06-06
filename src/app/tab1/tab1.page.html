@@ -7,9 +7,9 @@
 
     <!-- floating button at the top for Add Listing -->
    <!-- fab placed to the top start -->
-   <ion-fab vertical="top" horizontal="end" slot="fixed">
+   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
       <ion-fab-button expand="block" routerLink="/addlisting" routerDirection="forward">
-        <ion-icon color = "yellow" name="arrow-dropright"></ion-icon>
+        <ion-icon name="add"></ion-icon>
       </ion-fab-button>
     </ion-fab>
 
@@ -41,7 +41,7 @@
       <ion-img src="/assets/shapes.svg">
       </ion-img>
       <ion-card-header>
-        <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+        <ion-card-subtitle></ion-card-subtitle>
         <ion-card-title>
          {{cat.category}}
         </ion-card-title>
@@ -50,7 +50,7 @@
   </ion-slide>
 </ion-slides>
 </div>
-<ion-button expand="block" routerLink="/categories/1" routerDirection="forward">
+<ion-button expand="block" routerLink="/categories/3" routerDirection="forward">
   Details
 </ion-button>
 

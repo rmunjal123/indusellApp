@@ -10,6 +10,7 @@ export class AddlistingPage implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log("Hi");
   }
 
 }

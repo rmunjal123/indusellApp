@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InfinitescrollComponent } from './infinitescroll.component';
+import { AddetailsPage } from './addetails.page';
 
-describe('InfinitescrollComponent', () => {
-  let component: InfinitescrollComponent;
-  let fixture: ComponentFixture<InfinitescrollComponent>;
+describe('AddetailsPage', () => {
+  let component: AddetailsPage;
+  let fixture: ComponentFixture<AddetailsPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InfinitescrollComponent ],
+      declarations: [ AddetailsPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(InfinitescrollComponent);
+    fixture = TestBed.createComponent(AddetailsPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
