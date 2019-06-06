@@ -1,16 +1,34 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-  Home
-    </ion-title>
+    <ion-searchbar placeholder="What"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-card class="welcome-card">
-    <ion-img src="/assets/shapes.svg"></ion-img>
-<ion-searchbar placeholder="What"></ion-searchbar>
-<ion-searchbar placeholder="Where"></ion-searchbar>
-  </ion-card>
+
+    <!-- floating button at the top for Add Listing -->
+   <!-- fab placed to the top start -->
+   <ion-fab vertical="top" horizontal="end" slot="fixed">
+      <ion-fab-button expand="block" routerLink="/addlisting" routerDirection="forward">
+        <ion-icon color = "yellow" name="arrow-dropright"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+    <!-- auto rotating slider at the top -->
+    <ion-slides pager="true" [options]="slideOpts">
+        <ion-slide>
+          <h1>Slide 1</h1>
+          <ion-img src="/assets/shapes.svg"></ion-img>
+        </ion-slide>
+        <ion-slide>
+          <h1>Slide 2</h1>
+          <ion-img src="/assets/shapes.svg"></ion-img>
+        </ion-slide>
+        <ion-slide>
+          <h1>Slide 3</h1>
+          <ion-img src="/assets/shapes.svg"></ion-img>
+        </ion-slide>
+      </ion-slides>
+
 <div>
 <ion-toolbar>
 <ion-title>
@@ -20,7 +38,8 @@
 <ion-slides [options]="sliderConfig">
   <ion-slide *ngFor= "let cat of listings">
     <ion-card class="category-block">
-      <ion-img src="/assets/shapes.svg"></ion-img>
+      <ion-img src="/assets/shapes.svg">
+      </ion-img>
       <ion-card-header>
         <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
         <ion-card-title>
@@ -31,4 +50,8 @@
   </ion-slide>
 </ion-slides>
 </div>
+<ion-button expand="block" routerLink="/categories/1" routerDirection="forward">
+  Details
+</ion-button>
+
 </ion-content>

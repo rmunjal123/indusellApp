@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GetcategoriesService } from 'src/app/services/getcategories.service'
 import { Router } from '@angular/router';
+import { IonSlides } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-tab1',
@@ -12,7 +14,7 @@ export class Tab1Page implements OnInit {
   listings = [];
 
   sliderConfig = {
-spaceBetween: 5,
+spaceBetween: 0,
 centeredSlides: false,
 slidesPerView:2.4
   }
@@ -22,3 +24,11 @@ slidesPerView:2.4
 this.listings = this.getcategoriesService.getListings();
   }
 }
+export class SlideExample {
+  // Optional parameters to pass to the swiper instance. See http://idangero.us/swiper/api/ for valid options.
+  slideOpts = {
+    initialSlide: 1,
+    speed: 400
+  }
+}
+

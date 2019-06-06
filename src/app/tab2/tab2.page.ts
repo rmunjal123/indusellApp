@@ -1,6 +1,7 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit, ViewChild } from '@angular/core';
 import { GetcategoriesService } from 'src/app/services/getcategories.service'
 import { Router } from '@angular/router';
+import { IonInfiniteScroll } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab2',
@@ -9,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class Tab2Page implements OnInit {
     listings = [];
+    data = [];
 
     sliderConfig = {
   spaceBetween: 10,
@@ -20,4 +22,17 @@ export class Tab2Page implements OnInit {
     ngOnInit(){
   this.listings = this.getcategoriesService.getListings();
     }
-  }
+  loadData(event){
+  console.log(event);
+  setTimeout(() => {
+    console.log('Done');
+    event.target.complete();
+
+    // App logic to determine if all data is loaded
+    // and disable the infinite scroll
+    if (this.data.length == 1000) {
+      event.target.disabled = true;
+    }
+  }, 5000);
+}
+}
