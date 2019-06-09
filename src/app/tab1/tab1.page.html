@@ -1,6 +1,7 @@
 <ion-header>
   <ion-toolbar>
-    <ion-searchbar placeholder="What"></ion-searchbar>
+    <ion-title>Indusell</ion-title>
+      <ion-icon name="search" slot="end" routerLink="/search" routerDirection="forward"></ion-icon>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -12,7 +13,11 @@
         <ion-icon name="add"></ion-icon>
       </ion-fab-button>
     </ion-fab>
-
+    <ion-fab vertical="top" horizontal="end" slot="fixed">
+        <ion-fab-button expand="block" routerLink="/login" routerDirection="forward">
+          <ion-icon name="next"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
     <!-- auto rotating slider at the top -->
     <ion-slides pager="true" [options]="slideOpts">
         <ion-slide>

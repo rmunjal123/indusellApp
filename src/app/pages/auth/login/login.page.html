@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-content padding class="form-content">
+        <form class="form" [formGroup]="loginform"  (ngSubmit)="onSubmit(loginform.value)">
+          <ion-item>
+            <ion-label floating color="primary">Email</ion-label>
+            <ion-input class= "form-control" type="text" formControlName="email"></ion-input>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.email">
+              <div class="error-message" *ngIf="loginform.get('email').hasError(validation.type) && (loginform.get('email').dirty || loginform.get('email').touched)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div> 
+          <ion-item>
+              <ion-label floating color="primary">Password</ion-label>
+              <ion-input type="password" formControlName="password"></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.password">
+                <div class="error-message" *ngIf="loginform.get('password').hasError(validation.type) && (loginform.get('password').dirty || loginform.get('password').touched)">
+                  {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>     
+          
+          <!-- These validations are for the form group -->
+          
+          <ion-item class="terms-item">
+            <ion-label color="primary">I accept terms and conditions</ion-label>
+            <ion-checkbox class= "form-control" formControlName="terms"></ion-checkbox>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.terms">
+              <div class="error-message" *ngIf="loginform.get('terms').hasError(validation.type) && (loginform.get('terms').dirty || loginform.get('terms').touched)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+          <ion-button expand= "full" type="submit" [disabled]="!loginform.valid">Submit</ion-button>
+        </form>
+</ion-content>
