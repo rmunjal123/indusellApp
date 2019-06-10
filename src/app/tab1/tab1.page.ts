@@ -31,4 +31,3 @@ export class SlideExample {
     speed: 400
   }
 }
-

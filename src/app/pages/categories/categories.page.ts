@@ -7,13 +7,10 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./categories.page.scss'],
 })
 export class CategoriesPage implements OnInit {
-
-  Id = null;
-
-  constructor(private activatedRoute: ActivatedRoute) { }
+  category;
+  constructor(private getcategoriesService:GetcategoriesService) { }
 
   ngOnInit() {
     this.Id = this.activatedRoute.snapshot.paramMap.get('id');
   }
-
 }

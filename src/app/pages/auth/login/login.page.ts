@@ -84,5 +84,4 @@ export class LoginPage {
   onSubmit(values){
     this.navCtrl.navigateForward('src/app/tab3/tab3.page');
   }
-
   }
