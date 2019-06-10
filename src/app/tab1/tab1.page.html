@@ -15,7 +15,7 @@
     </ion-fab>
     <ion-fab vertical="top" horizontal="end" slot="fixed">
         <ion-fab-button expand="block" routerLink="/login" routerDirection="forward">
-          <ion-icon name="next"></ion-icon>
+          <ion-icon name="add"></ion-icon>
         </ion-fab-button>
       </ion-fab>
     <!-- auto rotating slider at the top -->
@@ -32,7 +32,7 @@
           <h1>Slide 3</h1>
           <ion-img src="/assets/shapes.svg"></ion-img>
         </ion-slide>
-      </ion-slides>
+      </ion-slides> 
 
 <div>
 <ion-toolbar>
@@ -41,7 +41,7 @@
 </ion-title>
 </ion-toolbar>
 <ion-slides [options]="sliderConfig">
-  <ion-slide *ngFor= "let cat of listings">
+  <ion-slide *ngFor= "let cat of listings" (click)="onGoToCategoryPage(cat)">
     <ion-card class="category-block">
       <ion-img src="/assets/shapes.svg">
       </ion-img>

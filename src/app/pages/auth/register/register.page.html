@@ -23,7 +23,7 @@
             </ion-item>
             <div class="validation-errors">
               <ng-container *ngFor="let validation of validation_messages.email">
-                <div class="error-message" *ngIf="registerform.get('email').hasError(validation.type) && (registerform.get('email').dirty || registerform.get('email').touched)">
+                <div class="error-message" *ngIf="registerform.get('email').hasError(validation.type ) && (registerform.get('email').dirty || registerform.get('email').touched)">
                   {{ validation.message }}
                 </div>
               </ng-container>

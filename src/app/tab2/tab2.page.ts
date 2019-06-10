@@ -12,7 +12,7 @@ export class Tab2Page implements OnInit {
     listings =  [];
     data = [];
 
-    sliderConfig = {
+  sliderConfig = {
   spaceBetween: 10,
   centeredSlides: false,
   slidesPerView:2.4
@@ -25,8 +25,8 @@ export class Tab2Page implements OnInit {
   loadData(event){
   console.log(event);
   setTimeout(() => {
-    console.log('Done');
-    event.target.complete();
+  console.log('Done');
+  event.target.complete();
 
     // App logic to determine if all data is loaded
     // and disable the infinite scroll

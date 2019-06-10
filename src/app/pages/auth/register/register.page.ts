@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { NavController } from '@ionic/angular';
 import { PasswordValidator } from '../validators/password.validator';
+import { EmailValidator } from '../validators/email.validator';
 
 @Component({
   selector: 'app-register',
@@ -30,7 +31,8 @@ export class RegisterPage {
     email: new FormControl('',[
       Validators.required,
       Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
-      Validators.email
+      Validators.email,
+      EmailValidator.shouldBeUnique
     ]),
     terms: new FormControl(true, Validators.pattern('true'))
   });
@@ -41,7 +43,8 @@ export class RegisterPage {
     ],
     'email': [
       { type: 'required', message: 'Email is required.' },
-      { type: 'pattern', message: 'Enter a valid email.' }
+      { type: 'pattern', message: 'Enter a valid email.' },
+      { type: 'shouldBeUnique', message: 'Email already exists.' }
     ],
     'password': [
       { type: 'required', message: 'Password is required.' },

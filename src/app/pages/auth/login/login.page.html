@@ -4,8 +4,15 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
+    <ion-content class="login-content" padding>
+        <ion-row class="top-row">
+          <ion-col class="login-button">
+            <ion-button block color="danger"  (click)="doGoogleLogin()">Google</ion-button>
+            <ion-button block color="primary" (click)="doFacebookLogin()">Facebook</ion-button>
+          </ion-col>
+        </ion-row>
     <ion-content padding class="form-content">
-        <form class="form" [formGroup]="loginform"  (ngSubmit)="onSubmit(loginform.value)">
+        <form class="form" [formGroup]="loginform" (ngSubmit)="onSubmit(loginform.value)">
           <ion-item>
             <ion-label floating color="primary">Email</ion-label>
             <ion-input class= "form-control" type="text" formControlName="email"></ion-input>
@@ -27,20 +34,11 @@
                   {{ validation.message }}
                 </div>
               </ng-container>
-            </div>     
+            </div> 
+            <br>  
           
           <!-- These validations are for the form group -->
-          <ion-item class="terms-item">
-            <ion-label color="primary">I accept terms and conditions</ion-label>
-            <ion-checkbox class= "form-control" formControlName="terms"></ion-checkbox>
-          </ion-item>
-          <div class="validation-errors">
-            <ng-container *ngFor="let validation of validation_messages.terms">
-              <div class="error-message" *ngIf="loginform.get('terms').hasError(validation.type) && (loginform.get('terms').dirty || loginform.get('terms').touched)">
-                {{ validation.message }}
-              </div>
-            </ng-container>
-          </div>
-          <ion-button expand= "full" type="submit" [disabled]="!loginform.valid">Submit</ion-button>
+
+          <ion-button expand= "full" type="submit" [disabled]="!loginform.valid">Login</ion-button>
         </form>
 </ion-content>

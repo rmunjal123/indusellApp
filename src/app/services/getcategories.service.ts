@@ -9,6 +9,7 @@ export class GetcategoriesService {
 
   categories: any[];
   currentlisting: any;
+  currentcategory: any;
   private data = [
     {
       category: 'Electrical',

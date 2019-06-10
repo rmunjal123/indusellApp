@@ -1,14 +1,26 @@
 <ion-header>
   <ion-toolbar>
       <ion-buttons slot="start">
-          <ion-back-button defaultHref="/dashboard"></ion-back-button>
+          <ion-back-button defaultHref="/tab1"></ion-back-button>
         </ion-buttons>
-    <ion-title>categories</ion-title>
+        <ion-title>{{category.category}}</ion-title>
   </ion-toolbar>
 </ion-header>
-
-<ion-content>
-    <ion-content padding>
-        My ID is: {{ Id }}
-       </ion-content>
-</ion-content>
+  <ion-content>
+      <ion-slides [options]="sliderConfig">
+        <ion-slide *ngFor= "let listing of category.listings" (click)="onGoToListingDetail(listing)">
+          <ion-card class="category-block">
+            <ion-img src="/assets/shapes.svg"></ion-img>
+            <ion-card-header>
+              <ion-card-subtitle>{{listing.name}}</ion-card-subtitle>
+              <ion-card-title>
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+            S${{listing.price}}
+            </ion-card-content>
+          </ion-card>
+        </ion-slide>
+      </ion-slides>
+  </ion-content>
+  

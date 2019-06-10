@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import { NavController } from '@ionic/angular';
+import { NavController, LoadingController } from '@ionic/angular';
+
 
 //import { PasswordValidator } from '../../validators/password.validator';
 
 //import emailMask from 'text-mask-addons/dist/emailMask';
 import { Tab3Page } from 'src/app/tab3/tab3.page';
+import { EmailValidator } from '../validators/email.validator';
 
 @Component({
   selector: 'app-login',
@@ -19,20 +21,19 @@ export class LoginPage {
    loginform = new FormGroup({
     email: new FormControl('',[
       Validators.required,
-      Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
-      Validators.email
+      Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
     ]),
     password: new FormControl('',[
       Validators.minLength(5),
       Validators.required,
       Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
-    ]),
+    ])
     //matching_passwords: this.matching_passwords_group,
-    terms: new FormControl(true, Validators.pattern('true'))
+    //terms: new FormControl(true, Validators.pattern('true'))
   });
 
 
-  constructor(public navCtrl: NavController, public formBuilder: FormBuilder) { }
+  constructor(public navCtrl: NavController, public formBuilder: FormBuilder, public loadingCtrl: LoadingController) { }
   ionViewWillLoad() {
     /*this.matching_passwords_group = new FormGroup({
       password: new FormControl('',[
@@ -63,7 +64,8 @@ export class LoginPage {
     ],
     'email': [
       { type: 'required', message: 'Email is required.' },
-      { type: 'pattern', message: 'Enter a valid email.' }
+      { type: 'pattern', message: 'Enter a valid email.' },
+      { type: 'shouldBeUnique', message: 'Email already exists.' }
     ],
     'password': [
       { type: 'required', message: 'Password is required.' },
@@ -84,4 +86,4 @@ export class LoginPage {
   onSubmit(values){
     this.navCtrl.navigateForward('src/app/tab3/tab3.page');
   }
-  }
+}
