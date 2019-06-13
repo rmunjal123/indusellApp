@@ -23,7 +23,7 @@
                 {{ validation.message }}
               </div>
             </ng-container>
-          </div> 
+          </div>
           <ion-item>
               <ion-label floating color="primary">Password</ion-label>
               <ion-input type="password" formControlName="password"></ion-input>
@@ -34,11 +34,12 @@
                   {{ validation.message }}
                 </div>
               </ng-container>
-            </div> 
-            <br>  
-          
+            </div>
+            <br>
+
           <!-- These validations are for the form group -->
 
-          <ion-button expand= "full" type="submit" [disabled]="!loginform.valid">Login</ion-button>
+          <ion-button expand= "full" type="submit" [disabled]="!loginform.valid" (click)="login()">Login</ion-button>
+          <ion-button expand="block" color="secondary" routerLink="/register" routerDirection="forward">Register</ion-button>
         </form>
 </ion-content>

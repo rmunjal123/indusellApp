@@ -32,7 +32,7 @@
           <h1>Slide 3</h1>
           <ion-img src="/assets/shapes.svg"></ion-img>
         </ion-slide>
-      </ion-slides> 
+      </ion-slides>
 
 <div>
 <ion-toolbar>
@@ -55,4 +55,58 @@
   </ion-slide>
 </ion-slides>
 </div>
+<ion-grid>
+  <ion-row>
+    <ion-col>
+      <div>
+        1 of 2
+      </div>
+    </ion-col>
+    <ion-col>
+      <div>
+        2 of 2
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <div>
+        1 of 3
+      </div>
+    </ion-col>
+    <ion-col>
+      <div>
+        2 of 3
+      </div>
+    </ion-col>
+    <ion-col>
+      <div>
+        3 of 3
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+<div class="container" >
+        <div class="scroll" scrollX="true">
+            <span>item1</span>
+            <span>item2</span>
+            <span>item3</span>
+            <span>item4</span>
+            <span>item5</span>
+            <span>item6</span>
+            <span>item7</span>
+            <span>item8</span>
+            <span>item9</span>
+            <span>item10</span>
+            <span>item11</span>
+            <span>item12</span>
+            <span>item13</span>
+            <span>item14</span>
+        </div>
+    </div>
+    <div class="container">
+        <div class="scroll" scrollX="true">
+         <span *ngFor="let item of items | async">{{item.ProjectEvent}}</span>
+        </div>
+    </div>
 </ion-content>

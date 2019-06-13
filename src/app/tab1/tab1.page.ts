@@ -31,8 +31,6 @@ console.log(this.categories);
     this.getcategoriesService.currentcategory = cat;
     this.router.navigate(['/categories']);
 }
-}
-export class SlideExample {
   // Optional parameters to pass to the swiper instance. See http://idangero.us/swiper/api/ for valid options.
   slideOpts = {
     initialSlide: 1,

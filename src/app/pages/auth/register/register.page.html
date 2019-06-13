@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
     <ion-title>Register</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -40,7 +43,7 @@
                     </div>
                   </ng-container>
                 </div>
-          
+
                 <ion-item>
                   <ion-label floating color="primary">Confirm Password</ion-label>
                   <ion-input type="password" formControlName="confirm_password"></ion-input>
@@ -61,7 +64,7 @@
                   </div>
                 </ng-container>
               </div>
-          
+
               <ion-item class="terms-item">
                 <ion-label color="primary">I accept terms and conditions</ion-label>
                 <ion-checkbox formControlName="terms"></ion-checkbox>
@@ -73,8 +76,7 @@
                   </div>
                 </ng-container>
               </div>
-          
+
               <ion-button expand= "full" type="submit" [disabled]="!registerform.valid">Submit</ion-button>
             </form>
           </ion-content>
-  

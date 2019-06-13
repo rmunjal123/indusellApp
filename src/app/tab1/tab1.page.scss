@@ -1,4 +1,16 @@
 .welcome-card ion-img {
-  max-height: 35vh;
+  max-height: 3vh;
   overflow: hidden;
+}
+.container {
+  width: 300px;
+  background-color: green;
+  overflow: hidden;
+  white-space: nowrap;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  .scroll {
+    overflow: auto;
+  }
 }
