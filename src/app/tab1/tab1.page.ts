@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { GetcategoriesService } from 'src/app/services/getcategories.service'
 import { Router } from '@angular/router';
 import { IonSlides } from '@ionic/angular';
+import { ListingService } from '../services/listing.service';
+
 
 
 @Component({
@@ -19,12 +21,22 @@ spaceBetween: 0,
 centeredSlides: false,
 slidesPerView:2.4
   }
-constructor(private getcategoriesService:GetcategoriesService , private router:Router){}
+constructor(private getcategoriesService:GetcategoriesService , private router:Router,private newlistings:ListingService){}
 
   ngOnInit(){
 this.listings = this.getcategoriesService.getListings();
 this.categories = this.getcategoriesService.getCategories();
 console.log(this.categories);
+
+this.newlistings.getlisting()
+.subscribe(response => {
+  this.listings = response.json();
+  console.log(response.json())
+}, error => {
+  alert ('An unexpected error occcurred');
+  console.log (error);
+});
+
   }
 
   onGoToCategoryPage(cat){

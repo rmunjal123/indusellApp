@@ -47,6 +47,7 @@ export class GetcategoriesService {
   });
 }
 
+
 getListings(){
   return this.data;
 }
@@ -54,3 +55,6 @@ getCategories(){
   return this.data;
 }
 }
+
+
+

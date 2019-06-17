@@ -9,19 +9,31 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { IonicStorageModule } from '@ionic/storage';
 import { AppComponent } from './app.component';
-import { HttpModule} from '@angular/http'
+import { HttpModule, BaseRequestOptions} from '@angular/http'
+import { ListingService } from './services/listing.service';
+import { fakeBackendProvider } from './helpers/fake-backend';
+import { MockBackend } from '@angular/http/testing';
+import { AuthenticationService } from './services/authentication.service';
 
 @NgModule({
+
   declarations: [AppComponent],
   entryComponents: [],
+
   imports: [BrowserModule,
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
     AppRoutingModule,
     HttpModule],
+
   providers: [
+    ListingService,
     StatusBar,
     SplashScreen,
+    AuthenticationService,
+    fakeBackendProvider,
+    MockBackend,
+    BaseRequestOptions,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

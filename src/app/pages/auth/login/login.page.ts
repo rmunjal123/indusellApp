@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { NavController, LoadingController } from '@ionic/angular';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { Router } from '@angular/router'
 
 
 //import { PasswordValidator } from '../../validators/password.validator';
@@ -34,7 +35,11 @@ export class LoginPage {
   });
 
 
-  constructor(public navCtrl: NavController, public formBuilder: FormBuilder, public loadingCtrl: LoadingController, private authService: AuthenticationService) { }
+  constructor(public navCtrl: NavController, 
+              public formBuilder: FormBuilder, 
+              public loadingCtrl: LoadingController, 
+              private authService: AuthenticationService,
+              private router: Router) { }
   ionViewWillLoad() {
     /*this.matching_passwords_group = new FormGroup({
       password: new FormControl('',[
@@ -86,9 +91,10 @@ export class LoginPage {
 
   onSubmit(values){
     //this.navCtrl.navigateForward('src/app/tab3/tab3.page');
-    console.log(values);
+    //console.log(values);
+    this.authService.login(values)
   }
-  login(){
-    this.authService.login();
+  signIn(credentials){
+    this.authService.login(credentials)
   }
 }
