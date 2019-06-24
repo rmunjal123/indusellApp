@@ -3,6 +3,12 @@ import { Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { BehaviorSubject } from 'rxjs';
 import { Http } from '@angular/http';
+import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
+import { ComponentFactoryResolver } from '@angular/core/src/render3';
+import { map } from 'rxjs/operators';
+
+
+
 
 const TOKEN_KEY = 'auth-token';
 
@@ -10,29 +16,35 @@ const TOKEN_KEY = 'auth-token';
   providedIn: 'root'
 })
 export class AuthenticationService {
-
+  currentUser: any; 
   authenticationState = new BehaviorSubject(false);
 
  constructor(private storage: Storage, private plt: Platform, private http:Http) {
-   this.plt.ready().then(() => { this.checkToken();
-   });
- }
-
- login(values){
-   //console.log (values);
-  return this.http.post('api/authenticate',
-   JSON.stringify(values))
-   .subscribe(response => { console.log(response)
-   });
+  let token = localStorage.getItem('token');
+  if (token) {
+    let jwt = new JwtHelperService();
+    this.currentUser = jwt.decodeToken(token);
   }
+}
 
- checkToken() {
-   this.storage.get(TOKEN_KEY).then(res => {
-     if (res) {
-       this.authenticationState.next(true);
-     }
-   })
- }
+login(credentials) { 
+  console.log(credentials);
+ return this.http.post('/api/authenticate', JSON.stringify(credentials)).pipe
+ (map(response => {
+  let result = response.json();
+  console.log(result);
+  if (result && result.token) {
+    localStorage.setItem('token', result.token);
+
+    let jwt = new JwtHelperService();
+    this.currentUser = jwt.decodeToken(localStorage.getItem('token'));
+
+    return this.authenticationState.next(true); 
+  }
+  else return this.authenticationState.next(false);
+}));
+}
+
 
  //login() {
   // return this.storage.set(TOKEN_KEY, 'Bearer 1234567').then(() => {

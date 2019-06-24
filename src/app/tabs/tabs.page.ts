@@ -12,14 +12,16 @@ export class TabsPage {
 constructor(private authService: AuthenticationService,
             private router: Router){}
 
-checkstatus(){
-    this.authService.authenticationState.subscribe(state => {
-    console.log(state);
-     if (state) {
-     this.router.navigate(['/tabs/tab4']);
-     } else {
-    this.router.navigate(['login']);
-     }
-    });
+checkstatus(credentials){
+    //this.authService.login.subscribe(state => {
+    //console.log(state);
+    console.log(this.authService.isAuthenticated());
+     if(this.authService.isAuthenticated()){
+        this.router.navigate(['/tabs/tab4']); 
+       }
+       else
+       {
+        this.router.navigate(['/login']); 
     }
-  }
+}
+}

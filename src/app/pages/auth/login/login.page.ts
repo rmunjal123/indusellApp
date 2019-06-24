@@ -3,13 +3,11 @@ import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
 import { NavController, LoadingController } from '@ionic/angular';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Router } from '@angular/router'
-
+import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 
 //import { PasswordValidator } from '../../validators/password.validator';
 
 //import emailMask from 'text-mask-addons/dist/emailMask';
-import { Tab3Page } from 'src/app/tab3/tab3.page';
-import { EmailValidator } from '../validators/email.validator';
 
 @Component({
   selector: 'app-login',
@@ -93,8 +91,14 @@ export class LoginPage {
     //this.navCtrl.navigateForward('src/app/tab3/tab3.page');
     //console.log(values);
     this.authService.login(values)
-  }
-  signIn(credentials){
-    this.authService.login(credentials)
+    .subscribe(result => { 
+      if (this.authService.isAuthenticated())
+       {
+        this.router.navigate(['/tabs/tab4']); 
+       }
+       else
+        this.router.navigate(['/login']); 
+    });
+
   }
 }
