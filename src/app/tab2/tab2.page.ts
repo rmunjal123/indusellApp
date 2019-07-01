@@ -2,6 +2,7 @@ import { Component,OnInit, ViewChild } from '@angular/core';
 import { GetcategoriesService } from 'src/app/services/getcategories.service'
 import { Router } from '@angular/router';
 import { IonInfiniteScroll } from '@ionic/angular';
+import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
 
 @Component({
   selector: 'app-tab2',
@@ -9,34 +10,52 @@ import { IonInfiniteScroll } from '@ionic/angular';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page implements OnInit {
-    listings =  [];
-    data = [];
+    constructor(private getcategoriesService:GetcategoriesService , private router:Router,
+      private speechRecognition: SpeechRecognition){}
 
-  sliderConfig = {
-  spaceBetween: 10,
-  centeredSlides: false,
-  slidesPerView:2.4
-    }
-    constructor(private getcategoriesService:GetcategoriesService , private router:Router){}
-    
-    ngOnInit(){
-     this.listings = this.getcategoriesService.getListings();
-    }
-  loadData(event){
-  console.log(event);
-  setTimeout(() => {
-  console.log('Done');
-  event.target.complete();
+    ngOnInit(){}
 
-    // App logic to determine if all data is loaded
-    // and disable the infinite scroll
-    if (this.data.length == 1000) {
-      event.target.disabled = true;
+    // Check feature available
+    isavailable(){
+    this.speechRecognition.isRecognitionAvailable()
+      .then((available: boolean) => console.log(available))
     }
-  }, 5000);
-}
-onGoToListingDetail(listing){
-  this.getcategoriesService.currentlisting = listing;
-  this.router.navigate(['/addetails']);
-}
+
+    // Start the recognition process
+    startrecognition(options){
+    this.speechRecognition.startListening(options)
+      .subscribe(
+        (matches: string[]) => console.log(matches),
+        (onerror) => console.log('error:', onerror)
+      )
+    }
+
+    // Stop the recognition process (iOS only)
+    stoprecognition(){
+    this.speechRecognition.stopListening()
+  }
+
+    // Get the list of supported languages
+    languagesupported(){
+    this.speechRecognition.getSupportedLanguages()
+      .then(
+        (languages: string[]) => console.log(languages),
+        (error) => console.log(error)
+      )
+    }
+
+    // Check permission
+    checkpermissions(){
+    this.speechRecognition.hasPermission()
+      .then((hasPermission: boolean) => console.log(hasPermission))
+    }
+
+    // Request permissions
+    requestpermissions(){
+    this.speechRecognition.requestPermission()
+      .then(
+        () => console.log('Granted'),
+        () => console.log('Denied')
+      )
+    }
 }

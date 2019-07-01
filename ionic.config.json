@@ -1,5 +1,7 @@
 {
   "name": "IndusellApp",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
