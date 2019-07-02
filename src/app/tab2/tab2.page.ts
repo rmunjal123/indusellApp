@@ -1,19 +1,48 @@
 import { Component,OnInit, ViewChild } from '@angular/core';
 import { GetcategoriesService } from 'src/app/services/getcategories.service'
 import { Router } from '@angular/router';
-import { IonInfiniteScroll } from '@ionic/angular';
+import { IonInfiniteScroll, Platform } from '@ionic/angular';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
+
 
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss']
 })
-export class Tab2Page implements OnInit {
-    constructor(private getcategoriesService:GetcategoriesService , private router:Router,
-      private speechRecognition: SpeechRecognition){}
+export class Tab2Page {
 
-    ngOnInit(){}
+    matches: String[];
+    isRecording = false;
+    constructor(private speechRecognition: SpeechRecognition, private plt: Platform){}
+
+    getPermission(){
+      this.speechRecognition.hasPermission()
+      .then((hasPermission:boolean)=> {
+        if (!hasPermission){
+          this.speechRecognition.requestPermission();
+        }
+      });
+}
+
+      startListening(){
+      let options = {
+        language: 'en-US'
+      }
+      this.speechRecognition.startListening(options)
+      .subscribe(matches =>{ this.matches = matches;});
+      this.isRecording = true;
+      }
+
+      stopListening(){
+      this.speechRecognition.stopListening().then(()=>{
+        this.isRecording = false;
+      });
+      }
+
+    IsIos(){
+      return this.plt.is('ios');
+    }
 
     // Check feature available
     isavailable(){
