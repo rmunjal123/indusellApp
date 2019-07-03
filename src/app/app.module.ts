@@ -15,6 +15,7 @@ import { fakeBackendProvider } from './helpers/fake-backend';
 import { MockBackend } from '@angular/http/testing';
 import { AuthenticationService } from './services/authentication.service';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
+import { FormGroup } from '@angular/forms';
 
 @NgModule({
 
@@ -35,6 +36,7 @@ import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
     SpeechRecognition,
     fakeBackendProvider,
     MockBackend,
+    FormGroup,
     BaseRequestOptions,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
