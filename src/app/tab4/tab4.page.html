@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
+    <ion-buttons slot="end">
      <ion-button (click)="logout()">
        <ion-icon slot="icon-only" name="log-out"></ion-icon>
      </ion-button>
@@ -10,5 +10,57 @@
 </ion-header>
 
 <ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>My details</ion-label>
+       <ion-icon name = "person" slot="start"></ion-icon>
+       <ion-icon name = "arrow-dropright" slot="end"></ion-icon>
+    </ion-item>
+  <ion-item>
+    <ion-label>My ads</ion-label>
+     <ion-icon name = "card" slot="start"></ion-icon>
+     <ion-icon name = "arrow-dropright" slot="end"></ion-icon>
+  </ion-item>
+  <ion-item>
+    <ion-label>My Package</ion-label>
+    <ion-icon name = "gift" slot="start"></ion-icon>
+    <ion-icon name = "arrow-dropright" slot="end"></ion-icon>
+  </ion-item>
+  <ion-item>
+    <ion-label>Favourite ads</ion-label>
+    <ion-icon name = "heart" slot="start"></ion-icon>
+    <ion-icon name = "arrow-dropright" slot="end"></ion-icon>
+  </ion-item>
+  <ion-item>
+    <ion-label>Saved searches</ion-label>
+    <ion-icon name = "star-outline" slot="start"></ion-icon>
+    <ion-icon name = "arrow-dropright" slot="end"></ion-icon>
+  </ion-item>
+  <ion-item>
+    <ion-label>Pending approval</ion-label>
+    <ion-icon name = "hourglass" slot="start"></ion-icon>
+    <ion-icon name = "arrow-dropright" slot="end"></ion-icon>
+  </ion-item>
+  <ion-item>
+    <ion-label>Archived ads</ion-label>
+    <ion-icon name = "folder-open" slot="start"></ion-icon>
+    <ion-icon name = "arrow-dropright" slot="end"></ion-icon>
+  </ion-item>
+  <ion-item>
+    <ion-label>Conversations</ion-label>
+    <ion-icon name = "mail" slot="start"></ion-icon>
+    <ion-icon name = "arrow-dropright" slot="end"></ion-icon>
+  </ion-item>
+  <ion-item>
+    <ion-label>Transactions</ion-label>
+    <ion-icon name = "wallet" slot="start"></ion-icon>
+    <ion-icon name = "arrow-dropright" slot="end"></ion-icon>
+  </ion-item>
+  <ion-item>
+    <ion-label>Log Out</ion-label>
+    <ion-icon name = "log-out" slot="start"></ion-icon>
+    <ion-icon name = "arrow-dropright" slot="end"></ion-icon>
+  </ion-item>
+</ion-list>
 
 </ion-content>

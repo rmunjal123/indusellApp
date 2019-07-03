@@ -40,7 +40,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            canActivate: [AuthGuard],
+            //canActivate: [AuthGuard],
             loadChildren: '../tab4/tab4.module#Tab4PageModule'
           }
         ]
