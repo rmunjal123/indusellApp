@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Validators, FormBuilder, FormGroup } from '@angular/forms';
+import {Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-addlisting',
@@ -7,16 +7,22 @@ import {Validators, FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./addlisting.page.scss'],
 })
 export class AddlistingPage implements OnInit {
-  private todo : FormGroup;
-  constructor(private formBuilder: FormBuilder) {
+  private addlisting : FormGroup;
+  constructor() {
 
-    this.todo = this.formBuilder.group({
-     title: ['', Validators.required],
-     description: [''],
+    this.addlisting = new FormGroup({
+    PackageType: new FormControl(),
+    Category: new FormControl(),
+    Type: new FormControl(),
+    Title: new FormControl(),
+    Description: new FormControl(),
+    Price: new FormControl(),
+    Location: new FormControl(),
+    City: new FormControl()
    });
    }
-   logForm(){
-    console.log(this.todo.value)
+   onSubmit(){
+    console.log(this.addlisting.value)
   }
 
   ngOnInit() {

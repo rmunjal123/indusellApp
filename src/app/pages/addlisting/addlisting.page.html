@@ -3,20 +3,44 @@
       <ion-buttons slot="start">
       <ion-back-button defaultHref="/dashboard"></ion-back-button>
     </ion-buttons>
-    <ion-title>addlisting</ion-title>
+    <ion-title>Create Listing</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="todo" (ngSubmit)="logForm()">
+  <form [formGroup]="addlisting" (ngSubmit)="onSubmit()">
      <ion-item>
-       <ion-label>Todo</ion-label>
-       <ion-input type="text" formControlName="title"></ion-input>
+       <ion-label>Package</ion-label>
+       <ion-checkbox color="primary" formControlName="PackageType"></ion-checkbox>
      </ion-item>
+     <ion-item>
+        <ion-label>Category</ion-label>
+        <ion-textarea formControlName="Category"></ion-textarea>
+      </ion-item>
+      <ion-item>
+          <ion-label>Type</ion-label>
+          <ion-textarea formControlName="Type"></ion-textarea>
+        </ion-item>
+        <ion-item>
+            <ion-label>Title</ion-label>
+            <ion-textarea formControlName="Title"></ion-textarea>
+          </ion-item>
      <ion-item>
        <ion-label>Description</ion-label>
-       <ion-textarea formControlName="description"></ion-textarea>
+       <ion-textarea formControlName="Description"></ion-textarea>
      </ion-item>
-     <button ion-button type="submit" [disabled]="!todo.valid">Submit</button>
+     <ion-item>
+        <ion-label>Price</ion-label>
+        <ion-textarea formControlName="Price"></ion-textarea>
+      </ion-item>
+      <ion-item>
+          <ion-label>Location</ion-label>
+          <ion-textarea formControlName="Location"></ion-textarea>
+        </ion-item>
+        <ion-item>
+            <ion-label>City</ion-label>
+            <ion-textarea formControlName="City"></ion-textarea>
+          </ion-item>
+     <ion-button type="submit" [disabled]="!addlisting.valid">Submit</ion-button>
    </form>
 </ion-content>
