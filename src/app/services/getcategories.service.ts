@@ -55,6 +55,3 @@ getCategories(){
   return this.data;
 }
 }
-
-
-

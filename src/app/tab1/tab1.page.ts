@@ -15,6 +15,7 @@ export class Tab1Page implements OnInit {
 
   listings = [];
   categories = [];
+    data = [];
 
 sliderConfig = {
 spaceBetween: 0,
@@ -48,4 +49,21 @@ this.newlistings.getlisting()
     initialSlide: 1,
     speed: 400
   }
+  loadData(event){
+  console.log(event);
+  setTimeout(() => {
+  console.log('Done');
+  event.target.complete();
+
+    // App logic to determine if all data is loaded
+    // and disable the infinite scroll
+    if (this.data.length == 1000) {
+      event.target.disabled = true;
+    }
+  }, 5000);
+}
+onGoToListingDetail(listing){
+  this.getcategoriesService.currentlisting = listing;
+  this.router.navigate(['/addetails']);
+}
 }

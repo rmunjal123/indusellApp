@@ -33,7 +33,7 @@
           <ion-img src="/assets/shapes.svg"></ion-img>
         </ion-slide>
       </ion-slides>
-
+  <!-- Categories slide -->
 <div>
 <ion-toolbar>
 <ion-title>
@@ -55,37 +55,6 @@
   </ion-slide>
 </ion-slides>
 </div>
-<ion-grid>
-  <ion-row>
-    <ion-col>
-      <div>
-        1 of 2
-      </div>
-    </ion-col>
-    <ion-col>
-      <div>
-        2 of 2
-      </div>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      <div>
-        1 of 3
-      </div>
-    </ion-col>
-    <ion-col>
-      <div>
-        2 of 3
-      </div>
-    </ion-col>
-    <ion-col>
-      <div>
-        3 of 3
-      </div>
-    </ion-col>
-  </ion-row>
-</ion-grid>
 <div class="container" >
         <div class="scroll" scrollX="true">
             <span>item1</span>
@@ -109,4 +78,76 @@
          <span *ngFor="let item of items | async">{{item.ProjectEvent}}</span>
         </div>
     </div>
+      <!-- Listings display in grid -->
+      <div *ngFor="let cat of listings" class="category-block">
+        <ion-row no-padding class="category-banner">
+          <ion-col text-center>
+            {{cat.category}}
+          </ion-col>
+        </ion-row>
+
+          <ion-grid>
+          <ion-row>
+          <ion-col size="6" no-padding>
+          <ion-card class="category-block" *ngFor= "let listing of cat.listings" (click)="onGoToListingDetail(listing)">
+            <ion-img src="/assets/shapes.svg"></ion-img>
+            <ion-card-header>
+              <ion-card-subtitle>{{listing.name}}</ion-card-subtitle>
+              <ion-card-title>
+                  S${{listing.price}}
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+            </ion-card-content>
+          </ion-card>
+          </ion-col>
+          </ion-row>
+          </ion-grid>
+      </div>
+      <ion-grid>
+     <ion-row>
+       <ion-col size= "4">
+         <ion-card class="category-block">
+           <ion-img src="/assets/shapes.svg"></ion-img>
+           <ion-card-header>
+             <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+             <ion-card-title>Card Title</ion-card-title>
+           </ion-card-header>
+           <ion-card-content>
+             Keep close to Nature's heart
+           </ion-card-content>
+         </ion-card>
+       </ion-col>
+       <ion-col size= "4">
+           <ion-card>
+           <ion-img src="/assets/shapes.svg"></ion-img>
+           <ion-card-header>
+             <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+             <ion-card-title>Card Title</ion-card-title>
+           </ion-card-header>
+           <ion-card-content>
+             Keep close to Nature's heart...
+           </ion-card-content>
+             </ion-card>
+       </ion-col>
+         <ion-col size= "4">
+         <ion-card>
+         <ion-img src="/assets/shapes.svg"></ion-img>
+         <ion-card-header>
+           <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+           <ion-card-title>Card Title</ion-card-title>
+         </ion-card-header>
+         <ion-card-content>
+           Keep close to Nature's heart...
+         </ion-card-content>
+       </ion-card>
+       </ion-col>
+     </ion-row>
+    </ion-grid>
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="Loading more data...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>
