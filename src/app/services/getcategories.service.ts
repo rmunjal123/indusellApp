@@ -41,7 +41,7 @@ export class GetcategoriesService {
   ]
 
   constructor(private http:Http) {
-  http.get('https://indusell.com/cate?slug=electrical')
+  http.get('https://jsonplaceholder.typicode.com/posts')
   .subscribe(response =>{
     console.log(response.json())
   });

@@ -1,19 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ListingService {
 
-  url = 'http://jsonplaceholder.typicode.com/posts';
+  url = 'https://jsonplaceholder.typicode.com/posts';
+  listings = []
 
-    constructor(private http:Http) {}
+    constructor(private http:HttpClient) {}
 
     getlisting()
     {
       return this.http.get(this.url);
-      //console.log(this.url)
+      
     }
 
     createlisting(listing)

@@ -6,6 +6,7 @@ import { ListingService } from '../services/listing.service';
 
 
 
+
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -13,9 +14,9 @@ import { ListingService } from '../services/listing.service';
 })
 export class Tab1Page implements OnInit {
 
-  listings = [];
+  listings;
   categories = [];
-    data = [];
+  data = [];
 
 sliderConfig = {
 spaceBetween: 0,
@@ -25,19 +26,16 @@ slidesPerView:2.4
 constructor(private getcategoriesService:GetcategoriesService , private router:Router,private newlistings:ListingService){}
 
   ngOnInit(){
-this.listings = this.getcategoriesService.getListings();
-this.categories = this.getcategoriesService.getCategories();
-console.log(this.categories);
+//this.listings[10] = this.newlistings.getlisting();
+//this.categories = this.getcategoriesService.getCategories();
+//console.log(this.categories);
 
-this.newlistings.getlisting()
-.subscribe(response => {
-  this.listings = response.json();
-  console.log(response.json())
-}, error => {
-  alert ('An unexpected error occcurred');
-  console.log (error);
-});
-
+    this.newlistings.getlisting()
+    .subscribe(response => { 
+      //this.listings = response;
+      console.log(this.listings);
+    });
+    
   }
 
   onGoToCategoryPage(cat){

@@ -16,6 +16,7 @@ import { MockBackend } from '@angular/http/testing';
 import { AuthenticationService } from './services/authentication.service';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
 
@@ -26,6 +27,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
     AppRoutingModule,
+    HttpClientModule,
     HttpModule],
 
   providers: [

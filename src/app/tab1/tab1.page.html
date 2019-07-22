@@ -48,7 +48,7 @@
       <ion-card-header>
         <ion-card-subtitle></ion-card-subtitle>
         <ion-card-title>
-         {{cat.category}}
+         {{cat.id}}
         </ion-card-title>
       </ion-card-header>
     </ion-card>
@@ -82,19 +82,19 @@
       <div *ngFor="let cat of listings" class="category-block">
         <ion-row no-padding class="category-banner">
           <ion-col text-center>
-            {{cat.category}}
+            {{cat}}
           </ion-col>
         </ion-row>
 
           <ion-grid>
           <ion-row>
           <ion-col size="6" no-padding>
-          <ion-card class="category-block" *ngFor= "let listing of cat.listings" (click)="onGoToListingDetail(listing)">
+          <ion-card class="category-block" *ngFor= "let listing of listings" (click)="onGoToListingDetail(listing)">
             <ion-img src="/assets/shapes.svg"></ion-img>
             <ion-card-header>
-              <ion-card-subtitle>{{listing.name}}</ion-card-subtitle>
+              <ion-card-subtitle>{{listing.id}}</ion-card-subtitle>
               <ion-card-title>
-                  S${{listing.price}}
+                  S${{listing}}
               </ion-card-title>
             </ion-card-header>
             <ion-card-content>
