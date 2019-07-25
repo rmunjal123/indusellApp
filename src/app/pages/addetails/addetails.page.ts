@@ -8,7 +8,7 @@ import { GetcategoriesService } from 'src/app/services/getcategories.service';
   styleUrls: ['./addetails.page.scss'],
 })
 export class AddetailsPage implements OnInit {
-  listing;
+  listing: any;
   constructor(private getcategoriesService:GetcategoriesService) { }
 
   ngOnInit() {

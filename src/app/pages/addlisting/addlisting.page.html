@@ -6,41 +6,223 @@
     <ion-title>Create Listing</ion-title>
   </ion-toolbar>
 </ion-header>
+<ion-content padding>
+<form [formGroup]="addlisting" (ngSubmit)="onSubmit()">
+<ion-radio-group [(ngModel)]="items_4">
+ <ion-row>
+  <ion-item>
+    <ion-list-header>
+     <h6>Package Type :</h6>
+  </ion-list-header>
+ </ion-item>
+<ion-row>
+  <ion-item>
+   <ion-col>Free</ion-col>
+    <ion-radio mode="md" item-right value="Free"></ion-radio>
+  </ion-item>
+</ion-row>
+          
+<ion-row>
+<ion-item>
+  <ion-col>Paid</ion-col>
+    <ion-radio mode="md" item-start value="Paid"></ion-radio>
+</ion-item>
+</ion-row>
+</ion-row>                         
+</ion-radio-group>
+<br>
+<ion-item>
+  <ion-row>
+  <ion-list-header>
+  <h6>Category :</h6>
+  </ion-list-header>
+  </ion-row>
+  <ion-col><ion-textarea rows="1" cols="5" placeholder="Select a category" color="dark"></ion-textarea></ion-col>
+  <ion-select multiple="false" cancelText="Cancel" okText="OK">
+  <ion-select-option value="Electrical">Electrical</ion-select-option>
+  <ion-select-option value="Mechanical">Mechanical</ion-select-option>
+  <ion-select-option value="Risty">Risty Choice</ion-select-option>
+  <ion-select-option value="Instruments">Instruments</ion-select-option>
+  <ion-select-option value="General">General</ion-select-option>
+  </ion-select>
+</ion-item>    
 
-<ion-content>
-  <form [formGroup]="addlisting" (ngSubmit)="onSubmit()">
-     <ion-item>
-       <ion-label>Package</ion-label>
-       <ion-checkbox color="primary" formControlName="PackageType"></ion-checkbox>
-     </ion-item>
-     <ion-item>
-        <ion-label>Category</ion-label>
-        <ion-textarea formControlName="Category"></ion-textarea>
-      </ion-item>
-      <ion-item>
-          <ion-label>Type</ion-label>
-          <ion-textarea formControlName="Type"></ion-textarea>
-        </ion-item>
-        <ion-item>
-            <ion-label>Title</ion-label>
-            <ion-textarea formControlName="Title"></ion-textarea>
-          </ion-item>
-     <ion-item>
-       <ion-label>Description</ion-label>
-       <ion-textarea formControlName="Description"></ion-textarea>
-     </ion-item>
-     <ion-item>
-        <ion-label>Price</ion-label>
-        <ion-textarea formControlName="Price"></ion-textarea>
-      </ion-item>
-      <ion-item>
-          <ion-label>Location</ion-label>
-          <ion-textarea formControlName="Location"></ion-textarea>
-        </ion-item>
-        <ion-item>
-            <ion-label>City</ion-label>
-            <ion-textarea formControlName="City"></ion-textarea>
-          </ion-item>
+<br>
+
+
+
+<ion-radio-group  [(ngModel)]="items_4">
+<ion-row>
+<ion-item>
+  <ion-list-header>
+  <h6>Type :</h6>
+</ion-list-header>
+</ion-item>
+<ion-row>
+  <ion-item>
+    <ion-col>New</ion-col>
+    <ion-radio mode="md" item-right value="New" ></ion-radio>
+  </ion-item>
+</ion-row>
+<ion-row>
+  <ion-item>
+    <ion-col>Used</ion-col>
+  <ion-radio mode="md" item-right value="Used" checked></ion-radio>
+</ion-item>
+</ion-row>
+</ion-row>                               
+</ion-radio-group>
+
+<ion-list>
+  <ion-item>
+    <ion-row>
+     <ion-list-header>
+    <h6>Title :</h6>
+  </ion-list-header>
+</ion-row>
+  <ion-col><ion-textarea rows="1" cols="5" placeholder="Ad Title"></ion-textarea></ion-col> 
+</ion-item>
+</ion-list>
+
+<ion-list>
+  <ion-item>
+      <ion-list-header>
+        <h6>Description :</h6>
+      </ion-list-header>
+  </ion-item>
+
+  <ion-item>
+      <ion-label></ion-label>
+      <ion-textarea rows="8" cols="20" placeholder="Enter description here..."></ion-textarea>
+  </ion-item>
+
+
+<ion-item>
+      <ion-row>
+    <ion-list-header>
+  <h6>Price/Unit :</h6>
+</ion-list-header>
+  </ion-row>
+      <ion-col><ion-textarea rows="1" cols="5" placeholder="eg 15000" color="dark"></ion-textarea></ion-col>
+      <ion-row>Negotiable</ion-row>
+      <ion-checkbox slot="end" 
+      [(ngModel)]="masterCheck"
+      [indeterminate]="isIndeterminate"
+      (click)="checkMaster($event)"></ion-checkbox>
+</ion-item>
+
+<ion-item>
+  <ion-row>
+    <ion-list-header>
+    <h6>Location :</h6>
+  </ion-list-header>
+</ion-row>
+    <ion-col><ion-textarea rows="1" cols="5" placeholder="Select Location" color="dark"></ion-textarea></ion-col>
+    <ion-select multiple="false" cancelText="Cancel" okText="OK">
+    <ion-select-option value="Select Location">Select Location</ion-select-option>
+    <ion-select-option value="Singapore">Singapore</ion-select-option>
+</ion-select>
+</ion-item>    
+      
+<ion-item>
+ <ion-row>
+  <ion-list-header>
+  <h6>City :</h6>
+ </ion-list-header>
+</ion-row>
+   <ion-col><ion-textarea rows="1" cols="5" placeholder="Select a City" color="dark"></ion-textarea></ion-col>
+   <ion-select multiple="false" cancelText="Cancel" okText="OK">
+   <ion-select-option value="Select Location">Select Location</ion-select-option>
+   <ion-select-option value="Singapore">Singapore</ion-select-option>
+ </ion-select>
+</ion-item>  
+
+<ion-item>
+  <ion-row>
+  <ion-list-header>
+  <h6>Industry :</h6>
+  </ion-list-header>
+</ion-row>
+   <ion-col><ion-textarea rows="1" cols="5" placeholder="Select a industry" color="dark"></ion-textarea></ion-col>
+   <ion-select multiple="false" cancelText="Cancel" okText="OK">
+   <ion-select-option value="Electrical">Electrical</ion-select-option>
+   <ion-select-option value="Mechanical">Mechanical</ion-select-option>
+   <ion-select-option value="Risty">Risty Choice</ion-select-option>
+   <ion-select-option value="Instruments">Instruments</ion-select-option>
+   <ion-select-option value="General">General</ion-select-option>
+   </ion-select>
+</ion-item> 
+
+<ion-item>
+  <ion-row>
+  <ion-list-header>
+  <h6>Brands :</h6>
+  </ion-list-header>
+</ion-row>
+   <ion-col><ion-textarea rows="1" cols="5" placeholder="Select Brands" color="dark"></ion-textarea></ion-col>
+   <ion-select multiple="false" cancelText="Cancel" okText="OK">
+   <ion-select-option value="Samsung">Samsung</ion-select-option>
+   <ion-select-option value="Apel">Apel</ion-select-option>
+   <ion-select-option value="Philips">Philips</ion-select-option>
+   <ion-select-option value="Syska">Syska</ion-select-option>
+   <ion-select-option value="Kirloskar">Kirloskar</ion-select-option>
+</ion-select>
+</ion-item> 
+
+           
+<ion-item>
+ <ion-row>
+  <ion-list-header>
+  <h6>Video Link :</h6>
+  </ion-list-header>
+ </ion-row>
+   <ion-col><ion-textarea rows="1" cols="5" placeholder="" color="dark"></ion-textarea></ion-col>
+</ion-item>
+
+<ion-item>
+  <ion-row>
+    <ion-list-header>
+    <h6>Tags :</h6>
+  </ion-list-header>
+</ion-row>
+    <ion-col><ion-textarea rows="1" cols="5" placeholder="add a tag" color="dark"></ion-textarea></ion-col>
+</ion-item>
+<br>
+<br>
+<br>
+<ion-list-header>
+  <h4>Seller Information</h4>
+</ion-list-header>
+<br>
+<ion-item>
+  <ion-row>
+    <ion-list-header>
+    <h6>Your Name :</h6>
+  </ion-list-header>
+</ion-row>
+  <ion-col><ion-textarea rows="1" cols="5" placeholder="Your name" color="dark"></ion-textarea></ion-col>
+</ion-item>
+<br>
+<ion-item>
+  <ion-row>
+    <ion-list-header>
+    <h6>Email :</h6>
+    </ion-list-header>
+</ion-row>
+  <ion-col><ion-textarea rows="1" cols="5" placeholder="Email" color="dark"></ion-textarea></ion-col>
+</ion-item>
+<br>
+<ion-item>
+  <ion-row>
+    <ion-list-header>
+    <h6>Phone Number :</h6>
+  </ion-list-header>
+</ion-row>
+  <ion-col><ion-textarea rows="1" cols="5" placeholder="Phone Numbber" color="dark"></ion-textarea></ion-col>
+</ion-item>
+<br>
+<br>
+</ion-list>
      <ion-button type="submit" [disabled]="!addlisting.valid">Submit</ion-button>
-   </form>
+</form>
 </ion-content>

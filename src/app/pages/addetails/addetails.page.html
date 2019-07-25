@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{listing.name}}</ion-title>
+    <ion-title>{{listing.title}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -8,13 +8,35 @@
     <ion-card class="category-block">
         <ion-img src="/assets/shapes.svg"></ion-img>
         <ion-card-header>
-          <ion-card-subtitle>{{listing.id}}</ion-card-subtitle>
+          <ion-card-subtitle>{{listing.contact_name}}</ion-card-subtitle>
           <ion-card-title>
-            {{listing.name}} - S${{listing.price}}
+            S${{listing.price}}
+            <ion-icon name="share" position= "right" ></ion-icon>
           </ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          Keep close to Nature's heart...
+          {{listing.description}}
         </ion-card-content>
       </ion-card>
 </ion-content>
+<div>
+  <ion-toolbar>
+  <ion-title>
+    Similar Items
+  </ion-title>
+  </ion-toolbar>
+  <ion-slides [options]="sliderConfig">
+    <ion-slide *ngFor= "let cat of category_id" (click)="onGoToCategoryPage(cat)">
+      <ion-card class="category-block">
+        <ion-img src="/assets/shapes.svg">
+        </ion-img>
+        <ion-card-header>
+          <ion-card-subtitle></ion-card-subtitle>
+          <ion-card-title>
+           {{cat.id}}
+          </ion-card-title>
+        </ion-card-header>
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
+  </div>
