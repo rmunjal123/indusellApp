@@ -14,7 +14,7 @@ import { ListingService } from '../services/listing.service';
 })
 export class Tab1Page implements OnInit {
 
-  listings;
+  listings : any;
   categories = [];
   data = [];
 
@@ -32,7 +32,7 @@ constructor(private getcategoriesService:GetcategoriesService , private router:R
 
     this.newlistings.getlisting()
     .subscribe(response => { 
-      //this.listings = response;
+      this.listings = response;
       console.log(this.listings);
     });
     

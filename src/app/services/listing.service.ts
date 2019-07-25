@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ListingService {
 
-  url = 'https://jsonplaceholder.typicode.com/posts';
+  url = 'https://indusell.com/api/HomePage';
   listings = []
 
     constructor(private http:HttpClient) {}
