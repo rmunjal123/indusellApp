@@ -8,7 +8,7 @@
 </ion-header>
 <ion-content padding>
 <form [formGroup]="addlisting" (ngSubmit)="onSubmit()">
-<ion-radio-group [(ngModel)]="items_4">
+<ion-radio-group>
  <ion-row>
   <ion-item>
     <ion-list-header>
@@ -21,14 +21,14 @@
     <ion-radio mode="md" item-right value="Free"></ion-radio>
   </ion-item>
 </ion-row>
-          
+
 <ion-row>
 <ion-item>
   <ion-col>Paid</ion-col>
     <ion-radio mode="md" item-start value="Paid"></ion-radio>
 </ion-item>
 </ion-row>
-</ion-row>                         
+</ion-row>
 </ion-radio-group>
 <br>
 <ion-item>
@@ -45,13 +45,13 @@
   <ion-select-option value="Instruments">Instruments</ion-select-option>
   <ion-select-option value="General">General</ion-select-option>
   </ion-select>
-</ion-item>    
+</ion-item>
 
 <br>
 
 
 
-<ion-radio-group  [(ngModel)]="items_4">
+<ion-radio-group>
 <ion-row>
 <ion-item>
   <ion-list-header>
@@ -70,7 +70,7 @@
   <ion-radio mode="md" item-right value="Used" checked></ion-radio>
 </ion-item>
 </ion-row>
-</ion-row>                               
+</ion-row>
 </ion-radio-group>
 
 <ion-list>
@@ -80,7 +80,7 @@
     <h6>Title :</h6>
   </ion-list-header>
 </ion-row>
-  <ion-col><ion-textarea rows="1" cols="5" placeholder="Ad Title"></ion-textarea></ion-col> 
+  <ion-col><ion-textarea rows="1" cols="5" placeholder="Ad Title"></ion-textarea></ion-col>
 </ion-item>
 </ion-list>
 
@@ -105,7 +105,7 @@
   </ion-row>
       <ion-col><ion-textarea rows="1" cols="5" placeholder="eg 15000" color="dark"></ion-textarea></ion-col>
       <ion-row>Negotiable</ion-row>
-      <ion-checkbox slot="end" 
+      <ion-checkbox slot="end"
       [(ngModel)]="masterCheck"
       [indeterminate]="isIndeterminate"
       (click)="checkMaster($event)"></ion-checkbox>
@@ -122,8 +122,8 @@
     <ion-select-option value="Select Location">Select Location</ion-select-option>
     <ion-select-option value="Singapore">Singapore</ion-select-option>
 </ion-select>
-</ion-item>    
-      
+</ion-item>
+
 <ion-item>
  <ion-row>
   <ion-list-header>
@@ -135,7 +135,7 @@
    <ion-select-option value="Select Location">Select Location</ion-select-option>
    <ion-select-option value="Singapore">Singapore</ion-select-option>
  </ion-select>
-</ion-item>  
+</ion-item>
 
 <ion-item>
   <ion-row>
@@ -151,7 +151,7 @@
    <ion-select-option value="Instruments">Instruments</ion-select-option>
    <ion-select-option value="General">General</ion-select-option>
    </ion-select>
-</ion-item> 
+</ion-item>
 
 <ion-item>
   <ion-row>
@@ -167,9 +167,9 @@
    <ion-select-option value="Syska">Syska</ion-select-option>
    <ion-select-option value="Kirloskar">Kirloskar</ion-select-option>
 </ion-select>
-</ion-item> 
+</ion-item>
 
-           
+
 <ion-item>
  <ion-row>
   <ion-list-header>
