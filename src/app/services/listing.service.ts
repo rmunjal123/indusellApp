@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ListingService {
 
-  url = 'https://indusell.com/api/HomePage';
+  url = 'https://indusell.com/api/home';
   listings = []
 
     constructor(private http:HttpClient) {}

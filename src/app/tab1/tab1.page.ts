@@ -3,6 +3,7 @@ import { GetcategoriesService } from 'src/app/services/getcategories.service'
 import { Router } from '@angular/router';
 import { IonSlides } from '@ionic/angular';
 import { ListingService } from '../services/listing.service';
+import { IfStmt } from '@angular/compiler';
 
 
 
@@ -17,6 +18,7 @@ export class Tab1Page implements OnInit {
   listings : any;
   categories = [];
   data = [];
+  renderedcategory:any;
 
 sliderConfig = {
 spaceBetween: 0,
