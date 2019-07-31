@@ -42,7 +42,7 @@ constructor(private getcategoriesService:GetcategoriesService , private router:R
     });
   }
 
-    // createListing(input:HTMLImputElement){
+    //createListing(input:HTMLImputElement){
     //   let listing = { title: input.value};
     //   input.value = '';
   

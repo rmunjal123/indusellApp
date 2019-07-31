@@ -6,9 +6,9 @@
     <ion-title>Create Listing</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content padding>
-<form [formGroup]="addlisting" (ngSubmit)="onSubmit()">
-<ion-radio-group>
+<ion-content >
+<form [formGroup]="addlisting" (ngSubmit)="onSubmit(addlisting.value)">
+<ion-radio-group formControlName = "post_type">
  <ion-row>
   <ion-item>
     <ion-list-header>
@@ -18,7 +18,7 @@
 <ion-row>
   <ion-item>
    <ion-col>Free</ion-col>
-    <ion-radio mode="md" item-right value="Free"></ion-radio>
+    <ion-radio mode="md" item-right value="Free" checked></ion-radio>
   </ion-item>
 </ion-row>
 
@@ -38,10 +38,10 @@
   </ion-list-header>
   </ion-row>
   <ion-col><ion-textarea rows="1" cols="5" placeholder="Select a category" color="dark"></ion-textarea></ion-col>
-  <ion-select multiple="false" cancelText="Cancel" okText="OK">
-  <ion-select-option value="Electrical">Electrical</ion-select-option>
+  <ion-select formControlName = "category_id" multiple="false" cancelText="Cancel" okText="OK">
+  <ion-select-option value="17">Electrical</ion-select-option>
   <ion-select-option value="Mechanical">Mechanical</ion-select-option>
-  <ion-select-option value="Risty">Risty Choice</ion-select-option>
+  <ion-select-option value="Risty">Computers</ion-select-option>
   <ion-select-option value="Instruments">Instruments</ion-select-option>
   <ion-select-option value="General">General</ion-select-option>
   </ion-select>
@@ -51,7 +51,7 @@
 
 
 
-<ion-radio-group>
+<ion-radio-group formControlName = "post_type_id">
 <ion-row>
 <ion-item>
   <ion-list-header>
@@ -61,13 +61,13 @@
 <ion-row>
   <ion-item>
     <ion-col>New</ion-col>
-    <ion-radio mode="md" item-right value="New" ></ion-radio>
+    <ion-radio mode="md" item-right value="1" ></ion-radio>
   </ion-item>
 </ion-row>
 <ion-row>
   <ion-item>
     <ion-col>Used</ion-col>
-  <ion-radio mode="md" item-right value="Used" checked></ion-radio>
+  <ion-radio mode="md" item-right value="2" checked></ion-radio>
 </ion-item>
 </ion-row>
 </ion-row>
@@ -80,7 +80,7 @@
     <h6>Title :</h6>
   </ion-list-header>
 </ion-row>
-  <ion-col><ion-textarea rows="1" cols="5" placeholder="Ad Title"></ion-textarea></ion-col>
+  <ion-col><ion-textarea formControlName = "title" rows="1" cols="5" placeholder="Ad Title"></ion-textarea></ion-col>
 </ion-item>
 </ion-list>
 
@@ -93,7 +93,7 @@
 
   <ion-item>
       <ion-label></ion-label>
-      <ion-textarea rows="8" cols="20" placeholder="Enter description here..."></ion-textarea>
+      <ion-textarea formControlName = "description" rows="8" cols="20" placeholder="Enter description here..."></ion-textarea>
   </ion-item>
 
 
@@ -103,13 +103,11 @@
   <h6>Price/Unit :</h6>
 </ion-list-header>
   </ion-row>
-      <ion-col><ion-textarea rows="1" cols="5" placeholder="eg 15000" color="dark"></ion-textarea></ion-col>
-      <ion-row>Negotiable</ion-row>
-      <ion-checkbox slot="end"
-      [(ngModel)]="masterCheck"
-      [indeterminate]="isIndeterminate"
-      (click)="checkMaster($event)"></ion-checkbox>
+      <ion-col><ion-textarea formControlName = "price" rows="1" cols="5" placeholder="eg 15000" color="dark"></ion-textarea></ion-col>
 </ion-item>
+<ion-row>Negotiable</ion-row>
+<ion-checkbox slot="end"
+></ion-checkbox>
 
 <ion-item>
   <ion-row>
@@ -118,9 +116,9 @@
   </ion-list-header>
 </ion-row>
     <ion-col><ion-textarea rows="1" cols="5" placeholder="Select Location" color="dark"></ion-textarea></ion-col>
-    <ion-select multiple="false" cancelText="Cancel" okText="OK">
+    <ion-select formControlName = "country_code" multiple="false" cancelText="Cancel" okText="OK">
     <ion-select-option value="Select Location">Select Location</ion-select-option>
-    <ion-select-option value="Singapore">Singapore</ion-select-option>
+    <ion-select-option value="SG">Singapore</ion-select-option>
 </ion-select>
 </ion-item>
 
@@ -131,9 +129,9 @@
  </ion-list-header>
 </ion-row>
    <ion-col><ion-textarea rows="1" cols="5" placeholder="Select a City" color="dark"></ion-textarea></ion-col>
-   <ion-select multiple="false" cancelText="Cancel" okText="OK">
+   <ion-select formControlName = "city_id" multiple="false" cancelText="Cancel" okText="OK">
    <ion-select-option value="Select Location">Select Location</ion-select-option>
-   <ion-select-option value="Singapore">Singapore</ion-select-option>
+   <ion-select-option value="15000000">Singapore</ion-select-option>
  </ion-select>
 </ion-item>
 
@@ -223,6 +221,6 @@
 <br>
 <br>
 </ion-list>
-     <ion-button type="submit" [disabled]="!addlisting.valid">Submit</ion-button>
+     <ion-button type="submit">Submit</ion-button>
 </form>
 </ion-content>
