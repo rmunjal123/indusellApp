@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -17,6 +17,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AppErrorHandler } from './services/common/app-error-handler';
 
 @NgModule({
 
@@ -40,6 +41,7 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     MockBackend,
     BaseRequestOptions,
+    {provide: ErrorHandler, useClass: AppErrorHandler},
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
