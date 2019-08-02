@@ -19,6 +19,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppErrorHandler } from './services/common/app-error-handler';
 
+import { WebView } from '@ionic-native/ionic-webview/ngx';
+import { Camera } from '@ionic-native/Camera/ngx';
+import { File } from '@ionic-native/File/ngx';
+
+
 @NgModule({
 
   declarations: [AppComponent],
@@ -41,8 +46,11 @@ import { AppErrorHandler } from './services/common/app-error-handler';
     ReactiveFormsModule,
     MockBackend,
     BaseRequestOptions,
+    Camera,
+    File,
+    WebView,
     {provide: ErrorHandler, useClass: AppErrorHandler},
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    {provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
 })
