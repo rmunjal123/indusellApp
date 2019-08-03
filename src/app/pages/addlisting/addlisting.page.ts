@@ -13,37 +13,9 @@ export class AddlistingPage implements OnInit {
   private addlisting : FormGroup;
 
 
-  constructor(private formbuilder: FormBuilder, private createlistings:CreatelistingService) {
-    
-    this.addlisting = new FormGroup({
-    post_type: new FormControl('',Validators.required),
-    category_id: new FormControl('',Validators.required),
-    post_type_id: new FormControl('',Validators.required),
-    title: new FormControl('',Validators.required),
-    description: new FormControl('',Validators.required),
-    price: new FormControl('',Validators.required),
-    country_code: new FormControl('',Validators.required),
-    city_id: new FormControl('',Validators.required),
-    email: new FormControl('Hritesh_2003@yahoo.com',Validators.required),
-    user_id: new FormControl('50'), 
-    ad_status:new FormControl(''),
-    tags:new FormControl(''),
-    negotiable:new FormControl('1'),
-    contact_name:new FormControl('John'),
-    phone:new FormControl('+6581884948'),
-    address:new FormControl(''),
-    verified_email:new FormControl('1'),
-    verified_phone:new FormControl('1'),
-    approval_status:new FormControl(''),
-    video_link:new FormControl(''),
-    brand_ID:new FormControl(''),
-    industry_ID:new FormControl('3'),
-    industry_type:new FormControl(''),
-   });
-   
-  }
+  constructor(private formbuilder: FormBuilder, private createlistings:CreatelistingService) {  }
   ngOnInit() {
-        this.addlisting = this.formbuilder.group({
+        this.addlisting = new FormGroup({
         post_type: new FormControl('',Validators.required),
         category_id: new FormControl('',Validators.required),
         post_type_id: new FormControl('',Validators.required),
@@ -53,7 +25,7 @@ export class AddlistingPage implements OnInit {
         country_code: new FormControl('',Validators.required),
         city_id: new FormControl('',Validators.required),
         email: new FormControl('Hritesh_2003@yahoo.com',Validators.required),
-        user_id: new FormControl('50'), 
+        user_id: new FormControl('22'), 
         ad_status:new FormControl(''),
         tags:new FormControl(''),
         negotiable:new FormControl('1'),
@@ -62,23 +34,20 @@ export class AddlistingPage implements OnInit {
         address:new FormControl(''),
         verified_email:new FormControl('1'),
         verified_phone:new FormControl('1'),
-        approval_status:new FormControl(''),
+        approval_status:new FormControl('pending'),
         video_link:new FormControl(''),
-        brand_ID:new FormControl(''),
+        brand_ID:new FormControl('4'),
         industry_ID:new FormControl('3'),
         industry_type:new FormControl(''),
        });
     }
-   //JSONForm = JSON.stringify(this.addlisting.value);
   
    onSubmit(){
-    let formData = new FormData();
-    formData.append('addlisting',this.addlisting.value)
-    this.createListing(formData);
+    this.createListing(this.addlisting.value);
     console.log(this.addlisting.value);
   }
-  createListing(FormInput){
-    this.createlistings.create(FormInput)
+  createListing(input: FormGroup){
+    this.createlistings.create(input)
       .subscribe(
         response => {
           console.log(response);
