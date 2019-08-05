@@ -221,8 +221,9 @@
 <br>
 <br>
 </ion-list>
-     <ion-button type="submit">Submit</ion-button>
+     <ion-button text-center type="submit">Submit</ion-button>
 </form>
+
 <!-- <ion-list-header>
   <h6>Upload Images</h6>
 </ion-list-header>
@@ -230,5 +231,50 @@
 <ion-list>
   <ion-item *ngFor = " let img of images; index as pos "></ion-item>
 </ion-list> -->
-</ion-content>
+<ion-grid>
+    <ion-row>
+      <ion-col text-center>
+        <h3>Image Picker</h3>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <ion-button (click)="selectImage()">Choose Images</ion-button>
+      </ion-col>
+    </ion-row>
+    <ng-container *ngIf="imageResponse">  
+        <ion-item>  
+            <ion-label>Browsed Images</ion-label>  
+        </ion-item>  
+        <ion-item>  
+            <ion-row *ngIf="imageResponse.length>0">  
+                <ion-col style="padding:10px;" col-3 *ngFor="let img1 of imageResponse;">  
+                    <ion-card>  
+                        <ion-thumbnail item-start>  
+                            <img [src]="img1" alt="Sample Image">  
+                        </ion-thumbnail>  
+                    </ion-card>  
+                </ion-col>  
+            </ion-row>  
+        </ion-item> 
+        </ng-container>
+    <!--<ion-row>
+      <ion-col>
+         More Pinterest floating gallery style 
+        <div class="images">
+          <div class="one-image" *ngIf="imageLists">
+            <ion-slides *ngIf= "imageResponse.length>0">
+                <ion-slide *ngFor= "let image of imageResponse;">
+                  <ion-card class="category-block" >
+                    <ion-img [src] = "image" alt="" srcset=""></ion-img>
+                  </ion-card>
+                </ion-slide>
+              </ion-slides>
+            <img src="{img}}" alt="" srcset="">>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>-->
 

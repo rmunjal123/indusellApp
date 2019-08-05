@@ -3,10 +3,12 @@ import { Component } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { CreatelistingService } from 'src/app/services/createlisting.service';
 import { BadInput } from 'src/app/services/common/bad-input';
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
 var AddlistingPage = /** @class */ (function () {
-    function AddlistingPage(formbuilder, createlistings) {
+    function AddlistingPage(formbuilder, createlistings, imagePicker) {
         this.formbuilder = formbuilder;
         this.createlistings = createlistings;
+        this.imagePicker = imagePicker;
     }
     AddlistingPage.prototype.ngOnInit = function () {
         this.addlisting = new FormGroup({
@@ -28,11 +30,11 @@ var AddlistingPage = /** @class */ (function () {
             address: new FormControl(''),
             verified_email: new FormControl('1'),
             verified_phone: new FormControl('1'),
-            approval_status: new FormControl(''),
+            approval_status: new FormControl('pending'),
             video_link: new FormControl(''),
             brand_ID: new FormControl('4'),
             industry_ID: new FormControl('3'),
-            industry_type: new FormControl('')
+            industry_type: new FormControl(''),
         });
     };
     AddlistingPage.prototype.onSubmit = function () {
@@ -54,13 +56,23 @@ var AddlistingPage = /** @class */ (function () {
                 throw Error;
         });
     };
+    AddlistingPage.prototype.onImageUpload = function () {
+        this.uploadImages();
+    };
+    AddlistingPage.prototype.uploadImages = function () {
+        this.imagePicker.getPictures(this.options).then(function (results) {
+            for (var i = 0; i < results.length; i++) {
+                console.log('Image URI: ' + results[i]);
+            }
+        }, function (err) { });
+    };
     AddlistingPage = tslib_1.__decorate([
         Component({
             selector: 'app-addlisting',
             templateUrl: './addlisting.page.html',
             styleUrls: ['./addlisting.page.scss'],
         }),
-        tslib_1.__metadata("design:paramtypes", [FormBuilder, CreatelistingService])
+        tslib_1.__metadata("design:paramtypes", [FormBuilder, CreatelistingService, ImagePicker])
     ], AddlistingPage);
     return AddlistingPage;
 }());

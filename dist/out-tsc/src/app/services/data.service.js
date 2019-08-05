@@ -17,7 +17,7 @@ var DataService = /** @class */ (function () {
         catchError(this.handleError);
     };
     DataService.prototype.create = function (resource) {
-        return this.http.post(this.url, JSON.stringify(resource)).pipe(map(function (response) { return response; }));
+        return this.http.post(this.url, resource).pipe(map(function (response) { return response; }));
         catchError(this.handleError);
     };
     DataService.prototype.update = function (resource) {
