@@ -21,6 +21,7 @@ import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { Camera } from '@ionic-native/Camera/ngx';
 import { File } from '@ionic-native/File/ngx';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -46,6 +47,7 @@ var AppModule = /** @class */ (function () {
                 BaseRequestOptions,
                 Camera,
                 File,
+                FileTransfer,
                 WebView,
                 ImagePicker,
                 { provide: ErrorHandler, useClass: AppErrorHandler },

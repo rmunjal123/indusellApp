@@ -22,7 +22,7 @@ const STORAGE_KEY = "my_images";
 })
 export class AddlistingPage implements OnInit {
   private addlisting: FormGroup;
-  
+
   images: any[];
   public imageResponse: any[] = [];
   //imageString: string;
@@ -31,7 +31,7 @@ export class AddlistingPage implements OnInit {
 
   constructor(private formbuilder: FormBuilder, private createlistings: CreatelistingService, private imagePicker: ImagePicker, private camera: Camera, private file: File, private webview: WebView,
     private actionSheetController: ActionSheetController, private toastController: ToastController, private storage: Storage, private plt: Platform, private loadingController: LoadingController,
-    private ref: ChangeDetectorRef, private http: HttpClient,private transfer: FileTransfer) { }
+    private ref: ChangeDetectorRef, private http: HttpClient, private transfer: FileTransfer) { }
   ngOnInit() {
     this.addlisting = new FormGroup({
       post_type: new FormControl('', Validators.required),
@@ -58,6 +58,9 @@ export class AddlistingPage implements OnInit {
       industry_ID: new FormControl('3'),
       industry_type: new FormControl(''),
     });
+    this.plt.ready().then(() => {
+      this.loadStoredImages();
+    });
   }
 
   onSubmit() {
@@ -79,51 +82,23 @@ export class AddlistingPage implements OnInit {
           else throw Error;
         });
   }
-  uploadImages() {
-    let options = {
-      maximumImagesCount: 10,
-      width: 800,
-      outputType: 0
-    }
-    this.imagePicker.getPictures(options).then((results) => {
-      for (var i = 0; i < results.length; i++) {
-        this.imageResponse.push(results[i]);
-        //this.imageResponse.push(this.imageString);
-        console.log('File Path: ' + results[i]);
-        const fileTransfer: FileTransferObject = this.transfer.create();
-        const uploadOpts: FileUploadOptions = {
-          fileKey: 'file',
-          fileName: results[i].substr(results[i].lastIndexOf('/') + 1)
-        };
-        fileTransfer.upload(results[i], 'https://indusell.com/api/post/182;',uploadOpts)
-        .then((data)=> {
-          console.log(data);
-          this.respData = JSON.parse(data.response);
-          console.log(this.respData);
-          this.fileUrl = this.respData.fileUrl;
-        }, (err)=> {
-          console.log(err);
-        });
-      }
-    }, (err) => { alert(err) });
-  }
-  onImageUpload() {
-    this.uploadImages();
-  }
+  // onImageUpload() {
+  //   this.uploadImages();
+  // }
   async selectImage() {
     const actionSheet = await this.actionSheetController.create({
       header: "Select Image Source",
       buttons: [{
         text: 'Load from Library',
         handler: () => {
-          //this.uploadImages();
-          this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
+          this.uploadImages();
+          //this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
         }
       },
       {
         text: 'Use Camera',
         handler: () => {
-          //this.takePicture(this.camera.PictureSourceType.CAMERA);
+          this.takePicture(this.camera.PictureSourceType.CAMERA);
         }
       },
       {
@@ -134,39 +109,72 @@ export class AddlistingPage implements OnInit {
     });
     await actionSheet.present();
   }
-  
 
-  // loadStoredImages() {
-  //   this.storage.get(STORAGE_KEY).then(images => {
-  //     if (images) {
-  //       let arr = JSON.parse(images);
-  //       this.images = [];
-  //       for (let img of arr) {
-  //         let filePath = this.file.dataDirectory + img;
-  //         let resPath = this.pathForImage(filePath);
-  //         this.images.push({ name: img, path: resPath, filePath: filePath });
-  //       }
-  //     }
-  //   });
-  // }
 
-  // pathForImage(img) {
-  //   if (img === null) {
-  //     return '';
-  //   } else {
-  //     let converted = this.webview.convertFileSrc(img);
-  //     return converted;
-  //   }
-  // }
-  // async presentToast(text) {
-  //   const toast = await this.toastController.create({
-  //     message: text,
-  //     position: 'bottom',
-  //     duration: 3000
-  //   });
-  //   toast.present();
-  // }
-  
+  loadStoredImages() {
+    this.storage.get(STORAGE_KEY).then(images => {
+      if (images) {
+        let arr = JSON.parse(images);
+        this.images = [];
+        for (let img of arr) {
+          let filePath = this.file.dataDirectory + img;
+          let resPath = this.pathForImage(filePath);
+          this.images.push({ name: img, path: resPath, filePath: filePath });
+        }
+      }
+    });
+  }
+
+  pathForImage(img) {
+    if (img === null) {
+      return '';
+    } else {
+      let converted = this.webview.convertFileSrc(img);
+      return converted;
+    }
+  }
+  async presentToast(text) {
+    const toast = await this.toastController.create({
+      message: text,
+      position: 'bottom',
+      duration: 3000
+    });
+    toast.present();
+  }
+  uploadImages() {
+    let options = {
+      maximumImagesCount: 10,
+      width: 800,
+      outputType: 0
+    }
+    this.imagePicker.getPictures(options).then((results) => {
+      for (var i = 0; i < results.length; i++) {
+        this.imageResponse.push(results[i]);
+        var currentName = results[i].substr(results[i].lastIndexOf('/') + 1);
+        var correctPath = results[i].substr(0, results[i].lastIndexOf('/') + 1);
+        this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+
+        // //this.imageResponse.push(this.imageString);
+        // console.log('File Path: ' + results[i]);
+        // const fileTransfer: FileTransferObject = this.transfer.create();
+        // const uploadOpts: FileUploadOptions = {
+        //   fileKey: 'file',
+        //   fileName: results[i].substr(results[i].lastIndexOf('/') + 1)
+        // };
+        // fileTransfer.upload(results[i], 'https://indusell.com/api/post/182', uploadOpts)
+        //   .then((data) => {
+        //     console.log(data);
+        //     this.respData = JSON.parse(data.response);
+        //     console.log(this.respData);
+        //     this.fileUrl = this.respData.fileUrl;
+        //   }, (err) => {
+        //     console.log(err);
+        //   });
+      }
+    }, (err) => { alert(err) });
+  }
+
+
   takePicture(sourceType: PictureSourceType) {
     var options: CameraOptions = {
       quality: 100,
@@ -174,107 +182,79 @@ export class AddlistingPage implements OnInit {
       saveToPhotoAlbum: false,
       correctOrientation: true
     };
-    this.camera.getPicture(options).then(results => {
-      for (var i = 0; i < results.length; i++) {
-        this.imageResponse.push(results[i]);
-      var currentName = results[i].substr(results[i].lastIndexOf('/') + 1);
-  //     var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
-  //     this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
-    }});
+    this.camera.getPicture(options).then(imagePath => {
+      var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
+      var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
+      this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+    });
   }
-  // copyFileToLocalDir(namePath, currentName, newFileName) {
-  //   this.file.copyFile(namePath, currentName, this.file.dataDirectory, newFileName).then(_ => {
-  //     this.updateStoredImages(newFileName);
-  //   }, error => {
-  //     this.presentToast('Error while storing file');
-  //   });
-  // }
-  // createFileName() {
-  //   var d = new Date();
-  //   var n = d.getTime(),
-  //     newFileName = n + ".jpg";
-  //   return newFileName;
-  // }
-  // updateStoredImages(name) {
-  //   this.storage.get(STORAGE_KEY).then(images => {
-  //     let arr = JSON.parse(images);
-  //     if (!arr) {
-  //       let newImages = [name];
-  //       this.storage.set(STORAGE_KEY, JSON.stringify(newImages));
-  //     } else {
-  //       arr.push(name);
-  //       this.storage.set(STORAGE_KEY, JSON.stringify(arr));
-  //     }
-  //     let filePath = this.file.dataDirectory + name;
-  //     let resPath = this.pathForImage(filePath);
+  copyFileToLocalDir(namePath, currentName, newFileName) {
+    this.file.copyFile(namePath, currentName, this.file.dataDirectory, newFileName).then(_ => {
+      this.updateStoredImages(newFileName);
+    }, error => {
+      this.presentToast('Error while storing file');
+    });
+  }
+  createFileName() {
+    var d = new Date();
+    var n = d.getTime(),
+      newFileName = n + ".jpg";
+    return newFileName;
+  }
+  updateStoredImages(name) {
+    this.storage.get(STORAGE_KEY).then(images => {
+      let arr = JSON.parse(images);
+      if (!arr) {
+        let newImages = [name];
+        this.storage.set(STORAGE_KEY, JSON.stringify(newImages));
+      } else {
+        arr.push(name);
+        this.storage.set(STORAGE_KEY, JSON.stringify(arr));
+      }
+      let filePath = this.file.dataDirectory + name;
+      let resPath = this.pathForImage(filePath);
 
-  //     let newEntry = {
-  //       name: name,
-  //       path: resPath,
-  //       filePath: filePath
-  //     };
-  //     this.images = [newEntry, ...this.images];
-  //     this.ref.detectChanges();
-  //   });
-  // }
-  // deleteImage(imgEntry, position) {
-  //   this.images.splice(position, 1);
-  //   this.storage.get(STORAGE_KEY).then(images => {
-  //     let arr = JSON.parse(images);
-  //     let filetered = arr.filter(name => name != imgEntry.name);
-  //     this.storage.set(STORAGE_KEY, JSON.stringify(filetered));
+      let newEntry = {
+        name: name,
+        path: resPath,
+        filePath: filePath
+      };
+      this.images = [newEntry, ...this.images];
+      this.ref.detectChanges();
+    });
+  }
+  deleteImage(imgEntry, position) {
+    this.images.splice(position, 1);
+    this.storage.get(STORAGE_KEY).then(images => {
+      let arr = JSON.parse(images);
+      let filetered = arr.filter(name => name != imgEntry.name);
+      this.storage.set(STORAGE_KEY, JSON.stringify(filetered));
 
-  //     var correctPath = imgEntry.filePath.substr(0, imgEntry.filePath.lastIndexOf('/') + 1);
+      var correctPath = imgEntry.filePath.substr(0, imgEntry.filePath.lastIndexOf('/') + 1);
 
-  //     this.file.removeFile(correctPath, imgEntry.name).then(res => {
-  //       this.presentToast('File Removed');
-  //     });
-  //   });
-  // }
-  // startUpload(imgEntry) {
-  //   this.file.resolveLocalFilesystemUrl(imgEntry.filePath)
-  //     .then(entry => {
-  //       (<FileEntry>entry).file(file => this.readFile(file))
-  //     })
-  // }
-  // readFile(file: any) {
-  //   const reader = new FileReader();
-  //   reader.onloadend = () => {
-  //     const formData = new FormData();
-  //     const imgBlob = new Blob([reader.result], {
-  //       type: file.type
-  //     });
-  //     formData.append('file', imgBlob, file.name);
-  //     this.uploadImageData(formData);
-  //   };
-  //   reader.readAsArrayBuffer(file);
-  // }
-  // async uploadImageData(formData: FormData) {
-  //   const loading = await this.loadingController.create({
-  //     //content: 'Uploading Image...',
-  //   });
-  //   await loading.present();
+      this.file.removeFile(correctPath, imgEntry.name).then(res => {
+        this.presentToast('File Removed');
+      });
+    });
+  }
+  
+  async uploadImageData(formData: FormData) {
+    const loading = await this.loadingController.create({
+      //content: 'Uploading Image...',
+    });
+    await loading.present();
 
-  //   this.http.post("https://indusell.com/api/post/{{response.id}}", formData)
-  //     .pipe(
-  //       finalize(() => {
-  //         loading.dismiss();
-  //       })
-  //     )
-  //     .subscribe(res => {
-  //       if (res['success']) {
-  //         this.presentToast('File Upload Complete')
-  //       } else {
-  //         this.presentToast('File Upload Failed')
-  //       }
-  //     });
-  // }
-}
-
-
-
-
-
-
-
-
+    this.http.post("", formData)
+      .pipe(
+        finalize(() => {
+          loading.dismiss();
+        })
+      )
+      .subscribe(res => {
+        if (res['success']) {
+          this.presentToast('File Upload Complete')
+        } else {
+          this.presentToast('File Upload Failed')
+        }
+      });
+  }}

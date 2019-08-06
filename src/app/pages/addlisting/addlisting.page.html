@@ -242,17 +242,15 @@
         <ion-button (click)="selectImage()">Choose Images</ion-button>
       </ion-col>
     </ion-row>
-    <ng-container *ngIf="imageResponse">  
+    <ng-container *ngIf="images">  
         <ion-item>  
             <ion-label>Browsed Images</ion-label>  
         </ion-item>  
         <ion-item>  
-            <ion-row *ngIf="imageResponse.length>0">  
-                <ion-col style="padding:10px;" col-3 *ngFor="let img1 of imageResponse;">  
+            <ion-row *ngIf="images.length>0">  
+                <ion-col style="padding:10px;" col-3 *ngFor="let img1 of images;">  
                     <ion-card>  
-                        <ion-thumbnail item-start>  
-                            <img [src]="img1" alt="Sample Image">  
-                        </ion-thumbnail>  
+                            <img [src]="img1.path" alt="Sample Image"/>  
                     </ion-card>  
                 </ion-col>  
             </ion-row>  
