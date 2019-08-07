@@ -22,7 +22,7 @@ import { AppErrorHandler } from './services/common/app-error-handler';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { Camera } from '@ionic-native/Camera/ngx';
 import { File } from '@ionic-native/File/ngx';
-import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { ImagePicker } from '@ionic-native/image-picker';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 
 

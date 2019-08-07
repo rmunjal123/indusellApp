@@ -251,7 +251,8 @@
                 <ion-col style="padding:10px;" col-3 *ngFor="let img1 of images;">  
                     <ion-card>  
                             <img [src]="img1.path" alt="Sample Image"/>  
-                    </ion-card>  
+                    </ion-card>
+                    <ion-item (click)= "deleteImage(imgEntry, position)">Delete Image</ion-item>  
                 </ion-col>  
             </ion-row>  
         </ion-item> 

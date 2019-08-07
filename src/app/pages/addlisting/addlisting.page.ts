@@ -3,7 +3,7 @@ import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
 import { CreatelistingService } from 'src/app/services/createlisting.service';
 import { AppError } from 'src/app/services/common/app-error';
 import { BadInput } from 'src/app/services/common/bad-input';
-import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { ImagePicker } from '@ionic-native/image-picker';
 import { File, FileEntry } from '@ionic-native/File/ngx';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/Camera/ngx';
@@ -59,7 +59,7 @@ export class AddlistingPage implements OnInit {
       industry_type: new FormControl(''),
     });
     this.plt.ready().then(() => {
-      this.loadStoredImages();
+      this.uploadImages();
     });
   }
 
@@ -111,28 +111,28 @@ export class AddlistingPage implements OnInit {
   }
 
 
-  loadStoredImages() {
-    this.storage.get(STORAGE_KEY).then(images => {
-      if (images) {
-        let arr = JSON.parse(images);
-        this.images = [];
-        for (let img of arr) {
-          let filePath = this.file.dataDirectory + img;
-          let resPath = this.pathForImage(filePath);
-          this.images.push({ name: img, path: resPath, filePath: filePath });
-        }
-      }
-    });
-  }
+  // loadStoredImages() {
+  //   this.storage.get(STORAGE_KEY).then(images => {
+  //     if (images) {
+  //       let arr = JSON.parse(images);
+  //       this.images = [];
+  //       for (let img of arr) {
+  //         let filePath = this.file.dataDirectory + img;
+  //         let resPath = this.pathForImage(filePath);
+  //         this.images.push({ name: img, path: resPath, filePath: filePath });
+  //       }
+  //     }
+  //   });
+  // }
 
-  pathForImage(img) {
-    if (img === null) {
-      return '';
-    } else {
-      let converted = this.webview.convertFileSrc(img);
-      return converted;
-    }
-  }
+  // pathForImage(img) {
+  //   if (img === null) {
+  //     return '';
+  //   } else {
+  //     let converted = this.webview.convertFileSrc(img);
+  //     return converted;
+  //  }
+  // }
   async presentToast(text) {
     const toast = await this.toastController.create({
       message: text,
@@ -148,11 +148,29 @@ export class AddlistingPage implements OnInit {
       outputType: 0
     }
     this.imagePicker.getPictures(options).then((results) => {
-      for (var i = 0; i < results.length; i++) {
-        this.imageResponse.push(results[i]);
-        var currentName = results[i].substr(results[i].lastIndexOf('/') + 1);
-        var correctPath = results[i].substr(0, results[i].lastIndexOf('/') + 1);
-        this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+        let arr = JSON.parse(results[i]);
+        for (var i = 0; i < results.length; i++) {
+          this.images.push(results[i]);}
+        for (let img of arr) {
+          let filePath = this.file.dataDirectory + img;
+          let resPath = this.pathForImage(filePath);
+          this.images.push({ name: img, path: resPath, filePath: filePath });
+          }
+      });
+    }
+  
+    pathForImage(img) {
+      if (img === null) {
+        return '';
+      } else {
+        let converted = this.webview.convertFileSrc(img);
+        return converted;
+      }
+    }
+
+          //var currentName = results[i].substr(results[i].lastIndexOf('/') + 1);
+          //var correctPath = results[i].substr(0, results[i].lastIndexOf('/') + 1);
+          //this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
 
         // //this.imageResponse.push(this.imageString);
         // console.log('File Path: ' + results[i]);
@@ -170,11 +188,9 @@ export class AddlistingPage implements OnInit {
         //   }, (err) => {
         //     console.log(err);
         //   });
-      }
-    }, (err) => { alert(err) });
-  }
-
-
+  //     }
+  //     }}, (err) => { alert(err) });
+  // }
   takePicture(sourceType: PictureSourceType) {
     var options: CameraOptions = {
       quality: 100,
@@ -190,7 +206,7 @@ export class AddlistingPage implements OnInit {
   }
   copyFileToLocalDir(namePath, currentName, newFileName) {
     this.file.copyFile(namePath, currentName, this.file.dataDirectory, newFileName).then(_ => {
-      this.updateStoredImages(newFileName);
+      //this.updateStoredImages(newFileName);
     }, error => {
       this.presentToast('Error while storing file');
     });
@@ -201,28 +217,28 @@ export class AddlistingPage implements OnInit {
       newFileName = n + ".jpg";
     return newFileName;
   }
-  updateStoredImages(name) {
-    this.storage.get(STORAGE_KEY).then(images => {
-      let arr = JSON.parse(images);
-      if (!arr) {
-        let newImages = [name];
-        this.storage.set(STORAGE_KEY, JSON.stringify(newImages));
-      } else {
-        arr.push(name);
-        this.storage.set(STORAGE_KEY, JSON.stringify(arr));
-      }
-      let filePath = this.file.dataDirectory + name;
-      let resPath = this.pathForImage(filePath);
+  // updateStoredImages(name) {
+  //   this.storage.get(STORAGE_KEY).then(images => {
+  //     let arr = JSON.parse(images);
+  //     if (!arr) {
+  //       let newImages = [name];
+  //       this.storage.set(STORAGE_KEY, JSON.stringify(newImages));
+  //     } else {
+  //       arr.push(name);
+  //       this.storage.set(STORAGE_KEY, JSON.stringify(arr));
+  //     }
+  //     let filePath = this.file.dataDirectory + name;
+  //     let resPath = this.pathForImage(filePath);
 
-      let newEntry = {
-        name: name,
-        path: resPath,
-        filePath: filePath
-      };
-      this.images = [newEntry, ...this.images];
-      this.ref.detectChanges();
-    });
-  }
+  //     let newEntry = {
+  //       name: name,
+  //       path: resPath,
+  //       filePath: filePath
+  //     };
+  //     this.images = [newEntry, ...this.images];
+  //     this.ref.detectChanges();
+  //   });
+  // }
   deleteImage(imgEntry, position) {
     this.images.splice(position, 1);
     this.storage.get(STORAGE_KEY).then(images => {

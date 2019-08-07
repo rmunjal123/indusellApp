@@ -29,7 +29,7 @@ export class AuthenticationService {
 
 login(credentials) { 
   console.log(credentials);
- return this.http.post('/api/authenticate', JSON.stringify(credentials)).pipe
+ return this.http.post('https://www.indusell.com/api/Applogin', JSON.stringify(credentials)).pipe
  (map(response => {
   let result = response.json();
   console.log(result);
