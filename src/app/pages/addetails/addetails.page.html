@@ -1,42 +1,64 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{listing.title}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{posttitle}}</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-    <ion-card class="category-block">
-        <ion-img src="https://indusell.com/storage/{{listing.filename}}"></ion-img>
-        <ion-card-header>
-          <ion-card-subtitle>{{listing.contact_name}}</ion-card-subtitle>
-          <ion-card-title>
-            S${{listing.price}}
-            <ion-icon name="share" position= "right" ></ion-icon>
-          </ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          {{listing.description}}
-        </ion-card-content>
+    <ion-slides *ngFor = "let item of listing?.pictures" [options]="slideOpts" pager="true">
+        <ion-slide scrollbar="true">
+          <ion-img cache ="true" src="https://indusell.com/storage/{{item.filename}}"></ion-img>
+        </ion-slide>
+      </ion-slides>
+  <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>{{postcontact}}</ion-card-subtitle>
+        <ion-card-title>
+          S${{postprice}}
+          <ion-icon name="share" position= "end" (click)="share()"></ion-icon>
+        </ion-card-title>
+      </ion-card-header>
+    </ion-card>
+      <!-- <ion-card-content>
+        {{postdescription}}
+        <br>
+        <div><h1>Product Review</h1></div>
+        <br>
+       {{postreview_title}} - {{postreview_description}}
+      </ion-card-content> -->
+      <div padding ><h3>Product Review</h3></div>
+      <ion-card>
+        <ion-list *ngFor="let postreview1 of postreview" lines="inset">
+          <ion-list-header>
+          </ion-list-header>
+          <ion-item>
+            <ion-label>
+              <h2>{{postreview1.userID}}</h2>
+              <h3>{{postreview1.title}}</h3>
+              <p>{{postreview1.description}}</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
       </ion-card>
+      
+      <!-- <ion-card-content *ngFor = "let postreview1 of postreview">
+         {{postreview1.title}} - {{postreview1.description}}
+        </ion-card-content> -->
+
+  
+  <div padding ><h3>Contact Seller</h3></div>
+  <ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          {{seller_name}}
+          <ion-icon name="contact" position= "end" ></ion-icon>
+        </ion-card-title>
+        <ion-card-subtitle>{{seller_email}}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+
+      </ion-card-content>
+  </ion-card>
 </ion-content>
-<div>
-  <ion-toolbar>
-  <ion-title>
-    Similar Items
-  </ion-title>
-  </ion-toolbar>
-  <ion-slides [options]="sliderConfig">
-    <ion-slide *ngFor= "let cat of category_id" (click)="onGoToCategoryPage(cat)">
-      <ion-card class="category-block">
-        <ion-img src="/assets/shapes.svg">
-        </ion-img>
-        <ion-card-header>
-          <ion-card-subtitle></ion-card-subtitle>
-          <ion-card-title>
-           {{cat.id}}
-          </ion-card-title>
-        </ion-card-header>
-      </ion-card>
-    </ion-slide>
-  </ion-slides>
-  </div>

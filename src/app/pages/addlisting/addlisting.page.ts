@@ -3,7 +3,7 @@ import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
 import { CreatelistingService } from 'src/app/services/createlisting.service';
 import { AppError } from 'src/app/services/common/app-error';
 import { BadInput } from 'src/app/services/common/bad-input';
-import { ImagePicker } from '@ionic-native/image-picker';
+//import { ImagePicker } from '@ionic-native/image-picker';
 import { File, FileEntry } from '@ionic-native/File/ngx';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/Camera/ngx';
@@ -29,7 +29,7 @@ export class AddlistingPage implements OnInit {
   fileUrl: any = null;
   respData: any;
 
-  constructor(private formbuilder: FormBuilder, private createlistings: CreatelistingService, private imagePicker: ImagePicker, private camera: Camera, private file: File, private webview: WebView,
+  constructor(private formbuilder: FormBuilder, private createlistings: CreatelistingService, private camera: Camera, private file: File, private webview: WebView,
     private actionSheetController: ActionSheetController, private toastController: ToastController, private storage: Storage, private plt: Platform, private loadingController: LoadingController,
     private ref: ChangeDetectorRef, private http: HttpClient, private transfer: FileTransfer) { }
   ngOnInit() {
@@ -59,7 +59,7 @@ export class AddlistingPage implements OnInit {
       industry_type: new FormControl(''),
     });
     this.plt.ready().then(() => {
-      this.uploadImages();
+      this.loadStoredImages();
     });
   }
 
@@ -91,8 +91,8 @@ export class AddlistingPage implements OnInit {
       buttons: [{
         text: 'Load from Library',
         handler: () => {
-          this.uploadImages();
-          //this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
+          //this.uploadImages();
+          this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
         }
       },
       {
@@ -111,28 +111,28 @@ export class AddlistingPage implements OnInit {
   }
 
 
-  // loadStoredImages() {
-  //   this.storage.get(STORAGE_KEY).then(images => {
-  //     if (images) {
-  //       let arr = JSON.parse(images);
-  //       this.images = [];
-  //       for (let img of arr) {
-  //         let filePath = this.file.dataDirectory + img;
-  //         let resPath = this.pathForImage(filePath);
-  //         this.images.push({ name: img, path: resPath, filePath: filePath });
-  //       }
-  //     }
-  //   });
-  // }
+  loadStoredImages() {
+    this.storage.get(STORAGE_KEY).then(images => {
+      if (images) {
+        let arr = JSON.parse(images);
+        this.images = [];
+        for (let img of arr) {
+          let filePath = this.file.dataDirectory + img;
+          let resPath = this.pathForImage(filePath);
+          this.images.push({ name: img, path: resPath, filePath: filePath });
+        }
+      }
+    });
+  }
 
-  // pathForImage(img) {
-  //   if (img === null) {
-  //     return '';
-  //   } else {
-  //     let converted = this.webview.convertFileSrc(img);
-  //     return converted;
-  //  }
-  // }
+  pathForImage(img) {
+    if (img === null) {
+      return '';
+    } else {
+      let converted = this.webview.convertFileSrc(img);
+      return converted;
+   }
+  }
   async presentToast(text) {
     const toast = await this.toastController.create({
       message: text,
@@ -141,32 +141,32 @@ export class AddlistingPage implements OnInit {
     });
     toast.present();
   }
-  uploadImages() {
-    let options = {
-      maximumImagesCount: 10,
-      width: 800,
-      outputType: 0
-    }
-    this.imagePicker.getPictures(options).then((results) => {
-        let arr = JSON.parse(results[i]);
-        for (var i = 0; i < results.length; i++) {
-          this.images.push(results[i]);}
-        for (let img of arr) {
-          let filePath = this.file.dataDirectory + img;
-          let resPath = this.pathForImage(filePath);
-          this.images.push({ name: img, path: resPath, filePath: filePath });
-          }
-      });
-    }
+  // uploadImages() {
+  //   let options = {
+  //     maximumImagesCount: 10,
+  //     width: 800,
+  //     outputType: 0
+  //   }
+    // this.imagePicker.getPictures(options).then((results) => {
+    //     let arr = JSON.parse(results[i]);
+    //     for (var i = 0; i < results.length; i++) {
+    //       this.images.push(results[i]);}
+    //     for (let img of arr) {
+    //       let filePath = this.file.dataDirectory + img;
+    //       let resPath = this.pathForImage(filePath);
+    //       this.images.push({ name: img, path: resPath, filePath: filePath });
+    //       }
+    //   });
+    // }
   
-    pathForImage(img) {
-      if (img === null) {
-        return '';
-      } else {
-        let converted = this.webview.convertFileSrc(img);
-        return converted;
-      }
-    }
+    // pathForImage(img) {
+    //   if (img === null) {
+    //     return '';
+    //   } else {
+    //     let converted = this.webview.convertFileSrc(img);
+    //     return converted;
+    //   }
+    // }
 
           //var currentName = results[i].substr(results[i].lastIndexOf('/') + 1);
           //var correctPath = results[i].substr(0, results[i].lastIndexOf('/') + 1);
@@ -199,10 +199,17 @@ export class AddlistingPage implements OnInit {
       correctOrientation: true
     };
     this.camera.getPicture(options).then(imagePath => {
-      var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
-      var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
+             let arr = JSON.parse(imagePath);
+             for (var i = 0; i < imagePath.length; i++) {
+              this.images.push(imagePath[i]);}
+             for (let img of arr) {
+             let filePath = this.file.dataDirectory + img;
+             let resPath = this.pathForImage(filePath);
+             this.images.push({ name: img, path: resPath, filePath: filePath });    
+      var currentName = imagePath[i].substr(imagePath.lastIndexOf('/') + 1);
+      var correctPath = imagePath[i].substr(0, imagePath.lastIndexOf('/') + 1);
       this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
-    });
+    }});
   }
   copyFileToLocalDir(namePath, currentName, newFileName) {
     this.file.copyFile(namePath, currentName, this.file.dataDirectory, newFileName).then(_ => {

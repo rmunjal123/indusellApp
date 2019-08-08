@@ -3,10 +3,13 @@ import { GetcategoriesService } from 'src/app/services/getcategories.service'
 import { Router } from '@angular/router';
 import { IonSlides } from '@ionic/angular';
 import { ListingService } from '../services/listing.service';
-import { IfStmt } from '@angular/compiler';
+import { IfStmt, identifierModuleUrl } from '@angular/compiler';
 import { AppError } from '../services/common/app-error';
 import { BadInput } from '../services/common/bad-input';
 import { NotFoundError } from '../services/common/not-found-error';
+import { forEach } from '@angular/router/src/utils/collection';
+import { ListingdetailsService } from '../services/listingdetails.service';
+import { SellerdetailsService } from '../services/sellerdetails.service';
 
 
 
@@ -18,17 +21,20 @@ import { NotFoundError } from '../services/common/not-found-error';
 })
 export class Tab1Page implements OnInit {
 
-  listings : any;
-  categories = [];
-  data = [];
-  renderedcategory:any;
+listings : any;
+categories = [];
+data = [];
+renderedcategory:any;
+arr = [];
+imgforID = [];
 
 sliderConfig = {
 spaceBetween: 0,
 centeredSlides: false,
 slidesPerView:2.4
   }
-constructor(private getcategoriesService:GetcategoriesService , private router:Router,private newlistings:ListingService){}
+constructor(private getcategoriesService:GetcategoriesService , private router:Router,private newlistings:ListingService,
+  private listingdetails: ListingdetailsService,private sellerdetails: SellerdetailsService){}
 
   ngOnInit(){
 //this.listings[10] = this.newlistings.getlisting();
@@ -39,8 +45,19 @@ constructor(private getcategoriesService:GetcategoriesService , private router:R
     .subscribe(response => { 
       this.listings = response;
       console.log(this.listings);
+      this.arr = this.listings.letest_ads;
+      // if (this.arr.post_type_id === "2") {
+      //   var post_type = "Used";
+      // } else {
+      //   var post_type = "New";
+      // }
+      this.imgforID = this.arr.filter(
+        arr => arr.id === '117');
+        console.log(this.imgforID);
     });
   }
+    
+  
 
     //createListing(input:HTMLImputElement){
     //   let listing = { title: input.value};
@@ -109,11 +126,24 @@ constructor(private getcategoriesService:GetcategoriesService , private router:R
     }, 5000);
   }
   onGoToListingDetail(listing){
-    this.getcategoriesService.currentlisting = listing;
+    this.listingdetails.id = listing;
+    this.sellerdetails.id = listing;
+    console.log(listing);
     this.router.navigate(['/addetails']);
   }
+  listingpicsarray(listings){
+    for(this.listings.letest_ads.id in this.listings) {
+      let arr = JSON.parse(this.listings.letest_ads.filename);
+      let pics = [];
+      for (let img of arr) {
+        pics.push({ id: this.listings.letest_ads.id, path: this.listings.letest_ads.filename });
+      }
+      console.log(pics);
   }
-  
-  
-
-  
+  }
+  picture_array(){
+    this.listings.letest_ads.forEach(id => {
+      console.log()
+    });
+  }
+}

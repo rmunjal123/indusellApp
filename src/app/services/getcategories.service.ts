@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { DataService } from './data.service';
+import { HttpClient } from '@angular/common/http';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class GetcategoriesService {
+export class GetcategoriesService extends DataService{
 
   categories: any[];
   currentlisting: any;
@@ -40,11 +42,9 @@ export class GetcategoriesService {
     }
   ]
 
-  constructor(private http:Http) {
-  http.get('https://jsonplaceholder.typicode.com/posts')
-  .subscribe(response =>{
-    console.log(response.json())
-  });
+  constructor(http:HttpClient) {
+    super('https://indusell.com/api/home',http);
+
 }
 
 

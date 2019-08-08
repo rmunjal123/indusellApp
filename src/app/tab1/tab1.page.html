@@ -19,7 +19,7 @@
         </ion-fab-button>
       </ion-fab>
     <!-- auto rotating slider at the top -->
-    <ion-slides pager="true" [options]="slideOpts">
+    <ion-slides autoplay= "2000" pager="true" [options]="slideOpts">
         <ion-slide>
           <h1>Slide 1</h1>
           <ion-img src="/assets/shapes.svg"></ion-img>
@@ -34,7 +34,6 @@
         </ion-slide>
       </ion-slides>
   <!-- Categories slide -->
-<div>
 <ion-toolbar>
 <ion-title>
   Categories
@@ -42,20 +41,17 @@
 </ion-toolbar>
 <ion-slides [options]="sliderConfig">
   <ion-slide *ngFor= "let cat of listings?.category" (click)="onGoToCategoryPage(cat)">
-    <ion-card class="category-block">
-      <ion-img src= "https://indusell.com/storage/{{cat.picture}}">
+    <ion-card class="ion-text-nowrap" >
+      <ion-img cache ="true" src= "https://indusell.com/storage/{{cat.picture}}">
         </ion-img>
-      <ion-card-header text-wrap>
-        <ion-card-subtitle></ion-card-subtitle>
-        <ion-card-title text-wrap>
-         {{cat.name}}
+      <ion-card-header>
+        <ion-card-subtitle>{{cat.name}}</ion-card-subtitle>
+        <ion-card-title>
         </ion-card-title>
       </ion-card-header>
     </ion-card>
   </ion-slide>
 </ion-slides>
-</div>
-<div>
 <ion-toolbar>
   <ion-title>
     Brands
@@ -63,19 +59,17 @@
   </ion-toolbar>
   <ion-slides [options]="sliderConfig">
     <ion-slide *ngFor= "let brand of listings?.brands" (click)="onGoToCategoryPage(cat)">
-      <ion-card class="category-block">
-        <ion-img src = "https://indusell.com/storage/app/default/brands/{{brand.brand_logo}}"></ion-img>
-        <ion-card-header no-wrap>
+      <ion-card class="category-block" style="width: 80px; height: 80px;">
+        <ion-img style="width: 80px; height: 80px;" src = "https://indusell.com/storage/app/default/brands/{{brand.brand_logo}}"></ion-img>
+        <ion-card-header>
           <ion-card-subtitle></ion-card-subtitle>
-          <ion-card-title no-wrap>
-           {{brand.brand_name}}
+          <ion-card-title>
           </ion-card-title>
         </ion-card-header>
       </ion-card>
     </ion-slide>
   </ion-slides>
-  </div>
-<div class="container" >
+<!-- <div class="container" >
         <div class="scroll" scrollX="true">
             <span>item1</span>
             <span>item2</span>
@@ -97,33 +91,37 @@
         <div class="scroll" scrollX="true">
          <span *ngFor="let item of items | async">{{item.ProjectEvent}}</span>
         </div>
-    </div>
+    </div> -->
       <!-- Listings display in grid -->
-      <div>
+     
         <!-- <ion-row no-padding class="category-banner">
           <ion-col text-center>
             {{cat.category}}
           </ion-col>
         </ion-row>-->
-
+        <ion-toolbar>
+          <ion-title>
+            Latest Listings
+          </ion-title>
+        </ion-toolbar>
           <ion-grid>
           <ion-row>
           <ion-col size="6" no-padding *ngFor= "let listing of listings?.letest_ads">
           <ion-card-content no-padding class="card-background-page">
-           <ion-card (click)="onGoToListingDetail(listing)">
+           <ion-card (click)="onGoToListingDetail(listing.id)">
             <img src= "https://indusell.com/storage/{{listing.filename}}"/>
             <ion-card-title class="card-title">
                 {{listing.title}}
             </ion-card-title>
             <ion-card-subtitle class="card-subtitle">S${{listing.price}}</ion-card-subtitle>
-            <ion-badge color="dark">{{listing.visits}}</ion-badge>
+            <ion-badge color="light">{{listing.visits}}</ion-badge>
+            <ion-badge color="light">{{listing.post_type_id}}</ion-badge>
           </ion-card>
         </ion-card-content>
           </ion-col>
           </ion-row>
           </ion-grid>
-      </div>
-      <ion-grid>
+      <!-- <ion-grid>
      <ion-row>
        <ion-col size= "4">
          <ion-card class="category-block">
@@ -162,7 +160,7 @@
        </ion-card>
        </ion-col>
      </ion-row>
-    </ion-grid>
+    </ion-grid> -->
     <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
       <ion-infinite-scroll-content
         loadingSpinner="bubbles"

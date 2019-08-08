@@ -22,8 +22,9 @@ import { AppErrorHandler } from './services/common/app-error-handler';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { Camera } from '@ionic-native/Camera/ngx';
 import { File } from '@ionic-native/File/ngx';
-import { ImagePicker } from '@ionic-native/image-picker';
+//import { ImagePicker } from '@ionic-native/image-picker';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
     File,
     FileTransfer,
     WebView,
-    ImagePicker,
+    SocialSharing,
+    //ImagePicker,
     {provide: ErrorHandler, useClass: AppErrorHandler},
     {provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

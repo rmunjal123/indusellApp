@@ -7,10 +7,7 @@ import { DataService } from './data.service';
   providedIn: 'root'
 })
 export class ListingService extends DataService {
-
-  //url = 'https://indusell.com/api/home';
-  listings = []
-
+  listings = [];
     constructor(http:HttpClient) {
       super('https://indusell.com/api/home',http);
     }
@@ -25,5 +22,4 @@ export class ListingService extends DataService {
     // {
     //   return this.http.post(this.url, JSON.stringify(listing))
     // }
-  
   }
