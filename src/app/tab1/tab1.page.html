@@ -107,9 +107,9 @@
           <ion-grid>
           <ion-row>
           <ion-col size="6" no-padding *ngFor= "let listing of listings?.letest_ads">
-          <ion-card-content no-padding class="card-background-page">
-           <ion-card (click)="onGoToListingDetail(listing.id)">
-            <img src= "https://indusell.com/storage/{{listing.filename}}"/>
+          <ion-card-content no-padding class="card-background-page ion-text-nowrap">
+           <ion-card (click)="onGoToListingDetail(listing.id)" >
+            <img src= "https://indusell.com/storage/{{listings.latest_pictures.filename}}"/>
             <ion-card-title class="card-title">
                 {{listing.title}}
             </ion-card-title>

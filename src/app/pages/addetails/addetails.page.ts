@@ -33,8 +33,10 @@ export class AddetailsPage implements OnInit {
   seller_name: string;
 
   slideOpts = {
-    initialSlide: 1,
-    speed: 400,
+    zoom: false,
+    slidesPerView: 1,
+    centeredSlides: true,
+    spaceBetween: 20,
     direction: 'horizontal'
   }
   constructor(private getcategoriesService:GetcategoriesService, private listingdetails: ListingdetailsService,

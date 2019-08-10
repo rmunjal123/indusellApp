@@ -13,6 +13,7 @@ import { ActionSheetController, ToastController, Platform, LoadingController } f
 import { finalize } from 'rxjs/operators'
 import { HttpClient } from '@angular/common/http';
 
+
 const STORAGE_KEY = "my_images";
 
 @Component({
@@ -141,6 +142,23 @@ export class AddlistingPage implements OnInit {
     });
     toast.present();
   }
+
+  // uploadImages(){
+  //   let options = {
+  //         maximumImagesCount: 10,
+  //         width: 800,
+  //         outputType: 0
+  //       }
+  //        this.imagePicker.getPictures(options).then((results) => {
+  //       for (var i = 0; i < results.length; i++) {
+  //         let filename = results[i].substring(results[i].lastIndexOf('/')+1);
+  //         let path = results[i].substring(0,results[i].lastIndexOf('/')+1);
+  //         this.file.readAsDataURL(path,filename).then((base64String)=>{
+  //         this.images.push(base64String);
+  //         }) 
+  //     }
+  //   });
+  // }
   // uploadImages() {
   //   let options = {
   //     maximumImagesCount: 10,

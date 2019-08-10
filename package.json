@@ -25,7 +25,7 @@
     "@ionic-native/core": "^5.11.0",
     "@ionic-native/file": "^5.11.0",
     "@ionic-native/file-transfer": "^5.11.0",
-    "@ionic-native/image-picker": "^3.9.0",
+    "@ionic-native/image-picker": "^3.9.2",
     "@ionic-native/ionic-webview": "^5.11.0",
     "@ionic-native/social-sharing": "^5.11.0",
     "@ionic-native/speech-recognition": "^5.9.0",

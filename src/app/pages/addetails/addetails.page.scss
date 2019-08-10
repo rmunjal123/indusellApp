@@ -1,7 +1,17 @@
-ion-scroll{
-    height: 50px;
+// ion-scroll{
+//     height: 50px;
     
-    .scroll-zoom-wrapper{
-      display: inline-flex;
-    }
-  }
+//     .scroll-zoom-wrapper{
+//       display: inline-flex;
+//     }
+//   }
+ion-slides {
+float: 100%
+} 
+.scroll
+{
+display: block;
+overflow-x: scroll;
+white-space: nowrap;
+
+}

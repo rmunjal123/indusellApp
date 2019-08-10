@@ -244,13 +244,13 @@
     </ion-row>
     <ng-container *ngIf="images">  
         <ion-item>  
-            <ion-label>Browsed Images</ion-label>  
+            <ion-label>Selected Images</ion-label>  
         </ion-item>  
         <ion-item>  
             <ion-row *ngIf="images.length>0">  
                 <ion-col style="padding:10px;" col-3 *ngFor="let img1 of images;">  
                     <ion-card>  
-                            <img [src]="img1.path" alt="Sample Image"/>  
+                            <img src="img1"/>  
                     </ion-card>
                     <ion-item (click)= "deleteImage(imgEntry, position)">Delete Image</ion-item>  
                 </ion-col>  

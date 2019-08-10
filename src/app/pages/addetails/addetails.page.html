@@ -7,17 +7,17 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-    <ion-slides *ngFor = "let item of listing?.pictures" [options]="slideOpts" pager="true">
-        <ion-slide scrollbar="true">
-          <ion-img cache ="true" src="https://indusell.com/storage/{{item.filename}}"></ion-img>
-        </ion-slide>
-      </ion-slides>
+  <ion-slides class="scroll" [options]="slideOpts" pager="true">
+    <ion-slide *ngFor="let item of listing?.pictures" scrollbar="true">
+      <ion-img cache="true" src="https://indusell.com/storage/{{item.filename}}"></ion-img>
+    </ion-slide>
+  </ion-slides>
   <ion-card>
       <ion-card-header>
         <ion-card-subtitle>{{postcontact}}</ion-card-subtitle>
         <ion-card-title>
           S${{postprice}}
-          <ion-icon name="share" position= "end" (click)="share()"></ion-icon>
+          <ion-icon name="share" slot= "end" (click)="share()"></ion-icon>
         </ion-card-title>
       </ion-card-header>
     </ion-card>

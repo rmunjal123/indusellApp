@@ -45,16 +45,19 @@ constructor(private getcategoriesService:GetcategoriesService , private router:R
     .subscribe(response => { 
       this.listings = response;
       console.log(this.listings);
-      this.arr = this.listings.letest_ads;
+      this.arr = this.listings.latest_pictures;
       // if (this.arr.post_type_id === "2") {
       //   var post_type = "Used";
       // } else {
       //   var post_type = "New";
       // }
-      this.imgforID = this.arr.filter(
-        arr => arr.id === '117');
-        console.log(this.imgforID);
-    });
+      //this.listings.letest_ads.forEach(id => {
+        this.imgforID = this.arr.filter(
+          arr => arr.id === this.listings.letest_ads.id);
+          console.log(this.imgforID);
+      });
+      //});
+      
   }
     
   
