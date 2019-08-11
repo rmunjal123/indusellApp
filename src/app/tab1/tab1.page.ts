@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GetcategoriesService } from 'src/app/services/getcategories.service'
+import { GetcategoriesService } from '../services/getcategories.service'
 import { Router } from '@angular/router';
 import { IonSlides } from '@ionic/angular';
 import { ListingService } from '../services/listing.service';
@@ -10,6 +10,7 @@ import { NotFoundError } from '../services/common/not-found-error';
 import { forEach } from '@angular/router/src/utils/collection';
 import { ListingdetailsService } from '../services/listingdetails.service';
 import { SellerdetailsService } from '../services/sellerdetails.service';
+import { GetbrandsService } from '../services/getbrands.service';
 
 
 
@@ -22,6 +23,7 @@ import { SellerdetailsService } from '../services/sellerdetails.service';
 export class Tab1Page implements OnInit {
 
 listings : any;
+listing : any;
 categories = [];
 data = [];
 renderedcategory:any;
@@ -33,8 +35,8 @@ spaceBetween: 0,
 centeredSlides: false,
 slidesPerView:2.4
   }
-constructor(private getcategoriesService:GetcategoriesService , private router:Router,private newlistings:ListingService,
-  private listingdetails: ListingdetailsService,private sellerdetails: SellerdetailsService){}
+constructor(private getcategories:GetcategoriesService , private router:Router,private newlistings:ListingService,
+  private listingdetails: ListingdetailsService,private sellerdetails: SellerdetailsService,private getbrands:GetbrandsService){}
 
   ngOnInit(){
 //this.listings[10] = this.newlistings.getlisting();
@@ -46,22 +48,33 @@ constructor(private getcategoriesService:GetcategoriesService , private router:R
       this.listings = response;
       console.log(this.listings);
       this.arr = this.listings.latest_pictures;
+      this.listing = this.listings.letest_ads;
+      this.imgforID = this.arr.filter(
+            arr => arr.id === this.listing.id);
+            console.log(this.imgforID);
       // if (this.arr.post_type_id === "2") {
       //   var post_type = "Used";
       // } else {
       //   var post_type = "New";
       // }
-      //this.listings.letest_ads.forEach(id => {
-        this.imgforID = this.arr.filter(
-          arr => arr.id === this.listings.letest_ads.id);
-          console.log(this.imgforID);
-      });
+      //console.log(this.arr[185].filename);
+      // this.listings.letest_ads.forEach(id => {
+      //     console.log(id);
+      //     var id_title =id['title'];
+      //     console.log(id_title);
+      //     var id_price=id['price'];
+      //     var listingid = id.id;
+      //     console.log(listingid);
+      //     this.imgforID = this.arr.filter(
+      //     arr => arr.id === listingid);
+      //     console.log(this.imgforID);
+      //     var displaypic = this.imgforID[0];
+      //     console.log(displaypic['filename']);
+          
+      // });
       //});
       
-  }
-    
-  
-
+  })}
     //createListing(input:HTMLImputElement){
     //   let listing = { title: input.value};
     //   input.value = '';
@@ -79,37 +92,43 @@ constructor(private getcategoriesService:GetcategoriesService , private router:R
     //       else throw Error;
     //     });
     //     }
-        updateListing(listing){
-          this.newlistings.update(listing)
-          .subscribe(
-            response => {
-              console.log(response);
-            });
-            }
-            deleteListing(listing) {
-              this.newlistings.delete(listing)
-              .subscribe(
-                response => {
-                  let index = this.listings.indexOf(listing);
-                  this.listings.splice(index,1);
-                },
-                (Error: AppError) => {
-                  if (Error instanceof NotFoundError)
-                  alert('This post has already been deleted')
-                }
-              )
-            }
+  updateListing(listing) {
+    this.newlistings.update(listing)
+      .subscribe(
+        response => {
+          console.log(response);
+        });
+  }
+  deleteListing(listing) {
+    this.newlistings.delete(listing)
+      .subscribe(
+        response => {
+          let index = this.listings.indexOf(listing);
+          this.listings.splice(index, 1);
+        },
+        (Error: AppError) => {
+          if (Error instanceof NotFoundError)
+            alert('This post has already been deleted')
+        }
+      )
+  }
     // this.newlistings.create()
     //   .subscribe(response => { 
     //     this.listings = response;
     //     console.log(this.listings);
     //   });
       
-    onGoToCategoryPage(cat){
-      this.getcategoriesService.currentcategory = cat;
-      this.router.navigate(['/categories']);
+  onGoToCategoryPage(cat) {
+    this.getcategories.currentcategory = cat;
+    console.log(cat);
+    this.router.navigate(['/categories']);
   }
 
+  onGoToBrandPage(currentbrand){
+    this.getbrands.currentbrand = currentbrand;
+    console.log(currentbrand);
+    this.router.navigate(['/brands']);
+}
     // Optional parameters to pass to the swiper instance. See http://idangero.us/swiper/api/ for valid options.
     slideOpts = {
       initialSlide: 1,

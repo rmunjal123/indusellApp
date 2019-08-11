@@ -12,12 +12,12 @@ export class ListingdetailsService {
   // currentlisting: any;
   // currentcategory: any;
   id: any;
-  // let url = 'https://indusell.com/api/post-detail/' + id;
+  // let url = 'https://indusell.com/api/postdetail/' + id;
   
   constructor(private http:HttpClient) {}
     getAll(){
-      console.log('https://indusell.com/api/post-detail/' + this.id);
-      return this.http.get('https://indusell.com/api/post-detail/' + this.id).pipe
+      console.log('https://indusell.com/api/postdetail/' + this.id);
+      return this.http.get('https://indusell.com/api/postdetail/' + this.id).pipe
         (map(response => response));
     }
       

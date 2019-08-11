@@ -12,36 +12,63 @@
       <ion-img cache="true" src="https://indusell.com/storage/{{item.filename}}"></ion-img>
     </ion-slide>
   </ion-slides>
+<ion-card>
+  <ion-card-content>
+    <ion-list>
+      <ion-item>
+        <ion-icon name="time" position="start"></ion-icon>
+        <ion-input readonly="true">{{postcreated_at}}</ion-input>
+        <ion-icon name="eye"></ion-icon>
+        <ion-input readonly="true">{{postviews}}</ion-input>
+        <ion-badge color="medium">{{poststate}}</ion-badge>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="pin" position="end"></ion-icon>
+        <ion-card-subtitle>{{postlocation}}</ion-card-subtitle>
+        <ion-badge color="primary">{{postnegotiable}}</ion-badge>
+      </ion-item>
+    </ion-list>
+
+    <ion-card-header>
+      <ion-card-subtitle>{{post_title}}</ion-card-subtitle>
+      <ion-card-title>
+        S${{postprice}}
+      </ion-card-title>
+      <ion-input readonly="true">{{postcleandescription}}</ion-input>
+    </ion-card-header>
+
+    <ion-list>
+        <ion-item>
+        <ion-icon name="star-outline"></ion-icon>
+        <ion-icon name="star-outline"></ion-icon>
+        <ion-icon name="star-outline"></ion-icon>
+        <ion-icon name="star-outline"></ion-icon>
+        <ion-icon name="star-outline"></ion-icon>
+        <ion-icon name="share" position="right" (click)="share()"></ion-icon>
+        </ion-item>
+      </ion-list>
+  </ion-card-content>
+</ion-card>
+
+  <div padding>
+    <h3>Product Review</h3>
+  </div>
   <ion-card>
-      <ion-card-header>
-        <ion-card-subtitle>{{postcontact}}</ion-card-subtitle>
-        <ion-card-title>
-          S${{postprice}}
-          <ion-icon name="share" slot= "end" (click)="share()"></ion-icon>
-        </ion-card-title>
-      </ion-card-header>
-    </ion-card>
-      <!-- <ion-card-content>
-        {{postdescription}}
-        <br>
-        <div><h1>Product Review</h1></div>
-        <br>
-       {{postreview_title}} - {{postreview_description}}
-      </ion-card-content> -->
-      <div padding ><h3>Product Review</h3></div>
-      <ion-card>
-        <ion-list *ngFor="let postreview1 of postreview" lines="inset">
-          <ion-list-header>
-          </ion-list-header>
-          <ion-item>
-            <ion-label>
-              <h2>{{postreview1.userID}}</h2>
-              <h3>{{postreview1.title}}</h3>
-              <p>{{postreview1.description}}</p>
-            </ion-label>
-          </ion-item>
-        </ion-list>
-      </ion-card>
+    <ion-list *ngFor="let postreview1 of postreview" lines="inset">
+      <ion-list-header>
+        <ion-item>
+          <ion-label>
+            <h3>Title: {{postreview1.title}}</h3>
+          </ion-label>
+        </ion-item>
+      </ion-list-header>
+      <ion-item>
+        <p>Comment: {{postreview1.description}}</p>
+        <p>Posted By: {{postreview1.name}}<p>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+</ion-content>
       
       <!-- <ion-card-content *ngFor = "let postreview1 of postreview">
          {{postreview1.title}} - {{postreview1.description}}
@@ -58,7 +85,9 @@
         <ion-card-subtitle>{{seller_email}}</ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
-
+<ion-button (click)="shareWhatsApp()">
+  SHARE
+</ion-button>
       </ion-card-content>
   </ion-card>
-</ion-content>
+

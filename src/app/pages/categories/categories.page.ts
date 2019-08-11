@@ -10,15 +10,19 @@ import { GetcategoriesService } from 'src/app/services/getcategories.service';
 })
 export class CategoriesPage implements OnInit {
   listings =  [];
-  category;
-  constructor(private getcategoriesService:GetcategoriesService,private router:Router) { }
+  category: any;
+  constructor(private getcategories:GetcategoriesService,private router:Router) { }
 
   ngOnInit() {
-    this.category = this.getcategoriesService.currentcategory;
-    console.log(this.category);
-  }
-  onGoToListingDetail(listing){
-    this.getcategoriesService.currentlisting = listing;
-    this.router.navigate(['/addetails']);
-  }
+    this.category = this.getcategories.getAll()
+    .subscribe(response => { 
+      this.category = response;
+      console.log(this.category);
+  });
 }
+}
+  // onGoToListingDetail(listing){
+  //   this.getcategoriesService.currentlisting = listing;
+  //   this.router.navigate(['/addetails']);
+  // }
+

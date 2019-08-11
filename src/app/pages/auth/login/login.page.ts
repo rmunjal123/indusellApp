@@ -26,7 +26,7 @@ export class LoginPage {
     password: new FormControl('',[
       Validators.minLength(5),
       Validators.required,
-      Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
+      Validators.pattern('^[a-zA-Z0-9!@#$%^&*()]+$')
     ])
     //matching_passwords: this.matching_passwords_group,
     //terms: new FormControl(true, Validators.pattern('true'))
@@ -87,11 +87,12 @@ export class LoginPage {
     ],
   };
 
-  onSubmit(values){
+  onSubmit(input: FormGroup){
     //this.navCtrl.navigateForward('src/app/tab3/tab3.page');
     //console.log(values);
-    this.authService.login(values)
-    .subscribe(result => { 
+    this.authService.login(input)
+    .subscribe(result => {
+      console.log(result); 
       if (this.authService.isAuthenticated())
        {
         this.router.navigate(['/tabs/tab4']); 

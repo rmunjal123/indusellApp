@@ -22,10 +22,16 @@ export class AddetailsPage implements OnInit {
   posttitle: string;
   postcontact:string;
   postprice:string;
+  postlocation: string;
   postdescription:string;
   postreview_title: string;
   postreview_description: string;
   postreview_date: string;
+  postcleandescription: string;
+  postcreated_at: string;
+  postnegotiable: string;
+  postviews: string;
+  poststate: string;
 
   seller: any;
   sellervalues: string;
@@ -51,13 +57,28 @@ export class AddetailsPage implements OnInit {
       this.postdetails = this.listing['post-detail'][0];
       this.posttitle = this.postdetails["title"];
       this.postcontact = this.postdetails["contact_name"];
+      this.postcreated_at = this.postdetails["created_at"]
       this.postprice = this.postdetails["price"];
+      this.postviews = this.postdetails["visits"];
+      this.poststate = this.postdetails["post_type_id"]
+      console.log(this.postviews);
+      this.postlocation = this.postdetails["country_code"];
       this.postdescription = this.postdetails["description"];
+      this.postnegotiable = this.postdetails["negotiable"]
+      this.postcleandescription = this.removeHTMLTags(this.postdescription);
+
       this.postreview = this.listing['product-review'];
       console.log(this.postreview);
       this.postreview_title = this.postreview["title"];
       this.postreview_description= this.postreview["description"];
       this.postreview_date= this.postreview["update_date"];
+
+      // this.sellerreview = this.listing['seller-rating'];
+      // console.log(this.sellerreview);
+      // this.sellername = this.sellerreview["name"];
+      // this.sellerlocation= this.sellerreview["name"];
+      // this.sellerrating = this.sellerrating["rating"]
+
 
       
       console.log(this.posttitle);
@@ -124,7 +145,6 @@ export class AddetailsPage implements OnInit {
       // Error!
     });
   }
- 
   // async resolveLocalFile() {
   //   return this.file.copyFile(`${this.file.applicationDirectory}www/assets/imgs/`, 'shapes.svg', this.file.cacheDirectory, `${new Date().getTime()}.svg`);
   // }
@@ -153,4 +173,13 @@ export class AddetailsPage implements OnInit {
       // Error!
     });
   }
-}
+  removeHTMLTags(stringdata){
+  {
+      var strInputCode = stringdata;
+       strInputCode = strInputCode.replace(/<\/?[^>]+(>|$)/g, "");
+       console.log(strInputCode);
+       return strInputCode;
+      }
+    }	
+ }
+ 

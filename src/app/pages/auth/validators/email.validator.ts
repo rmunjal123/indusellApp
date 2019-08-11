@@ -5,7 +5,7 @@ export class EmailValidator {
     static shouldBeUnique(control: AbstractControl) : Promise <ValidationErrors | null> {
         return new Promise((resolve, reject)=>{
             setTimeout(() => {
-                if (control.value === 'hello@123')
+                if (control.value === 'test@123')
             resolve ({ shouldBeUnique: true });
             else 
             resolve(null);

@@ -40,7 +40,7 @@
 </ion-title>
 </ion-toolbar>
 <ion-slides [options]="sliderConfig">
-  <ion-slide *ngFor= "let cat of listings?.category" (click)="onGoToCategoryPage(cat)">
+  <ion-slide *ngFor= "let cat of listings?.category" (click)="onGoToCategoryPage(cat.name)">
     <ion-card class="ion-text-nowrap" >
       <ion-img cache ="true" src= "https://indusell.com/storage/{{cat.picture}}">
         </ion-img>
@@ -58,11 +58,11 @@
   </ion-title>
   </ion-toolbar>
   <ion-slides [options]="sliderConfig">
-    <ion-slide *ngFor= "let brand of listings?.brands" (click)="onGoToCategoryPage(cat)">
+    <ion-slide *ngFor= "let brand of listings?.brands" (click)="onGoToBrandPage(brand.brand_id)">
       <ion-card class="category-block" style="width: 80px; height: 80px;">
         <ion-img style="width: 80px; height: 80px;" src = "https://indusell.com/storage/app/default/brands/{{brand.brand_logo}}"></ion-img>
         <ion-card-header>
-          <ion-card-subtitle></ion-card-subtitle>
+          <ion-card-subtitle>{{brand.name}}</ion-card-subtitle>
           <ion-card-title>
           </ion-card-title>
         </ion-card-header>
@@ -106,10 +106,14 @@
         </ion-toolbar>
           <ion-grid>
           <ion-row>
-          <ion-col size="6" no-padding *ngFor= "let listing of listings?.letest_ads">
+          <ion-col size="6" no-padding *ngFor = "let listing of listings?.letest_ads">
           <ion-card-content no-padding class="card-background-page ion-text-nowrap">
-           <ion-card (click)="onGoToListingDetail(listing.id)" >
-            <img src= "https://indusell.com/storage/{{listings.latest_pictures.filename}}"/>
+           <ion-card padding (click)="onGoToListingDetail(listing.id)" >
+             <div *ngFor = "let img of listings?.latest_pictures">
+               <div *ngIf = "img.id === listing.id">
+            <img src= "https://indusell.com/storage/{{img.filename}}"/>
+          </div>
+        </div>
             <ion-card-title class="card-title">
                 {{listing.title}}
             </ion-card-title>

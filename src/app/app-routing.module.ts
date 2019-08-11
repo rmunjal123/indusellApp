@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'register', loadChildren: './pages/auth/register/register.module#RegisterPageModule' },
   { path: 'profile', loadChildren: './pages/members/profile/profile.module#ProfilePageModule' },
   { path: 'allcategories', loadChildren: './pages/allcategories/allcategories.module#AllcategoriesPageModule' },
+  { path: 'brands', loadChildren: './pages/brands/brands.module#BrandsPageModule' },
 
 
 ];

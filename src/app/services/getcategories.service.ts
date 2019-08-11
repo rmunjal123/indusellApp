@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { DataService } from './data.service';
 import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class GetcategoriesService extends DataService{
-
+export class GetcategoriesService{
+  cat: string;
   categories: any[];
   currentlisting: any;
   currentcategory: any;
@@ -42,16 +43,16 @@ export class GetcategoriesService extends DataService{
     }
   ]
 
-  constructor(http:HttpClient) {
-    super('https://indusell.com/api/home',http);
-
-}
-
-
+  constructor(private http:HttpClient) {}
+    getAll(){
+      console.log('https://www.indusell.com/api/postcategory/' + this.currentcategory);
+      return this.http.get('https://www.indusell.com/api/postcategory/' + this.currentcategory).pipe
+        (map(response => response));
+    }
 getListings(){
   return this.data;
 }
-getCategories(){
-  return this.data;
-}
+// getCategories(){
+//   return this.data;
+// }
 }

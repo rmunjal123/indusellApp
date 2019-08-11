@@ -3,6 +3,7 @@ import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
 import { NavController } from '@ionic/angular';
 import { PasswordValidator } from '../validators/password.validator';
 import { EmailValidator } from '../validators/email.validator';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-register',
@@ -12,19 +13,19 @@ import { EmailValidator } from '../validators/email.validator';
 export class RegisterPage {
   matching_passwords_group: FormGroup;
 
-  constructor(public navCtrl: NavController) { }
+  constructor(public navCtrl: NavController, private authService: AuthenticationService) { }
   ionViewWillLoad() {
 
-    this.matching_passwords_group = new FormGroup({
-      password: new FormControl('', [
-        Validators.minLength(5),
-        Validators.required,
-        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
-      ]),
-      confirm_password: new FormControl('', Validators.required)
-    }, (formGroup: FormGroup) => {
-      return PasswordValidator.areEqual(formGroup);
-    });
+    // this.matching_passwords_group = new FormGroup({
+    //   password: new FormControl('', [
+    //     Validators.minLength(5),
+    //     Validators.required,
+    //     Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
+    //   ]),
+    //   confirm_password: new FormControl('', Validators.required)
+    // }, (formGroup: FormGroup) => {
+    //   return PasswordValidator.areEqual(formGroup);
+    // });
   }
   registerform = new FormGroup({
     name: new FormControl('',Validators.required),
@@ -34,6 +35,13 @@ export class RegisterPage {
       Validators.email,
       EmailValidator.shouldBeUnique
     ]),
+    password: new FormControl('', [
+          Validators.minLength(5),
+          Validators.required,
+          Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
+        ]),
+        confirm_password: new FormControl('', Validators.required),
+    
     terms: new FormControl(true, Validators.pattern('true'))
   });
 
@@ -62,8 +70,10 @@ export class RegisterPage {
     ],
   };
 
-  onSubmit(values){
-    this.navCtrl.navigateForward('src/app/tab3/tab3.page');
-  }
-
-  }
+  onSubmit(input: FormGroup){
+    this.authService.register(input)
+    .subscribe(result => { console.log(result);
+    this.navCtrl.navigateForward(['/tabs/tab1']);
+  });
+}
+}
