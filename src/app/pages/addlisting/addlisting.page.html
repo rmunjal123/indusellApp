@@ -242,20 +242,21 @@
         <ion-button (click)="selectImage()">Choose Images</ion-button>
       </ion-col>
     </ion-row>
-    <ng-container *ngIf="images">  
+    <ng-container *ngIf="photos">  
         <ion-item>  
             <ion-label>Selected Images</ion-label>  
         </ion-item>  
         <ion-item>  
-            <ion-row *ngIf="images.length>0">  
-                <ion-col style="padding:10px;" col-3 *ngFor="let img1 of images;">  
+            <ion-row *ngIf="photos.length>0">  
+                <ion-col style="padding:10px;" col-3 *ngFor="let img1 of photos;">  
                     <ion-card>  
                             <img src="img1"/>  
                     </ion-card>
-                    <ion-item (click)= "deleteImage(imgEntry, position)">Delete Image</ion-item>  
+                    <!-- <ion-item (click)= "deleteImage(imgEntry, position)">Delete Image</ion-item>   -->
                 </ion-col>  
             </ion-row>  
         </ion-item> 
+        <ion-button (click)="UploadImages()">Upload Images</ion-button>
         </ng-container>
     <!--<ion-row>
       <ion-col>

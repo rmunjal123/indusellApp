@@ -25,6 +25,7 @@ import { File } from '@ionic-native/File/ngx';
 //import { ImagePicker } from '@ionic-native/image-picker';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { FilePath } from '@ionic-native/file-path/ngx'
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
     Camera,
     File,
     FileTransfer,
+    FilePath,
     WebView,
     SocialSharing,
     //ImagePicker,

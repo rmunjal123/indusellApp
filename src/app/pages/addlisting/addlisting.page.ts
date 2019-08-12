@@ -5,6 +5,7 @@ import { AppError } from 'src/app/services/common/app-error';
 import { BadInput } from 'src/app/services/common/bad-input';
 //import { ImagePicker } from '@ionic-native/image-picker';
 import { File, FileEntry } from '@ionic-native/File/ngx';
+import { FilePath } from '@ionic-native/file-path/ngx';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/Camera/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
@@ -25,14 +26,15 @@ export class AddlistingPage implements OnInit {
   private addlisting: FormGroup;
 
   images: any[];
-  public imageResponse: any[] = [];
+  public imageResponse: any = [];
+  photos:any=[];
   //imageString: string;
   fileUrl: any = null;
   respData: any;
 
   constructor(private formbuilder: FormBuilder, private createlistings: CreatelistingService, private camera: Camera, private file: File, private webview: WebView,
     private actionSheetController: ActionSheetController, private toastController: ToastController, private storage: Storage, private plt: Platform, private loadingController: LoadingController,
-    private ref: ChangeDetectorRef, private http: HttpClient, private transfer: FileTransfer) { }
+    private ref: ChangeDetectorRef, private http: HttpClient, private transfer: FileTransfer, private filepath:FilePath) { }
   ngOnInit() {
     this.addlisting = new FormGroup({
       post_type: new FormControl('', Validators.required),
@@ -214,20 +216,51 @@ export class AddlistingPage implements OnInit {
       quality: 100,
       sourceType: sourceType,
       saveToPhotoAlbum: false,
-      correctOrientation: true
+      correctOrientation: true,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
     };
     this.camera.getPicture(options).then(imagePath => {
-             let arr = JSON.parse(imagePath);
-             for (var i = 0; i < imagePath.length; i++) {
-              this.images.push(imagePath[i]);}
-             for (let img of arr) {
-             let filePath = this.file.dataDirectory + img;
-             let resPath = this.pathForImage(filePath);
-             this.images.push({ name: img, path: resPath, filePath: filePath });    
-      var currentName = imagePath[i].substr(imagePath.lastIndexOf('/') + 1);
-      var correctPath = imagePath[i].substr(0, imagePath.lastIndexOf('/') + 1);
-      this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
-    }});
+      this.filepath.resolveNativePath(imagePath).then((nativepath)=> {
+        this.photos.push(nativepath);
+      })
+
+    //          let arr = JSON.parse(imagePath);
+    //          for (var i = 0; i < imagePath.length; i++) {
+    //           this.images.push(imagePath[i]);}
+    //          for (let img of arr) {
+    //          let filePath = this.file.dataDirectory + img;
+    //          let resPath = this.pathForImage(filePath);
+    //          this.images.push({ name: img, path: resPath, filePath: filePath });    
+    //   var currentName = imagePath[i].substr(imagePath.lastIndexOf('/') + 1);
+    //   var correctPath = imagePath[i].substr(0, imagePath.lastIndexOf('/') + 1);
+    //   this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+    // }});
+    });
+  }
+  UploadImages(){
+    var interval = 0;
+    function Innerfunc(){
+  const fileTransfer = this.transfer.create();
+  let options: FileUploadOptions= {
+    fileKey:"images",
+    chunkedMode: false,
+    mimeType: "image/jpeg",
+    headers:{}
+  }
+  var serverurl = "https://indusell.com/api/post/182";
+  fileTransfer.upload(this.photos[interval],serverurl,options).then(()=>{
+    interval++;
+    if(interval < this.photos.length){
+      Innerfunc();
+    }
+    else{
+      alert("Successfully Uploaded Images");
+    }
+  })
+    }
+    Innerfunc();
   }
   copyFileToLocalDir(namePath, currentName, newFileName) {
     this.file.copyFile(namePath, currentName, this.file.dataDirectory, newFileName).then(_ => {

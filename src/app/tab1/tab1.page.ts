@@ -3,7 +3,6 @@ import { GetcategoriesService } from '../services/getcategories.service'
 import { Router } from '@angular/router';
 import { IonSlides } from '@ionic/angular';
 import { ListingService } from '../services/listing.service';
-import { IfStmt, identifierModuleUrl } from '@angular/compiler';
 import { AppError } from '../services/common/app-error';
 import { BadInput } from '../services/common/bad-input';
 import { NotFoundError } from '../services/common/not-found-error';
@@ -29,6 +28,12 @@ data = [];
 renderedcategory:any;
 arr = [];
 imgforID = [];
+id_title: string;
+id_price: string;
+listingid: string;
+displayobj: any = {};
+displayobjarr: any = [];
+displaypic: string;
 
 sliderConfig = {
 spaceBetween: 0,
@@ -48,33 +53,36 @@ constructor(private getcategories:GetcategoriesService , private router:Router,p
       this.listings = response;
       console.log(this.listings);
       this.arr = this.listings.latest_pictures;
-      this.listing = this.listings.letest_ads;
-      this.imgforID = this.arr.filter(
-            arr => arr.id === this.listing.id);
-            console.log(this.imgforID);
+      // this.listing = this.listings.letest_ads;
+      // this.imgforID = this.arr.filter(
+      //  arr => arr.id === this.listing.id);
+      //  console.log(this.imgforID);
       // if (this.arr.post_type_id === "2") {
       //   var post_type = "Used";
       // } else {
       //   var post_type = "New";
       // }
       //console.log(this.arr[185].filename);
-      // this.listings.letest_ads.forEach(id => {
-      //     console.log(id);
-      //     var id_title =id['title'];
-      //     console.log(id_title);
-      //     var id_price=id['price'];
-      //     var listingid = id.id;
-      //     console.log(listingid);
-      //     this.imgforID = this.arr.filter(
-      //     arr => arr.id === listingid);
-      //     console.log(this.imgforID);
-      //     var displaypic = this.imgforID[0];
-      //     console.log(displaypic['filename']);
+      this.listings.letest_ads.forEach(id => {
+          // console.log(id);
+          // this.id_title =id['title'];
+          // console.log(this.id_title);
+          // this.id_price=id['price'];
+          this.listingid = id.id;
+          console.log(this.listingid);
+          this.imgforID = this.arr.filter(
+          arr => arr.id === this.listingid);
+          console.log(this.imgforID);
+          if (this.imgforID.length > 0) {
+          this.displaypic = this.imgforID[0].filename;
+          console.log(this.displaypic);}
+          this.displayobj = { id:this.listingid, displaypic: this.displaypic}
+          this.displayobjarr.push(this.displayobj);
+          console.log (this.displayobjarr);
+          });
           
-      // });
-      //});
-      
-  })}
+      });
+    } 
     //createListing(input:HTMLImputElement){
     //   let listing = { title: input.value};
     //   input.value = '';

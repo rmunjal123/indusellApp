@@ -109,9 +109,9 @@
           <ion-col size="6" no-padding *ngFor = "let listing of listings?.letest_ads">
           <ion-card-content no-padding class="card-background-page ion-text-nowrap">
            <ion-card padding (click)="onGoToListingDetail(listing.id)" >
-             <div *ngFor = "let img of listings?.latest_pictures">
+             <div *ngFor = "let img of displayobjarr">
                <div *ngIf = "img.id === listing.id">
-            <img src= "https://indusell.com/storage/{{img.filename}}"/>
+            <img src= "https://indusell.com/storage/{{img.displaypic}}"/>
           </div>
         </div>
             <ion-card-title class="card-title">
