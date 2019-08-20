@@ -50,7 +50,8 @@ login(credentials) {
  return this.http.post('https://www.indusell.com/api/Applogin', credentials).pipe
  (map(response => {
    console.log(response);
-   if (response === "Login Successfully") {
+   if (response['message'] === "Authorised") {
+    this.currentUser = response['id'];
      //     localStorage.setItem('token', result.token);
 
      //     let jwt = new JwtHelperService();

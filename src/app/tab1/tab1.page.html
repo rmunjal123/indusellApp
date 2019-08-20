@@ -41,7 +41,7 @@
 </ion-toolbar>
 <ion-slides [options]="sliderConfig">
   <ion-slide *ngFor= "let cat of listings?.category" (click)="onGoToCategoryPage(cat.name)">
-    <ion-card class="ion-text-nowrap" >
+    <ion-card class="category-slider ion-text-nowrap" >
       <ion-img cache ="true" src= "https://indusell.com/storage/{{cat.picture}}">
         </ion-img>
       <ion-card-header>

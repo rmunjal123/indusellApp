@@ -170,7 +170,7 @@ export class AddetailsPage implements OnInit {
     this.socialSharing.shareViaFacebook(null, null, this.url).then(() => {
       console.log('shared');
     }).catch((e) => {
-      // Error!
+      console.log(e);
     });
   }
   removeHTMLTags(stringdata){

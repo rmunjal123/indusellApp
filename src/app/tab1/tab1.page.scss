@@ -17,8 +17,35 @@
 // .ion-card {
 //   flex-basis: 100%;
 // }
-.card-background-page {
+.category-slider {
+  ion-card {
+    img {
+      height: 25vh !important;
+      width: 100% !important;
+      align-items: center;
+  }
+    position: relative;
+    text-align: bottom;
+  }
 
+  .card-title {
+    position: absolute;
+    top: 36%;
+    font-size: 1.0em;
+    width: 100%;
+    font-weight: bold;
+    color: #000;
+  }
+  .card-subtitle {
+    font-size: 1.0em;
+    position: absolute;
+    top: 52%;
+    width: 100%;
+    color: #000;
+  }
+}
+
+.card-background-page {
   ion-card {
     img {
       height: 25vh !important;
@@ -27,8 +54,8 @@
   }
     position: relative;
     text-align: center;
+    height: 45vh !important;
   }
-
   .card-title {
     //position: absolute;
     //top: 36%;
@@ -46,30 +73,4 @@
     //color: #fff;
   }
 }
-  .category-slider {
-    ion-card {
-      img {
-        height: 30vh !important;
-        width: 100% !important;
-        align-items: center;
-    }
-      position: relative;
-      text-align: bottom;
-    }
   
-    .card-title {
-      position: absolute;
-      top: 36%;
-      font-size: 1.0em;
-      width: 100%;
-      font-weight: bold;
-      color: #000;
-    }
-    .card-subtitle {
-      font-size: 1.0em;
-      position: absolute;
-      top: 52%;
-      width: 100%;
-      color: #000;
-    }
-  }

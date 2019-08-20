@@ -9,10 +9,16 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class Tab4Page implements OnInit {
 
+  UserId: Number;
+
   constructor(private authService: AuthenticationService,
               private router: Router) { }
 
   ngOnInit() {
+  }
+  myProfilePage(){
+    this.UserId = this.authService.currentUser;
+    this.router.navigate(['/profile/'+ this.UserId]);
   }
   logout() {
      this.authService.logout();
