@@ -17,7 +17,7 @@ export class Tab4Page implements OnInit {
   ngOnInit() {
   }
   myProfilePage(){
-    this.UserId = this.authService.currentUser;
+    this.UserId = this.authService.currentUserId;
     this.router.navigate(['/profile/'+ this.UserId]);
   }
   logout() {

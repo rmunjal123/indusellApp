@@ -17,14 +17,20 @@ const TOKEN_KEY = 'auth-token';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  currentUser: any; 
+  userdetails: any;
+  currentUserId: any; 
+  currentUserName:any;
+  currentUserPhone: any;
+  currentUserEmail: any;
+  currentUserVerifiedEmail: any;
+  currentUserVerifiedPhone: any;
   authenticationState = new BehaviorSubject(false);
 
  constructor(private storage: Storage, private plt: Platform, private http:HttpClient) {
   let token = localStorage.getItem('token');
   if (token) {
     let jwt = new JwtHelperService();
-    this.currentUser = jwt.decodeToken(token);
+    this.currentUserId = jwt.decodeToken(token);
   }
 }
 
@@ -51,7 +57,14 @@ login(credentials) {
  (map(response => {
    console.log(response);
    if (response['message'] === "Authorised") {
-    this.currentUser = response['id'];
+    this.userdetails = response["0"][0];
+    this.currentUserId = this.userdetails["id"];
+    console.log(this.currentUserId);
+    this.currentUserName = this.userdetails["name"];
+    this.currentUserPhone = this.userdetails["phone"];
+    this.currentUserEmail = this.userdetails["email"];
+    this.currentUserVerifiedEmail = this.userdetails["verified_email"];
+    this.currentUserVerifiedPhone = this.userdetails["verified_phone"];
      //     localStorage.setItem('token', result.token);
 
      //     let jwt = new JwtHelperService();

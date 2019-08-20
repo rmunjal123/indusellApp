@@ -1,26 +1,245 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-buttons slot="start">
+      <ion-back-button defaultHref="/dashboard"></ion-back-button>
     </ion-buttons>
-    <ion-searchbar placeholder="What"></ion-searchbar>
-    <ion-title>
-      Search
-    </ion-title>
+    <ion-title>Create Listing</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-button full (click)="getPermission()">Get Permission</ion-button>
-  <ion-button full (click)="startListening()">Start Listening</ion-button>
-  <ion-button full (click)="stopListening()" *ngIf="IsIos()">Stop Listening</ion-button>
-  <ion-card>
-    <ion-card-header>This is what I understood...</ion-card-header>
-    <ion-card-content>
-      <ion-list>
-        <ion-item *ngFor = "let match of matches">
-          {{ match }}
-        </ion-item>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
-</ion-content>
+<form [formGroup]="addlist" (ngSubmit)="onSubmit(addlist.value)">
+<ion-radio-group formControlName = "post_type">
+ <ion-row>
+  <ion-item>
+    <ion-list-header>
+     <h6>Package Type :</h6>
+  </ion-list-header>
+ </ion-item>
+<ion-row>
+  <ion-item>
+   <ion-col>Free</ion-col>
+    <ion-radio mode="md" item-right value="Free" checked></ion-radio>
+  </ion-item>
+</ion-row>
+
+<ion-row>
+<ion-item>
+  <ion-col>Paid</ion-col>
+    <ion-radio mode="md" item-start value="Paid"></ion-radio>
+</ion-item>
+</ion-row>
+</ion-row>
+</ion-radio-group>
+<br>
+<ion-item>
+  <ion-row>
+  <ion-list-header>
+  <h6>Category :</h6>
+  </ion-list-header>
+  </ion-row>
+  <ion-col><ion-textarea rows="1" cols="5" placeholder="Select a category" color="dark"></ion-textarea></ion-col>
+  <ion-select formControlName = "category_id" multiple="false" cancelText="Cancel" okText="OK">
+  <ion-select-option value="17">Electrical</ion-select-option>
+  <ion-select-option value="Mechanical">Mechanical</ion-select-option>
+  <ion-select-option value="Risty">Computers</ion-select-option>
+  <ion-select-option value="Instruments">Instruments</ion-select-option>
+  <ion-select-option value="General">General</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<br>
+
+
+
+<ion-radio-group formControlName = "post_type_id">
+<ion-row>
+<ion-item>
+  <ion-list-header>
+  <h6>Type :</h6>
+</ion-list-header>
+</ion-item>
+<ion-row>
+  <ion-item>
+    <ion-col>New</ion-col>
+    <ion-radio mode="md" item-right value="1" ></ion-radio>
+  </ion-item>
+</ion-row>
+<ion-row>
+  <ion-item>
+    <ion-col>Used</ion-col>
+  <ion-radio mode="md" item-right value="2" checked></ion-radio>
+</ion-item>
+</ion-row>
+</ion-row>
+</ion-radio-group>
+
+<ion-list>
+  <ion-item>
+    <ion-row>
+     <ion-list-header>
+    <h6>Title :</h6>
+  </ion-list-header>
+</ion-row>
+  <ion-col><ion-textarea formControlName = "title" rows="1" cols="5" placeholder="Ad Title"></ion-textarea></ion-col>
+</ion-item>
+</ion-list>
+
+<ion-list>
+  <ion-item>
+      <ion-list-header>
+        <h6>Description :</h6>
+      </ion-list-header>
+  </ion-item>
+
+  <ion-item>
+      <ion-label></ion-label>
+      <ion-textarea formControlName = "description" rows="8" cols="20" placeholder="Enter description here..."></ion-textarea>
+  </ion-item>
+
+
+<ion-item>
+      <ion-row>
+    <ion-list-header>
+  <h6>Price/Unit :</h6>
+</ion-list-header>
+  </ion-row>
+      <ion-col><ion-textarea formControlName = "price" rows="1" cols="5" placeholder="eg 15000" color="dark"></ion-textarea></ion-col>
+</ion-item>
+<ion-row>Negotiable</ion-row>
+<ion-checkbox slot="end"
+></ion-checkbox>
+
+<ion-item>
+  <ion-row>
+    <ion-list-header>
+    <h6>Location :</h6>
+  </ion-list-header>
+</ion-row>
+    <ion-col><ion-textarea rows="1" cols="5" placeholder="Select Location" color="dark"></ion-textarea></ion-col>
+    <ion-select formControlName = "country_code" multiple="false" cancelText="Cancel" okText="OK">
+    <ion-select-option value="Select Location">Select Location</ion-select-option>
+    <ion-select-option value="SG">Singapore</ion-select-option>
+</ion-select>
+</ion-item>
+
+<ion-item>
+ <ion-row>
+  <ion-list-header>
+  <h6>City :</h6>
+ </ion-list-header>
+</ion-row>
+   <ion-col><ion-textarea rows="1" cols="5" placeholder="Select a City" color="dark"></ion-textarea></ion-col>
+   <ion-select formControlName = "city_id" multiple="false" cancelText="Cancel" okText="OK">
+   <ion-select-option value="Select Location">Select Location</ion-select-option>
+   <ion-select-option value="15000000">Singapore</ion-select-option>
+ </ion-select>
+</ion-item>
+
+<ion-item>
+  <ion-row>
+  <ion-list-header>
+  <h6>Industry :</h6>
+  </ion-list-header>
+</ion-row>
+   <ion-col><ion-textarea rows="1" cols="5" placeholder="Select a industry" color="dark"></ion-textarea></ion-col>
+   <ion-select multiple="false" cancelText="Cancel" okText="OK">
+   <ion-select-option value="Electrical">Electrical</ion-select-option>
+   <ion-select-option value="Mechanical">Mechanical</ion-select-option>
+   <ion-select-option value="Risty">Risty Choice</ion-select-option>
+   <ion-select-option value="Instruments">Instruments</ion-select-option>
+   <ion-select-option value="General">General</ion-select-option>
+   </ion-select>
+</ion-item>
+
+<ion-item>
+  <ion-row>
+  <ion-list-header>
+  <h6>Brands :</h6>
+  </ion-list-header>
+</ion-row>
+   <ion-col><ion-textarea rows="1" cols="5" placeholder="Select Brands" color="dark"></ion-textarea></ion-col>
+   <ion-select multiple="false" cancelText="Cancel" okText="OK">
+   <ion-select-option value="Samsung">Samsung</ion-select-option>
+   <ion-select-option value="Apel">Apel</ion-select-option>
+   <ion-select-option value="Philips">Philips</ion-select-option>
+   <ion-select-option value="Syska">Syska</ion-select-option>
+   <ion-select-option value="Kirloskar">Kirloskar</ion-select-option>
+</ion-select>
+</ion-item>
+
+<ion-item>
+ <ion-row>
+  <ion-list-header>
+  <h6>Video Link :</h6>
+  </ion-list-header>
+ </ion-row>
+   <ion-col><ion-textarea rows="1" cols="5" placeholder="" color="dark"></ion-textarea></ion-col>
+</ion-item>
+
+<ion-item>
+  <ion-row>
+    <ion-list-header>
+    <h6>Tags :</h6>
+  </ion-list-header>
+</ion-row>
+    <ion-col><ion-textarea rows="1" cols="5" placeholder="add a tag" color="dark"></ion-textarea></ion-col>
+</ion-item>
+<br>
+</ion-list>
+     <ion-button text-center type="submit">Submit</ion-button>
+</form>
+
+<!-- <ion-list-header>
+  <h6>Upload Images</h6>
+</ion-list-header>
+<h3 *ngIf = "images.length === 0 " text-center>Please select Image</h3>
+<ion-list>
+  <ion-item *ngFor = " let img of images; index as pos "></ion-item>
+</ion-list> -->
+<ion-grid>
+    <ion-row>
+      <ion-col text-center>
+        <h3>Image Picker</h3>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <ion-button (click)="selectImage()">Choose Images</ion-button>
+      </ion-col>
+    </ion-row>
+    <ng-container *ngIf="photos">  
+        <ion-item>  
+            <ion-label>Selected Images</ion-label>  
+        </ion-item>  
+        <ion-item>  
+            <ion-row *ngIf="photos.length>0">  
+                <ion-col style="padding:10px;" col-3 *ngFor="let img1 of photos;">  
+                    <ion-card>  
+                            <img src="img1"/>  
+                    </ion-card>
+                    <!-- <ion-item (click)= "deleteImage(imgEntry, position)">Delete Image</ion-item>   -->
+                </ion-col>  
+            </ion-row>  
+        </ion-item> 
+        <ion-button (click)="UploadImages()">Upload Images</ion-button>
+        </ng-container>
+    <!--<ion-row>
+      <ion-col>
+         More Pinterest floating gallery style 
+        <div class="images">
+          <div class="one-image" *ngIf="imageLists">
+            <ion-slides *ngIf= "imageResponse.length>0">
+                <ion-slide *ngFor= "let image of imageResponse;">
+                  <ion-card class="category-block" >
+                    <ion-img [src] = "image" alt="" srcset=""></ion-img>
+                  </ion-card>
+                </ion-slide>
+              </ion-slides>
+            <img src="{img}}" alt="" srcset="">>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>-->
+

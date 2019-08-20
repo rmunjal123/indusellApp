@@ -15,9 +15,10 @@ import { fakeBackendProvider } from './helpers/fake-backend';
 import { MockBackend } from '@angular/http/testing';
 import { AuthenticationService } from './services/authentication.service';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppErrorHandler } from './services/common/app-error-handler';
+import { CreatelistingService } from 'src/app/services/createlisting.service';
 
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { Camera } from '@ionic-native/Camera/ngx';
@@ -38,6 +39,8 @@ import { FilePath } from '@ionic-native/file-path/ngx'
     IonicStorageModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     HttpModule],
 
   providers: [
@@ -45,6 +48,7 @@ import { FilePath } from '@ionic-native/file-path/ngx'
     StatusBar,
     SplashScreen,
     AuthenticationService,
+    CreatelistingService,
     SpeechRecognition,
     fakeBackendProvider,
     ReactiveFormsModule,
