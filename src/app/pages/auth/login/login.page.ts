@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { NavController, LoadingController } from '@ionic/angular';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { Router } from '@angular/router'
+import { Router, ActivatedRoute } from '@angular/router'
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 
 //import { PasswordValidator } from '../../validators/password.validator';
@@ -37,7 +37,7 @@ export class LoginPage {
               public formBuilder: FormBuilder, 
               public loadingCtrl: LoadingController, 
               private authService: AuthenticationService,
-              private router: Router) { }
+              private router: Router,private route: ActivatedRoute) { }
   ionViewWillLoad() {
     /*this.matching_passwords_group = new FormGroup({
       password: new FormControl('',[
@@ -95,7 +95,8 @@ export class LoginPage {
       console.log(result); 
       if (this.authService.isAuthenticated())
        {
-        this.router.navigate(['/tabs/tab4']); 
+        let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl')
+        this.router.navigate([returnUrl || '/tabs/tab1']); 
        }
        else
         this.router.navigate(['/login']); 

@@ -39,10 +39,10 @@
   Categories
 </ion-title>
 </ion-toolbar>
-<ion-slides [options]="sliderConfig">
+<ion-slides [options]="sliderConfig_Category">
   <ion-slide *ngFor= "let cat of listings?.category" (click)="onGoToCategoryPage(cat.name)">
-    <ion-card class="category-slider ion-text-nowrap" >
-      <ion-img cache ="true" src= "https://indusell.com/storage/{{cat.picture}}">
+    <ion-card class="category-slider ion-text-nowrap">
+      <ion-img style="height: 80px;" src= "https://indusell.com/storage/{{cat.picture}}">
         </ion-img>
       <ion-card-header>
         <ion-card-subtitle>{{cat.name}}</ion-card-subtitle>
@@ -57,7 +57,7 @@
     Brands
   </ion-title>
   </ion-toolbar>
-  <ion-slides [options]="sliderConfig">
+  <ion-slides [options]="sliderConfig_Brand">
     <ion-slide *ngFor= "let brand of listings?.brands" (click)="onGoToBrandPage(brand.brand_id)">
       <ion-card class="category-block" style="width: 80px; height: 80px;">
         <ion-img style="width: 80px; height: 80px;" src = "https://indusell.com/storage/app/default/brands/{{brand.brand_logo}}"></ion-img>
@@ -108,18 +108,33 @@
           <ion-row>
           <ion-col size="6" no-padding *ngFor = "let listing of listings?.letest_ads">
           <ion-card-content no-padding class="card-background-page ion-text-nowrap">
-           <ion-card padding (click)="onGoToListingDetail(listing.id)" >
+           <ion-card (click)="onGoToListingDetail(listing.id)" >
              <div *ngFor = "let img of displayobjarr">
                <div *ngIf = "img.id === listing.id">
-            <img src= "https://indusell.com/storage/{{img.displaypic}}"/>
-          </div>
-        </div>
+               <img src= "https://indusell.com/storage/{{img.displaypic}}"/>
+               </div>
+             </div>
+          <ion-card-header>
             <ion-card-title class="card-title">
-                {{listing.title}}
+              {{listing.title}}
             </ion-card-title>
-            <ion-card-subtitle class="card-subtitle">S${{listing.price}}</ion-card-subtitle>
-            <ion-badge color="light">{{listing.visits}}</ion-badge>
-            <ion-badge color="light">{{listing.post_type_id}}</ion-badge>
+            <ion-card-subtitle class="card-subtitle">
+              S${{listing.price}}
+            </ion-card-subtitle>
+          </ion-card-header>
+            <ion-list>
+             <ion-item class = "card-item">
+              <ion-icon name="eye" position="start"></ion-icon>
+              <ion-input readonly="true">{{listing.visits}}</ion-input>
+              <ion-badge color="light">{{listing.post_type_id}}</ion-badge>
+             </ion-item>
+             <ion-item class = "card-item">
+                <ion-icon name="pin" position="end"></ion-icon>
+                <ion-input readonly="true">{{listing.country_code}}</ion-input>
+                <ion-icon name="star-outline"></ion-icon>
+             </ion-item>
+            </ion-list>
+          
           </ion-card>
         </ion-card-content>
           </ion-col>

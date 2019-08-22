@@ -27,6 +27,7 @@ categories = [];
 data = [];
 renderedcategory:any;
 arr = [];
+ratingarr =[];
 imgforID = [];
 id_title: string;
 id_price: string;
@@ -35,11 +36,17 @@ displayobj: any = {};
 displayobjarr: any = [];
 displaypic: string;
 
-sliderConfig = {
-spaceBetween: 0,
-centeredSlides: false,
-slidesPerView:2.4
+  sliderConfig_Category = {
+    spaceBetween: 0,
+    centeredSlides: false,
+    slidesPerView: 2.4
   }
+
+  sliderConfig_Brand = {
+    spaceBetween: 0,
+    centeredSlides: false,
+    slidesPerView: 3.4
+  }  
 constructor(private getcategories:GetcategoriesService , private router:Router,private newlistings:ListingService,
   private listingdetails: ListingdetailsService,private sellerdetails: SellerdetailsService,private getbrands:GetbrandsService){}
 
@@ -53,6 +60,7 @@ constructor(private getcategories:GetcategoriesService , private router:Router,p
       this.listings = response;
       console.log(this.listings);
       this.arr = this.listings.latest_pictures;
+      this.ratingarr = this.listings.post_reviews;
       // this.listing = this.listings.letest_ads;
       // this.imgforID = this.arr.filter(
       //  arr => arr.id === this.listing.id);
@@ -140,7 +148,7 @@ constructor(private getcategories:GetcategoriesService , private router:Router,p
     // Optional parameters to pass to the swiper instance. See http://idangero.us/swiper/api/ for valid options.
     slideOpts = {
       initialSlide: 1,
-      speed: 400
+      speed: 5000
     }
     loadData(event){
     console.log(event);

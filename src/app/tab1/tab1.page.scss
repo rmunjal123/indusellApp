@@ -20,7 +20,7 @@
 .category-slider {
   ion-card {
     img {
-      height: 25vh !important;
+      height: 35vh !important;
       width: 100% !important;
       align-items: center;
   }
@@ -54,7 +54,6 @@
   }
     position: relative;
     text-align: center;
-    height: 45vh !important;
   }
   .card-title {
     //position: absolute;
@@ -71,6 +70,9 @@
     //top: 52%;
     width: 100%;
     //color: #fff;
+  }
+  .card-item{
+    font-size: 1.0em;
   }
 }
   
