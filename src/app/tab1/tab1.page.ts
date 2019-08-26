@@ -35,6 +35,7 @@ listingid: string;
 displayobj: any = {};
 displayobjarr: any = [];
 displaypic: string;
+bannerarr = {};
 
   sliderConfig_Category = {
     spaceBetween: 0,
@@ -59,6 +60,7 @@ constructor(private getcategories:GetcategoriesService , private router:Router,p
     .subscribe(response => { 
       this.listings = response;
       console.log(this.listings);
+      this.bannerarr = this.listings.banner_images;
       this.arr = this.listings.latest_pictures;
       this.ratingarr = this.listings.post_reviews;
       // this.listing = this.listings.letest_ads;
@@ -87,6 +89,7 @@ constructor(private getcategories:GetcategoriesService , private router:Router,p
           this.displayobj = { id:this.listingid, displaypic: this.displaypic}
           this.displayobjarr.push(this.displayobj);
           console.log (this.displayobjarr);
+
           });
           
       });

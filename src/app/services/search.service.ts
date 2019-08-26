@@ -11,7 +11,7 @@ export class SearchService {
   getAll(searchtext){
     console.log('https://indusell.com/api/search/' + searchtext);
     return this.http.get('https://indusell.com/api/search/' + searchtext).pipe
-    (map(response => console.log(response)));
+    (map(response => response));
   }
 }
 

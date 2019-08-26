@@ -6,4 +6,13 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-input type = "text" [(ngModel)]= "message"></ion-input>
+    <ion-icon name="send" slot="end" (click)="sendMessage()"></ion-icon>
+
+  </ion-toolbar>
+</ion-footer>

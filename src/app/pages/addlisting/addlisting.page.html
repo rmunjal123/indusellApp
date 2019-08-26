@@ -6,16 +6,19 @@
     <ion-title>Create Listing</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content >
-<form [formGroup]="addlisting" (ngSubmit)="onSubmit(addlisting.value)">
+
+<ion-content padding class="form-content">
+<form class="form" [formGroup]="addlisting" (ngSubmit)="onSubmit(addlisting.value)">
+  <ion-item>
 <ion-radio-group formControlName = "post_type">
- <ion-row>
+  </ion-item>
+ <!-- <ion-row> -->
   <ion-item>
     <ion-list-header>
      <h6>Package Type :</h6>
   </ion-list-header>
  </ion-item>
-<ion-row>
+<!-- <ion-row> -->
   <ion-item>
    <ion-col>Free</ion-col>
     <ion-radio mode="md" item-right value="Free" checked></ion-radio>
@@ -105,9 +108,17 @@
   </ion-row>
       <ion-col><ion-textarea formControlName = "price" rows="1" cols="5" placeholder="eg 15000" color="dark"></ion-textarea></ion-col>
 </ion-item>
-<ion-row>Negotiable</ion-row>
-<ion-checkbox slot="end"
-></ion-checkbox>
+
+<ion-item>
+<ion-row>
+  <ion-list-header>
+  <h6>Negotiable</h6>
+</ion-list-header>
+</ion-row>
+<ion-col>
+<ion-checkbox slot="end" ></ion-checkbox>
+</ion-col>
+</ion-item>
 
 <ion-item>
   <ion-row>

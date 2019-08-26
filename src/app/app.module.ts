@@ -26,7 +26,23 @@ import { File } from '@ionic-native/File/ngx';
 //import { ImagePicker } from '@ionic-native/image-picker';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
-import { FilePath } from '@ionic-native/file-path/ngx'
+import { FilePath } from '@ionic-native/file-path/ngx';
+
+import { AngularFireModule} from '@angular/fire';
+import { AngularFirestoreModule  } from '@angular/fire/firestore';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { environment } from '../environments/environment';
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB-I0oVXxgBHcniQXYQfOL6QxXEPawdM08",
+  authDomain: "classifiedapp-83da5.firebaseapp.com",
+  databaseURL: "https://classifiedapp-83da5.firebaseio.com",
+  projectId: "classifiedapp-83da5",
+  storageBucket: "",
+  messagingSenderId: "479831116894",
+  appId: "1:479831116894:web:309637f554ecf9d0"
+};
 
 
 @NgModule({
@@ -41,7 +57,9 @@ import { FilePath } from '@ionic-native/file-path/ngx'
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule],
+    HttpModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule],
 
   providers: [
     ListingService,

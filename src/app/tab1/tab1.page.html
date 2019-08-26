@@ -19,14 +19,14 @@
         </ion-fab-button>
       </ion-fab>
     <!-- auto rotating slider at the top -->
-    <ion-slides autoplay= "2000" pager="true" [options]="slideOpts">
+    <ion-slides autoplay= "1000" pager="true" [options]="slideOpts">
         <ion-slide>
           <h1>Slide 1</h1>
-          <ion-img src="/assets/shapes.svg"></ion-img>
+          <ion-img src="listings?.banner_images.background_image"></ion-img>
         </ion-slide>
         <ion-slide>
           <h1>Slide 2</h1>
-          <ion-img src="/assets/shapes.svg"></ion-img>
+          <ion-img src="listings?.banner_images.background_image-a"></ion-img>
         </ion-slide>
         <ion-slide>
           <h1>Slide 3</h1>
@@ -42,7 +42,7 @@
 <ion-slides [options]="sliderConfig_Category">
   <ion-slide *ngFor= "let cat of listings?.category" (click)="onGoToCategoryPage(cat.name)">
     <ion-card class="category-slider ion-text-nowrap">
-      <ion-img style="height: 80px;" src= "https://indusell.com/storage/{{cat.picture}}">
+      <ion-img style="width: 120px;height: 80px;" src= "https://indusell.com/storage/{{cat.picture}}">
         </ion-img>
       <ion-card-header>
         <ion-card-subtitle>{{cat.name}}</ion-card-subtitle>
