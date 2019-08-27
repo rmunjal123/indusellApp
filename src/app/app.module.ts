@@ -32,6 +32,9 @@ import { AngularFireModule} from '@angular/fire';
 import { AngularFirestoreModule  } from '@angular/fire/firestore';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { environment } from '../environments/environment';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { database } from 'firebase';
+
 
 
 const firebaseConfig = {
@@ -39,7 +42,7 @@ const firebaseConfig = {
   authDomain: "classifiedapp-83da5.firebaseapp.com",
   databaseURL: "https://classifiedapp-83da5.firebaseio.com",
   projectId: "classifiedapp-83da5",
-  storageBucket: "",
+  storageBucket: "classifiedapp-83da5.appspot.com",
   messagingSenderId: "479831116894",
   appId: "1:479831116894:web:309637f554ecf9d0"
 };
@@ -72,6 +75,7 @@ const firebaseConfig = {
     ReactiveFormsModule,
     MockBackend,
     BaseRequestOptions,
+    AngularFireDatabase,
     Camera,
     File,
     FileTransfer,

@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: 'profile', loadChildren: './pages/members/profile/profile.module#ProfilePageModule' },
   { path: 'allcategories', loadChildren: './pages/allcategories/allcategories.module#AllcategoriesPageModule' },
   { path: 'brands', loadChildren: './pages/brands/brands.module#BrandsPageModule' },
+  { path: 'buddychat', loadChildren: './pages/buddychat/buddychat.module#BuddychatPageModule' },
 
 
 ];

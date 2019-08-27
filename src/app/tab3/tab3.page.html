@@ -6,13 +6,25 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content #content>
+  <div class="chatwindow">
+    <ion-list no-lines>
+      <ion-item *ngFor="let item of allmessages; let i = index" text-wrap>
+       <!-- <div class="bubble me" *ngIf="item.sentby === buddy.uid"> -->
+        <h3>{{item.message}}</h3>
+       <!-- </div> -->
+       <!-- <div class="bubble you" *ngIf="item.sentby != buddy.uid"> -->
+        <h3>{{item.message}}</h3>
+       <!-- </div> -->
+      </ion-item>
+    </ion-list>
+  </div>
 
 </ion-content>
 <ion-footer>
   <ion-toolbar>
     <ion-input type = "text" [(ngModel)]= "message"></ion-input>
-    <ion-icon name="send" slot="end" (click)="sendMessage()"></ion-icon>
+    <ion-icon name="send" slot="end" (click)="sendMessage(msg)"></ion-icon>
 
   </ion-toolbar>
 </ion-footer>
