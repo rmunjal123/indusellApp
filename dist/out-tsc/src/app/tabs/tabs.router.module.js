@@ -2,6 +2,7 @@ import * as tslib_1 from "tslib";
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TabsPage } from './tabs.page';
+import { AuthGuard } from 'src/app/guards/auth.guard';
 var routes = [
     {
         path: 'tabs',
@@ -21,6 +22,7 @@ var routes = [
                 children: [
                     {
                         path: '',
+                        canActivate: [AuthGuard],
                         loadChildren: '../tab2/tab2.module#Tab2PageModule'
                     }
                 ]
@@ -39,7 +41,7 @@ var routes = [
                 children: [
                     {
                         path: '',
-                        //canActivate: [AuthGuard],
+                        canActivate: [AuthGuard],
                         loadChildren: '../tab4/tab4.module#Tab4PageModule'
                     }
                 ]

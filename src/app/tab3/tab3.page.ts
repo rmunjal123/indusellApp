@@ -22,24 +22,45 @@ export class Tab3Page {
   message: string = '';
   subscription: any;
   chatroom: string = '';
-  buddymessages:any = [];
+  buddymessages: any = [];
+  newmessage: ''
+  arr: any = [];
+  buddy: string = 'buddy';
+  allmessages: any = [];
 
   firebuddychats = firebase.database().ref('/buddychats');
-  buddy: string = 'buddy';
-  allmessages:any = [];
- constructor(public db: AngularFireDatabase,public authservice: AuthenticationService,
-             public sellerdetails: SellerdetailsService, public event: Events, public zone: NgZone) {
+
+
+  constructor(public db: AngularFireDatabase, public authservice: AuthenticationService,
+    public sellerdetails: SellerdetailsService, public event: Events, public zone: NgZone) {
+
+  
    this.username = this.authservice.currentUserName;
    console.log(this.username);
    this.othersellername = this.sellerdetails.seller_name;
-   this.event.subscribe('newmessage',()=>{
-     this.allmessages = [];
-    //  this.zone.run(() => {
-     this.allmessages = this.buddymessages;
-     console.log(this.allmessages);
-   }) 
-  // })
-}
+   
+    this.firebuddychats.child(this.username).child(this.buddy).limitToLast(1).on('value', function (snapshotChanges) {
+      let msg = snapshotChanges.val();
+      console.log(snapshotChanges.val());
+      let arr = [];
+      let allmessages = [];
+      for (var tempkey in msg) {
+        arr.push(msg[tempkey]);
+        console.log(arr);
+        //this.allmessages = arr;
+       //console.log(this.allmessages);
+      };
+      allmessages = arr;
+      console.log(allmessages)
+    })
+    //this.event.publish('newmessage', this.arr);
+    //this.event.subscribe('newmessage',()=>{
+      //  this.zone.run(() => {
+       
+     //}) 
+    // })
+  }
+
 
   // initializebuddy(buddy){
   //   this.buddy = buddy;
@@ -71,7 +92,7 @@ export class Tab3Page {
         })
        })
      })
-    //  return promise;
+    return promise;
    }
   // this.db.list('/'+this.username +'-'+ this.othersellername).push({
   //   username: this.username,
@@ -79,18 +100,40 @@ export class Tab3Page {
   //   timestamp: firebase.database.ServerValue.TIMESTAMP
   // })
  }
- getbuddymessages(){
-   this.buddymessages = [];
-   let temp;
-   this.firebuddychats.child(this.username).child(this.buddy).on('value',(snapshotChanges) => {
-     temp = snapshotChanges.val();
-     for (var tempkey in temp){
-       this.buddymessages.push([temp]);
-     }
-     this.event.publish('newmessage',this.buddymessages) ;
-     console.log(this.buddymessages);
 
+ addmessage(){
+   this.sendMessage(this.newmessage).then(()=> {
+     this.newmessage = ''
    })
  }
+
+ ionViewDidEnter() {
+  this.getbuddymessages();
+  //this.test();
 }
+
+  getbuddymessages() {
+    this.firebuddychats.child(this.username).child(this.buddy).on('value', function (snapshotChanges) {
+      let msg = snapshotChanges.val();
+      console.log(snapshotChanges.val());
+      let arr = [];
+    })}
+   
+  // test(){
+  //     this.firebuddychats.child(this.username).child(this.buddy).limitToLast(1).on('value', function (snapshotChanges){
+  //       let msg = snapshotChanges.val();
+  //     console.log(snapshotChanges.val());
+  //     let arr = [];
+  //       for (var tempkey in msg) {
+  //         arr.push(msg[tempkey]);
+  //         console.log(arr);
+  //         this.
+  //         this.event.publish('newmessage',arr);
+  //     };
+
+      
+  //     })
+  //   }
+      //return(this.buddymessages)
+  }
 

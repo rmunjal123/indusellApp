@@ -1,6 +1,7 @@
 import * as tslib_1 from "tslib";
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 var GetcategoriesService = /** @class */ (function () {
     function GetcategoriesService(http) {
         this.http = http;
@@ -33,22 +34,19 @@ var GetcategoriesService = /** @class */ (function () {
                 ]
             }
         ];
-        http.get('https://jsonplaceholder.typicode.com/posts')
-            .subscribe(function (response) {
-            console.log(response.json());
-        });
     }
-    GetcategoriesService.prototype.getListings = function () {
-        return this.data;
+    GetcategoriesService.prototype.getAll = function () {
+        console.log('https://www.indusell.com/api/postcategory/' + this.currentcategory);
+        return this.http.get('https://www.indusell.com/api/postcategory/' + this.currentcategory).pipe(map(function (response) { return response; }));
     };
-    GetcategoriesService.prototype.getCategories = function () {
+    GetcategoriesService.prototype.getListings = function () {
         return this.data;
     };
     GetcategoriesService = tslib_1.__decorate([
         Injectable({
             providedIn: 'root'
         }),
-        tslib_1.__metadata("design:paramtypes", [Http])
+        tslib_1.__metadata("design:paramtypes", [HttpClient])
     ], GetcategoriesService);
     return GetcategoriesService;
 }());

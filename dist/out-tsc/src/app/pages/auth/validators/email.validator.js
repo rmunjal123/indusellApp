@@ -4,7 +4,7 @@ var EmailValidator = /** @class */ (function () {
     EmailValidator.shouldBeUnique = function (control) {
         return new Promise(function (resolve, reject) {
             setTimeout(function () {
-                if (control.value === 'hello@123')
+                if (control.value === 'test@123')
                     resolve({ shouldBeUnique: true });
                 else
                     resolve(null);

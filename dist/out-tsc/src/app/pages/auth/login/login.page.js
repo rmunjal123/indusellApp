@@ -3,16 +3,17 @@ import { Component } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { NavController, LoadingController } from '@ionic/angular';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 //import { PasswordValidator } from '../../validators/password.validator';
 //import emailMask from 'text-mask-addons/dist/emailMask';
 var LoginPage = /** @class */ (function () {
-    function LoginPage(navCtrl, formBuilder, loadingCtrl, authService, router) {
+    function LoginPage(navCtrl, formBuilder, loadingCtrl, authService, router, route) {
         this.navCtrl = navCtrl;
         this.formBuilder = formBuilder;
         this.loadingCtrl = loadingCtrl;
         this.authService = authService;
         this.router = router;
+        this.route = route;
         //validations_form: FormGroup;
         //matching_passwords_group: FormGroup;
         this.loginform = new FormGroup({
@@ -23,7 +24,7 @@ var LoginPage = /** @class */ (function () {
             password: new FormControl('', [
                 Validators.minLength(5),
                 Validators.required,
-                Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
+                Validators.pattern('^[a-zA-Z0-9!@#$%^&*()]+$')
             ])
             //matching_passwords: this.matching_passwords_group,
             //terms: new FormControl(true, Validators.pattern('true'))
@@ -76,14 +77,16 @@ var LoginPage = /** @class */ (function () {
           terms: new FormControl(true, Validators.pattern('true'))
         });*/
     };
-    LoginPage.prototype.onSubmit = function (values) {
+    LoginPage.prototype.onSubmit = function (input) {
         var _this = this;
         //this.navCtrl.navigateForward('src/app/tab3/tab3.page');
         //console.log(values);
-        this.authService.login(values)
+        this.authService.login(input)
             .subscribe(function (result) {
+            console.log(result);
             if (_this.authService.isAuthenticated()) {
-                _this.router.navigate(['/tabs/tab4']);
+                var returnUrl = _this.route.snapshot.queryParamMap.get('returnUrl');
+                _this.router.navigate([returnUrl || '/tabs/tab1']);
             }
             else
                 _this.router.navigate(['/login']);
@@ -99,7 +102,7 @@ var LoginPage = /** @class */ (function () {
             FormBuilder,
             LoadingController,
             AuthenticationService,
-            Router])
+            Router, ActivatedRoute])
     ], LoginPage);
     return LoginPage;
 }());

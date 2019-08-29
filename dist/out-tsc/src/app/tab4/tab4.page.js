@@ -9,6 +9,10 @@ var Tab4Page = /** @class */ (function () {
     }
     Tab4Page.prototype.ngOnInit = function () {
     };
+    Tab4Page.prototype.myProfilePage = function () {
+        this.UserId = this.authService.currentUserId;
+        this.router.navigate(['/profile/']);
+    };
     Tab4Page.prototype.logout = function () {
         this.authService.logout();
         this.router.navigate(['/tabs/tab1']);

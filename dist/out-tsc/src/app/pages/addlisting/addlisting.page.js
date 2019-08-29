@@ -3,8 +3,9 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { CreatelistingService } from 'src/app/services/createlisting.service';
 import { BadInput } from 'src/app/services/common/bad-input';
-import { ImagePicker } from '@ionic-native/image-picker/ngx';
+//import { ImagePicker } from '@ionic-native/image-picker';
 import { File } from '@ionic-native/File/ngx';
+import { FilePath } from '@ionic-native/file-path/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { Camera } from '@ionic-native/Camera/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
@@ -14,10 +15,9 @@ import { finalize } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 var STORAGE_KEY = "my_images";
 var AddlistingPage = /** @class */ (function () {
-    function AddlistingPage(formbuilder, createlistings, imagePicker, camera, file, webview, actionSheetController, toastController, storage, plt, loadingController, ref, http, transfer) {
+    function AddlistingPage(formbuilder, createlistings, camera, file, webview, actionSheetController, toastController, storage, plt, loadingController, ref, http, transfer, filepath) {
         this.formbuilder = formbuilder;
         this.createlistings = createlistings;
-        this.imagePicker = imagePicker;
         this.camera = camera;
         this.file = file;
         this.webview = webview;
@@ -29,11 +29,14 @@ var AddlistingPage = /** @class */ (function () {
         this.ref = ref;
         this.http = http;
         this.transfer = transfer;
+        this.filepath = filepath;
         this.imageResponse = [];
+        this.photos = [];
         //imageString: string;
         this.fileUrl = null;
     }
     AddlistingPage.prototype.ngOnInit = function () {
+        var _this = this;
         this.addlisting = new FormGroup({
             post_type: new FormControl('', Validators.required),
             category_id: new FormControl('', Validators.required),
@@ -59,6 +62,9 @@ var AddlistingPage = /** @class */ (function () {
             industry_ID: new FormControl('3'),
             industry_type: new FormControl(''),
         });
+        this.plt.ready().then(function () {
+            _this.loadStoredImages();
+        });
     };
     AddlistingPage.prototype.onSubmit = function () {
         this.createListing(this.addlisting.value);
@@ -79,38 +85,9 @@ var AddlistingPage = /** @class */ (function () {
                 throw Error;
         });
     };
-    AddlistingPage.prototype.uploadImages = function () {
-        var _this = this;
-        var options = {
-            maximumImagesCount: 10,
-            width: 800,
-            outputType: 0
-        };
-        this.imagePicker.getPictures(options).then(function (results) {
-            for (var i = 0; i < results.length; i++) {
-                _this.imageResponse.push(results[i]);
-                //this.imageResponse.push(this.imageString);
-                console.log('File Path: ' + results[i]);
-                var fileTransfer = _this.transfer.create();
-                var uploadOpts = {
-                    fileKey: 'file',
-                    fileName: results[i].substr(results[i].lastIndexOf('/') + 1)
-                };
-                fileTransfer.upload(results[i], 'https://indusell.com/api/post/182;', uploadOpts)
-                    .then(function (data) {
-                    console.log(data);
-                    _this.respData = JSON.parse(data.response);
-                    console.log(_this.respData);
-                    _this.fileUrl = _this.respData.fileUrl;
-                }, function (err) {
-                    console.log(err);
-                });
-            }
-        }, function (err) { alert(err); });
-    };
-    AddlistingPage.prototype.onImageUpload = function () {
-        this.uploadImages();
-    };
+    // onImageUpload() {
+    //   this.uploadImages();
+    // }
     AddlistingPage.prototype.selectImage = function () {
         return tslib_1.__awaiter(this, void 0, void 0, function () {
             var actionSheet;
@@ -190,24 +167,125 @@ var AddlistingPage = /** @class */ (function () {
             });
         });
     };
+    // uploadImages(){
+    //   let options = {
+    //         maximumImagesCount: 10,
+    //         width: 800,
+    //         outputType: 0
+    //       }
+    //        this.imagePicker.getPictures(options).then((results) => {
+    //       for (var i = 0; i < results.length; i++) {
+    //         let filename = results[i].substring(results[i].lastIndexOf('/')+1);
+    //         let path = results[i].substring(0,results[i].lastIndexOf('/')+1);
+    //         this.file.readAsDataURL(path,filename).then((base64String)=>{
+    //         this.images.push(base64String);
+    //         }) 
+    //     }
+    //   });
+    // }
+    // uploadImages() {
+    //   let options = {
+    //     maximumImagesCount: 10,
+    //     width: 800,
+    //     outputType: 0
+    //   }
+    // this.imagePicker.getPictures(options).then((results) => {
+    //     let arr = JSON.parse(results[i]);
+    //     for (var i = 0; i < results.length; i++) {
+    //       this.images.push(results[i]);}
+    //     for (let img of arr) {
+    //       let filePath = this.file.dataDirectory + img;
+    //       let resPath = this.pathForImage(filePath);
+    //       this.images.push({ name: img, path: resPath, filePath: filePath });
+    //       }
+    //   });
+    // }
+    // pathForImage(img) {
+    //   if (img === null) {
+    //     return '';
+    //   } else {
+    //     let converted = this.webview.convertFileSrc(img);
+    //     return converted;
+    //   }
+    // }
+    //var currentName = results[i].substr(results[i].lastIndexOf('/') + 1);
+    //var correctPath = results[i].substr(0, results[i].lastIndexOf('/') + 1);
+    //this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+    // //this.imageResponse.push(this.imageString);
+    // console.log('File Path: ' + results[i]);
+    // const fileTransfer: FileTransferObject = this.transfer.create();
+    // const uploadOpts: FileUploadOptions = {
+    //   fileKey: 'file',
+    //   fileName: results[i].substr(results[i].lastIndexOf('/') + 1)
+    // };
+    // fileTransfer.upload(results[i], 'https://indusell.com/api/post/182', uploadOpts)
+    //   .then((data) => {
+    //     console.log(data);
+    //     this.respData = JSON.parse(data.response);
+    //     console.log(this.respData);
+    //     this.fileUrl = this.respData.fileUrl;
+    //   }, (err) => {
+    //     console.log(err);
+    //   });
+    //     }
+    //     }}, (err) => { alert(err) });
+    // }
     AddlistingPage.prototype.takePicture = function (sourceType) {
         var _this = this;
         var options = {
             quality: 100,
             sourceType: sourceType,
             saveToPhotoAlbum: false,
-            correctOrientation: true
+            correctOrientation: true,
+            destinationType: this.camera.DestinationType.FILE_URI,
+            encodingType: this.camera.EncodingType.JPEG,
+            mediaType: this.camera.MediaType.PICTURE,
         };
         this.camera.getPicture(options).then(function (imagePath) {
-            var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
-            var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
-            _this.copyFileToLocalDir(correctPath, currentName, _this.createFileName());
+            _this.filepath.resolveNativePath(imagePath).then(function (nativepath) {
+                _this.photos.push(nativepath);
+            });
+            //          let arr = JSON.parse(imagePath);
+            //          for (var i = 0; i < imagePath.length; i++) {
+            //           this.images.push(imagePath[i]);}
+            //          for (let img of arr) {
+            //          let filePath = this.file.dataDirectory + img;
+            //          let resPath = this.pathForImage(filePath);
+            //          this.images.push({ name: img, path: resPath, filePath: filePath });    
+            //   var currentName = imagePath[i].substr(imagePath.lastIndexOf('/') + 1);
+            //   var correctPath = imagePath[i].substr(0, imagePath.lastIndexOf('/') + 1);
+            //   this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+            // }});
         });
+    };
+    AddlistingPage.prototype.UploadImages = function () {
+        var interval = 0;
+        function Innerfunc() {
+            var _this = this;
+            var fileTransfer = this.transfer.create();
+            var options = {
+                fileKey: "images",
+                chunkedMode: false,
+                mimeType: "image/jpeg",
+                headers: {}
+            };
+            var serverurl = "https://indusell.com/api/post/182";
+            fileTransfer.upload(this.photos[interval], serverurl, options).then(function () {
+                interval++;
+                if (interval < _this.photos.length) {
+                    Innerfunc();
+                }
+                else {
+                    alert("Successfully Uploaded Images");
+                }
+            });
+        }
+        Innerfunc();
     };
     AddlistingPage.prototype.copyFileToLocalDir = function (namePath, currentName, newFileName) {
         var _this = this;
         this.file.copyFile(namePath, currentName, this.file.dataDirectory, newFileName).then(function (_) {
-            _this.updateStoredImages(newFileName);
+            //this.updateStoredImages(newFileName);
         }, function (error) {
             _this.presentToast('Error while storing file');
         });
@@ -217,60 +295,39 @@ var AddlistingPage = /** @class */ (function () {
         var n = d.getTime(), newFileName = n + ".jpg";
         return newFileName;
     };
-    AddlistingPage.prototype.updateStoredImages = function (name) {
-        var _this = this;
-        this.storage.get(STORAGE_KEY).then(function (images) {
-            var arr = JSON.parse(images);
-            if (!arr) {
-                var newImages = [name];
-                _this.storage.set(STORAGE_KEY, JSON.stringify(newImages));
-            }
-            else {
-                arr.push(name);
-                _this.storage.set(STORAGE_KEY, JSON.stringify(arr));
-            }
-            var filePath = _this.file.dataDirectory + name;
-            var resPath = _this.pathForImage(filePath);
-            var newEntry = {
-                name: name,
-                path: resPath,
-                filePath: filePath
-            };
-            _this.images = [newEntry].concat(_this.images);
-            _this.ref.detectChanges();
-        });
-    };
-    // deleteImage(imgEntry, position) {
-    //   this.images.splice(position, 1);
+    // updateStoredImages(name) {
     //   this.storage.get(STORAGE_KEY).then(images => {
     //     let arr = JSON.parse(images);
-    //     let filetered = arr.filter(name => name != imgEntry.name);
-    //     this.storage.set(STORAGE_KEY, JSON.stringify(filetered));
-    //     var correctPath = imgEntry.filePath.substr(0, imgEntry.filePath.lastIndexOf('/') + 1);
-    //     this.file.removeFile(correctPath, imgEntry.name).then(res => {
-    //       this.presentToast('File Removed');
-    //     });
+    //     if (!arr) {
+    //       let newImages = [name];
+    //       this.storage.set(STORAGE_KEY, JSON.stringify(newImages));
+    //     } else {
+    //       arr.push(name);
+    //       this.storage.set(STORAGE_KEY, JSON.stringify(arr));
+    //     }
+    //     let filePath = this.file.dataDirectory + name;
+    //     let resPath = this.pathForImage(filePath);
+    //     let newEntry = {
+    //       name: name,
+    //       path: resPath,
+    //       filePath: filePath
+    //     };
+    //     this.images = [newEntry, ...this.images];
+    //     this.ref.detectChanges();
     //   });
     // }
-    AddlistingPage.prototype.startUpload = function (imgEntry) {
+    AddlistingPage.prototype.deleteImage = function (imgEntry, position) {
         var _this = this;
-        this.file.resolveLocalFilesystemUrl(imgEntry.filePath)
-            .then(function (entry) {
-            entry.file(function (file) { return _this.readFile(file); });
-        });
-    };
-    AddlistingPage.prototype.readFile = function (file) {
-        var _this = this;
-        var reader = new FileReader();
-        reader.onloadend = function () {
-            var formData = new FormData();
-            var imgBlob = new Blob([reader.result], {
-                type: file.type
+        this.images.splice(position, 1);
+        this.storage.get(STORAGE_KEY).then(function (images) {
+            var arr = JSON.parse(images);
+            var filetered = arr.filter(function (name) { return name != imgEntry.name; });
+            _this.storage.set(STORAGE_KEY, JSON.stringify(filetered));
+            var correctPath = imgEntry.filePath.substr(0, imgEntry.filePath.lastIndexOf('/') + 1);
+            _this.file.removeFile(correctPath, imgEntry.name).then(function (res) {
+                _this.presentToast('File Removed');
             });
-            formData.append('file', imgBlob, file.name);
-            _this.uploadImageData(formData);
-        };
-        reader.readAsArrayBuffer(file);
+        });
     };
     AddlistingPage.prototype.uploadImageData = function (formData) {
         return tslib_1.__awaiter(this, void 0, void 0, function () {
@@ -286,7 +343,7 @@ var AddlistingPage = /** @class */ (function () {
                         return [4 /*yield*/, loading.present()];
                     case 2:
                         _a.sent();
-                        this.http.post("https://indusell.com/api/post/182", formData)
+                        this.http.post("", formData)
                             .pipe(finalize(function () {
                             loading.dismiss();
                         }))
@@ -309,9 +366,9 @@ var AddlistingPage = /** @class */ (function () {
             templateUrl: './addlisting.page.html',
             styleUrls: ['./addlisting.page.scss'],
         }),
-        tslib_1.__metadata("design:paramtypes", [FormBuilder, CreatelistingService, ImagePicker, Camera, File, WebView,
+        tslib_1.__metadata("design:paramtypes", [FormBuilder, CreatelistingService, Camera, File, WebView,
             ActionSheetController, ToastController, Storage, Platform, LoadingController,
-            ChangeDetectorRef, HttpClient, FileTransfer])
+            ChangeDetectorRef, HttpClient, FileTransfer, FilePath])
     ], AddlistingPage);
     return AddlistingPage;
 }());

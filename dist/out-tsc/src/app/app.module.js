@@ -14,14 +14,29 @@ import { fakeBackendProvider } from './helpers/fake-backend';
 import { MockBackend } from '@angular/http/testing';
 import { AuthenticationService } from './services/authentication.service';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppErrorHandler } from './services/common/app-error-handler';
+import { CreatelistingService } from 'src/app/services/createlisting.service';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { Camera } from '@ionic-native/Camera/ngx';
 import { File } from '@ionic-native/File/ngx';
-import { ImagePicker } from '@ionic-native/image-picker/ngx';
+//import { ImagePicker } from '@ionic-native/image-picker';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { FilePath } from '@ionic-native/file-path/ngx';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireDatabase } from '@angular/fire/database';
+var firebaseConfig = {
+    apiKey: "AIzaSyB-I0oVXxgBHcniQXYQfOL6QxXEPawdM08",
+    authDomain: "classifiedapp-83da5.firebaseapp.com",
+    databaseURL: "https://classifiedapp-83da5.firebaseio.com",
+    projectId: "classifiedapp-83da5",
+    storageBucket: "classifiedapp-83da5.appspot.com",
+    messagingSenderId: "479831116894",
+    appId: "1:479831116894:web:309637f554ecf9d0"
+};
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -34,22 +49,30 @@ var AppModule = /** @class */ (function () {
                 IonicStorageModule.forRoot(),
                 AppRoutingModule,
                 HttpClientModule,
-                HttpModule],
+                FormsModule,
+                ReactiveFormsModule,
+                HttpModule,
+                AngularFireModule.initializeApp(firebaseConfig),
+                AngularFirestoreModule],
             providers: [
                 ListingService,
                 StatusBar,
                 SplashScreen,
                 AuthenticationService,
+                CreatelistingService,
                 SpeechRecognition,
                 fakeBackendProvider,
                 ReactiveFormsModule,
                 MockBackend,
                 BaseRequestOptions,
+                AngularFireDatabase,
                 Camera,
                 File,
                 FileTransfer,
+                FilePath,
                 WebView,
-                ImagePicker,
+                SocialSharing,
+                //ImagePicker,
                 { provide: ErrorHandler, useClass: AppErrorHandler },
                 { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
             ],

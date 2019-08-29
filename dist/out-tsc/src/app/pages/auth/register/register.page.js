@@ -2,11 +2,12 @@ import * as tslib_1 from "tslib";
 import { Component } from '@angular/core';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { NavController } from '@ionic/angular';
-import { PasswordValidator } from '../validators/password.validator';
 import { EmailValidator } from '../validators/email.validator';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 var RegisterPage = /** @class */ (function () {
-    function RegisterPage(navCtrl) {
+    function RegisterPage(navCtrl, authService) {
         this.navCtrl = navCtrl;
+        this.authService = authService;
         this.registerform = new FormGroup({
             name: new FormControl('', Validators.required),
             email: new FormControl('', [
@@ -15,6 +16,12 @@ var RegisterPage = /** @class */ (function () {
                 Validators.email,
                 EmailValidator.shouldBeUnique
             ]),
+            password: new FormControl('', [
+                Validators.minLength(5),
+                Validators.required,
+                Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
+            ]),
+            confirm_password: new FormControl('', Validators.required),
             terms: new FormControl(true, Validators.pattern('true'))
         });
         this.validation_messages = {
@@ -43,19 +50,24 @@ var RegisterPage = /** @class */ (function () {
         };
     }
     RegisterPage.prototype.ionViewWillLoad = function () {
-        this.matching_passwords_group = new FormGroup({
-            password: new FormControl('', [
-                Validators.minLength(5),
-                Validators.required,
-                Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
-            ]),
-            confirm_password: new FormControl('', Validators.required)
-        }, function (formGroup) {
-            return PasswordValidator.areEqual(formGroup);
-        });
+        // this.matching_passwords_group = new FormGroup({
+        //   password: new FormControl('', [
+        //     Validators.minLength(5),
+        //     Validators.required,
+        //     Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
+        //   ]),
+        //   confirm_password: new FormControl('', Validators.required)
+        // }, (formGroup: FormGroup) => {
+        //   return PasswordValidator.areEqual(formGroup);
+        // });
     };
-    RegisterPage.prototype.onSubmit = function (values) {
-        this.navCtrl.navigateForward('src/app/tab3/tab3.page');
+    RegisterPage.prototype.onSubmit = function (input) {
+        var _this = this;
+        this.authService.register(input)
+            .subscribe(function (result) {
+            console.log(result);
+            _this.navCtrl.navigateForward(['/tabs/tab1']);
+        });
     };
     RegisterPage = tslib_1.__decorate([
         Component({
@@ -63,7 +75,7 @@ var RegisterPage = /** @class */ (function () {
             templateUrl: './register.page.html',
             styleUrls: ['./register.page.scss'],
         }),
-        tslib_1.__metadata("design:paramtypes", [NavController])
+        tslib_1.__metadata("design:paramtypes", [NavController, AuthenticationService])
     ], RegisterPage);
     return RegisterPage;
 }());
