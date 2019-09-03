@@ -5,5 +5,24 @@
 </ion-header>
 
 <ion-content>
-
-</ion-content>
+    <div class = "chatwindow">
+        <ion-list no-lines>
+          <ion-item *ngFor="let item of allmessages; let i = index" text-wrap>
+            <div class="bubble me">
+            <h3>{{item.message}}</h3>
+           </div> 
+           <!-- <div class="bubble you" *ngIf="item.sentby != buddy.uid"> -->
+            <!-- <h3>{{item.message}}</h3> -->
+            <!-- </div> -->
+          </ion-item>
+        </ion-list>
+      </div> 
+    </ion-content>
+    
+    <ion-footer>
+      <ion-toolbar>
+        <ion-input type = "text" [(ngModel)]= "newmessage"></ion-input>
+        <ion-icon name="send" slot="end" (click)="addmessage()"></ion-icon>
+    
+      </ion-toolbar>
+    </ion-footer>

@@ -9,13 +9,14 @@ import { SellerdetailsService } from 'src/app/services/sellerdetails.service';
 import { AngularFireDatabase, snapshotChanges } from '@angular/fire/database';
 import * as firebase from 'firebase';
 import { Events } from '@ionic/angular'
+import { ChatService } from 'src/app/services/chat.service';
 
 @Component({
   selector: 'app-buddychat',
   templateUrl: './buddychat.page.html',
   styleUrls: ['./buddychat.page.scss'],
 })
-export class BuddychatPage implements OnInit {
+export class BuddychatPage  {
 
   username: string = '';
   othersellername: string = '';
@@ -23,14 +24,25 @@ export class BuddychatPage implements OnInit {
   subscription: any;
   chatroom: string = '';
   buddymessages:any = [];
+  allmessages = [];
+  newmessage: ''
 
   firebuddychats = firebase.database().ref('/buddychats');
   buddy: any;
 
 
-  constructor() { }
+  constructor(public db: AngularFireDatabase, public authservice: AuthenticationService,
+    public sellerdetails: SellerdetailsService, public chat: ChatService, public events: Events) { 
 
-  ngOnInit() {
-  }
-
-}
+      this.chat.events.subscribe('newmessages', ()=>{
+      this.allmessages = this.chat.buddymessages;
+      })
+    }
+    ionViewDidEnter() {
+      this.chat.getbuddymessages();
+    }
+    
+    addmessage(){
+      this.chat.sendMessage(this.newmessage);
+    }
+    }
