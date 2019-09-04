@@ -17,11 +17,8 @@ export class SellerdetailsService {
     getAll(){
       console.log('https://indusell.com/api/sellerprofile/' + this.id);
       return this.http.get('https://indusell.com/api/sellerprofile/' + this.id).pipe
-        (map(response =>  {this.seller = response['Seller'];
-        console.log(this.seller);
-        this.seller_name = this.seller["name"];
-        this.seller_email= this.seller["email"];
-    }));
+        (map(response => response));    
     }
   }
+
   

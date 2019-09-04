@@ -5,7 +5,9 @@ import { SellerdetailsService } from 'src/app/services/sellerdetails.service';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { ActionSheetController } from '@ionic/angular';
-
+import { Router } from '@angular/router';
+import { ChatService } from 'src/app/services/chat.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-addetails',
@@ -34,9 +36,11 @@ export class AddetailsPage implements OnInit {
   poststate: string;
 
   seller: any;
+  sellerinfo: any;
   sellervalues: string;
   seller_email: string;
   seller_name: string;
+  seller_id: any
 
   slideOpts = {
     zoom: false,
@@ -46,10 +50,11 @@ export class AddetailsPage implements OnInit {
     direction: 'horizontal'
   }
   constructor(private getcategoriesService:GetcategoriesService, private listingdetails: ListingdetailsService,
-    private sellerdetails: SellerdetailsService,private socialSharing: SocialSharing,private actionSheetController: ActionSheetController) { }
+    private sellerdetails: SellerdetailsService,private socialSharing: SocialSharing,private actionSheetController: ActionSheetController,
+    private router: Router, private chat:ChatService, private auth: AuthenticationService) { }
 
   ngOnInit() {
-   
+
     this.listing = this.listingdetails.getAll()
     .subscribe(response => { 
       this.listing = response;
@@ -78,16 +83,14 @@ export class AddetailsPage implements OnInit {
       // this.sellername = this.sellerreview["name"];
       // this.sellerlocation= this.sellerreview["name"];
       // this.sellerrating = this.sellerrating["rating"]
-
-
-      
       console.log(this.posttitle);
     });
 
     this.seller = this.sellerdetails.getAll()
-    .subscribe(response => { 
+    .subscribe((response) => { 
       this.seller = response['Seller'];
       console.log(this.seller);
+      this.seller_id = this.seller["id"];
       this.seller_name = this.seller["name"];
       this.seller_email= this.seller["email"];
     });
@@ -180,6 +183,14 @@ export class AddetailsPage implements OnInit {
        console.log(strInputCode);
        return strInputCode;
       }
-    }	
+    }
+    
+    onGoToChat(){
+      this.chat.buddy = this.seller_id;
+      this.id = this.chat.buddy;
+      //this.chat.user_email = this.auth.currentUserEmail
+      console.log(this.seller_id);
+      this.router.navigate(['/buddychat/:'+this.id]);
+    }
  }
  

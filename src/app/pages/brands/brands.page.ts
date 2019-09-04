@@ -11,6 +11,9 @@ import { SellerdetailsService } from 'src/app/services/sellerdetails.service';
 })
 export class BrandsPage implements OnInit {
   brandlistings: any;
+  brands: any;
+  brandname: any;
+  objforbrandname: any ;
 
   constructor(private getbrands:GetbrandsService,private router:Router,private listingdetails: ListingdetailsService,
               private sellerdetails: SellerdetailsService) { }
@@ -20,6 +23,12 @@ export class BrandsPage implements OnInit {
     .subscribe(response => { 
       this.brandlistings = response;
       console.log(this.brandlistings);
+      this.brands = response['brandlisting']
+      if (this.brands.length > 1) {
+        this.objforbrandname = this.brands[0]
+        this.brandname = this.objforbrandname.brand_name;
+        console.log(this.brandname)
+      }
   });
   }
   onGoToListingDetail(listing){

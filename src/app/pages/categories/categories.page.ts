@@ -18,6 +18,11 @@ export class CategoriesPage implements OnInit {
     .subscribe(response => { 
       this.category = response;
       console.log(this.category);
+      if (this.category.length > 1) {
+        // this.objforbrandname = this.brands[0]
+        // this.brandname = this.objforbrandname.brand_name;
+        // console.log(this.brandname)
+      }
   });
 }
 }

@@ -17,5 +17,31 @@ import { ChatService } from '../services/chat.service';
   styleUrls: ['tab3.page.scss']
 })
 export class Tab3Page {
+
+  firebuddychats = firebase.database().ref('/buddychats');
+  buddy: any;
+  username: string = '';
+  user_id: any;
+  message: string = '';
+  othersellername : string;
+  buddies: any = [];
+  buddymessages: any =[];
+  msg: any;
+
+
   constructor(public db: AngularFireDatabase, public authservice: AuthenticationService,
-              public sellerdetails: SellerdetailsService, public chat: ChatService, public events: Events){}}
+              public sellerdetails: SellerdetailsService, public chat: ChatService, public events: Events,
+              public auth: AuthenticationService){
+
+  this.user_id = this.auth.currentUserId;
+  this.othersellername = this.sellerdetails.seller_name;
+  this.buddy = this.chat.buddy
+                
+
+if ( this.firebuddychats.child(this.user_id).child(this.buddy))
+{
+  this.buddies.push(this.buddy)
+}
+console.log(this.buddies)
+}
+}

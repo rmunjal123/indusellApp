@@ -19,8 +19,7 @@ export class ListingdetailsService {
       console.log('https://indusell.com/api/postdetail/' + this.id);
       return this.http.get('https://indusell.com/api/postdetail/' + this.id).pipe
         (map(response => response));
-    }
-      
+    }  
   }
   
 

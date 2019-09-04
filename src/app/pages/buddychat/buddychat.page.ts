@@ -25,7 +25,8 @@ export class BuddychatPage  {
   chatroom: string = '';
   buddymessages:any = [];
   allmessages = [];
-  newmessage: ''
+  newmessage: '';
+  id: any;
 
   firebuddychats = firebase.database().ref('/buddychats');
   buddy: any;
@@ -33,7 +34,7 @@ export class BuddychatPage  {
 
   constructor(public db: AngularFireDatabase, public authservice: AuthenticationService,
     public sellerdetails: SellerdetailsService, public chat: ChatService, public events: Events) { 
-
+      this.id = this.chat.buddy;
       this.chat.events.subscribe('newmessages', ()=>{
       this.allmessages = this.chat.buddymessages;
       })

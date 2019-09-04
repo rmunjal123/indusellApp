@@ -34,6 +34,7 @@ import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { environment } from '../environments/environment';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { database } from 'firebase';
+import * as firebase from 'firebase';
 
 
 
@@ -46,6 +47,7 @@ const firebaseConfig = {
   messagingSenderId: "479831116894",
   appId: "1:479831116894:web:309637f554ecf9d0"
 };
+firebase.initializeApp(firebaseConfig)
 
 
 @NgModule({

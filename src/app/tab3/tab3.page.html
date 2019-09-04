@@ -6,5 +6,10 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-button padding routerLink="/buddychat"></ion-button>
+  <ion-list>
+    <ion-item *ngFor="let buddy of buddies" routerLink="/buddychat">
+      {{buddy}}
+    </ion-item>
+  </ion-list>
+  <ion-button padding routerLink="/buddychat/:{{buddy}}"></ion-button>
 </ion-content>
