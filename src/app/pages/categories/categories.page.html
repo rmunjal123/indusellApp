@@ -8,7 +8,7 @@
 </ion-header>
   <ion-content>
       <ion-slides [options]="sliderConfig">
-        <ion-slide *ngFor= "let listing of category.listings" (click)="onGoToListingDetail(listing)">
+        <ion-slide *ngFor= "let listing of category.listing" (click)="onGoToListingDetail(listing)">
           <ion-card class="category-block">
             <ion-img src="/assets/shapes.svg"></ion-img>
             <ion-card-header>

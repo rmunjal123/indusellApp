@@ -26,15 +26,17 @@ export class BuddychatPage  {
   buddymessages:any = [];
   allmessages = [];
   newmessage: '';
-  id: any;
+  buddy_id: any;
+  user_id: any;
 
   firebuddychats = firebase.database().ref('/buddychats');
   buddy: any;
 
 
-  constructor(public db: AngularFireDatabase, public authservice: AuthenticationService,
+  constructor(public db: AngularFireDatabase, public auth: AuthenticationService,
     public sellerdetails: SellerdetailsService, public chat: ChatService, public events: Events) { 
-      this.id = this.chat.buddy;
+      this.buddy_id = this.chat.buddy;
+      this.user_id = this.auth.currentUserId;
       this.chat.events.subscribe('newmessages', ()=>{
       this.allmessages = this.chat.buddymessages;
       })

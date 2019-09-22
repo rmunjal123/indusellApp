@@ -1,17 +1,20 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Chat:{{id}}</ion-title>
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="/dashboard"></ion-back-button>
+        </ion-buttons>
+    <ion-title>Chat:{{buddy_id}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
     <div class = "chatwindow">
-        <ion-list no-lines >
+        <ion-list lines = "none" >
           <ion-item *ngFor="let item of allmessages; let i = index" text-wrap>
-            <div class="bubble me" *ngIf="item.sentby === id">
+            <div class="bubble me" *ngIf="item.username === user_id">
             <h3>{{item.message}}</h3>
            </div> 
-           <div class="bubble you" *ngIf="item.sentby != id">
+           <div class="bubble you" *ngIf="item.username !== user_id">
             <h3>{{item.message}}</h3>
             </div>
           </ion-item>
