@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { GetcategoriesService } from 'src/app/services/getcategories.service';
+import { ListingdetailsService } from 'src/app/services/listingdetails.service';
+import { SellerdetailsService } from 'src/app/services/sellerdetails.service';
 
 @Component({
   selector: 'app-categories',
@@ -9,25 +11,31 @@ import { GetcategoriesService } from 'src/app/services/getcategories.service';
   styleUrls: ['./categories.page.scss'],
 })
 export class CategoriesPage implements OnInit {
-  listings =  [];
+  categorylistings: any;
   category: any;
-  constructor(private getcategories:GetcategoriesService,private router:Router) { }
+  categoryname: any;
+  objforcategoryname: any;
 
+  constructor(private getcategories:GetcategoriesService,private router:Router,private listingdetails: ListingdetailsService,) { }
+              private sellerdetails: SellerdetailsService
   ngOnInit() {
-    this.category = this.getcategories.getAll()
-    .subscribe(response => { 
-      this.category = response;
-      console.log(this.category);
-      if (this.category.length > 1) {
-        // this.objforbrandname = this.brands[0]
-        // this.brandname = this.objforbrandname.brand_name;
-        // console.log(this.brandname)
-      }
-  });
+    this.categorylistings = this.getcategories.getAll()
+      .subscribe(response => {
+        this.categorylistings = response;
+        console.log(this.categorylistings);
+        this.category = response['listing']
+        if (this.category.length > 1) {
+          this.objforcategoryname = this.category[0]
+          this.categoryname = this.objforcategoryname.subcategoryname;
+          console.log(this.categoryname)
+        }
+      });
+  }
+  onGoToListingDetail(listing) {
+    this.listingdetails.id = listing;
+    this.sellerdetails.id = listing;
+    console.log(listing);
+    this.router.navigate(['/addetails']);
+  }
 }
-}
-  // onGoToListingDetail(listing){
-  //   this.getcategoriesService.currentlisting = listing;
-  //   this.router.navigate(['/addetails']);
-  // }
 

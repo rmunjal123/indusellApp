@@ -60,7 +60,8 @@ constructor(private getcategories:GetcategoriesService , private router:Router,p
     .subscribe(response => { 
       this.listings = response;
       console.log(this.listings);
-      this.bannerarr = this.listings.banner_images;
+      this.bannerarr = this.listings.home_banner;
+      console.log(this.bannerarr);
       this.arr = this.listings.latest_pictures;
       this.ratingarr = this.listings.post_reviews;
       // this.listing = this.listings.letest_ads;
