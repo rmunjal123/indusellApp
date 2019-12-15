@@ -22,7 +22,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            canActivate: [AuthGuard],
+            // canActivate: [AuthGuard],
             loadChildren: '../tab2/tab2.module#Tab2PageModule'
           }
         ]
@@ -66,4 +66,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class TabsPageRoutingModule {}
+export class TabsPageRoutingModule { }

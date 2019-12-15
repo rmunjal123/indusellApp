@@ -18,12 +18,12 @@ export class LoginPage {
   //validations_form: FormGroup;
   //matching_passwords_group: FormGroup;
 
-   loginform = new FormGroup({
-    email: new FormControl('',[
+  loginform = new FormGroup({
+    email: new FormControl('', [
       Validators.required,
       Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
     ]),
-    password: new FormControl('',[
+    password: new FormControl('', [
       Validators.minLength(5),
       Validators.required,
       Validators.pattern('^[a-zA-Z0-9!@#$%^&*()]+$')
@@ -33,11 +33,11 @@ export class LoginPage {
   });
 
 
-  constructor(public navCtrl: NavController, 
-              public formBuilder: FormBuilder, 
-              public loadingCtrl: LoadingController, 
-              private authService: AuthenticationService,
-              private router: Router,private route: ActivatedRoute) { }
+  constructor(public navCtrl: NavController,
+    public formBuilder: FormBuilder,
+    public loadingCtrl: LoadingController,
+    private authService: AuthenticationService,
+    private router: Router, private route: ActivatedRoute) { }
   ionViewWillLoad() {
     /*this.matching_passwords_group = new FormGroup({
       password: new FormControl('',[
@@ -87,20 +87,19 @@ export class LoginPage {
     ],
   };
 
-  onSubmit(input: FormGroup){
+  onSubmit(input: FormGroup) {
     //this.navCtrl.navigateForward('src/app/tab3/tab3.page');
     //console.log(values);
     this.authService.login(input)
-    .subscribe(result => {
-      console.log(result); 
-      if (this.authService.isAuthenticated())
-       {
-        let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl')
-        this.router.navigate([returnUrl || '/tabs/tab1']); 
-       }
-       else
-        this.router.navigate(['/login']); 
-    });
+      .subscribe(result => {
+        console.log(result);
+        if (this.authService.isAuthenticated()) {
+          let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl')
+          this.router.navigate([returnUrl || '/tabs/tab1']);
+        }
+        else
+          this.router.navigate(['/login']);
+      });
 
   }
 }
