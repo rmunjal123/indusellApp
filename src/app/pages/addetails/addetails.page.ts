@@ -20,12 +20,12 @@ export class AddetailsPage implements OnInit {
   listing: any;
   id: any;
   postdetails: string;
-  postreview: string; 
+  postreview: string;
   posttitle: string;
-  postcontact:string;
-  postprice:string;
+  postcontact: string;
+  postprice: string;
   postlocation: string;
-  postdescription:string;
+  postdescription: string;
   postreview_title: string;
   postreview_description: string;
   postreview_date: string;
@@ -40,7 +40,7 @@ export class AddetailsPage implements OnInit {
   sellervalues: string;
   seller_email: string;
   seller_name: string;
-  seller_id: any
+  seller_id: any;
 
   slideOpts = {
     zoom: false,
@@ -48,149 +48,92 @@ export class AddetailsPage implements OnInit {
     centeredSlides: true,
     spaceBetween: 20,
     direction: 'horizontal'
+  };
+
+  constructor(private getcategoriesService: GetcategoriesService,
+    private listingdetails: ListingdetailsService,
+    private sellerdetails: SellerdetailsService,
+    private socialSharing: SocialSharing,
+    private actionSheetController: ActionSheetController,
+    private router: Router,
+    private chat: ChatService,
+    private auth: AuthenticationService) {
   }
-  constructor(private getcategoriesService:GetcategoriesService, private listingdetails: ListingdetailsService,
-    private sellerdetails: SellerdetailsService,private socialSharing: SocialSharing,private actionSheetController: ActionSheetController,
-    private router: Router, private chat:ChatService, private auth: AuthenticationService) { }
 
   ngOnInit() {
-
     this.listing = this.listingdetails.getAll()
-    .subscribe(response => { 
-      this.listing = response;
-      console.log(this.listing);
-      this.postdetails = this.listing['post-detail'][0];
-      this.posttitle = this.postdetails["title"];
-      this.postcontact = this.postdetails["contact_name"];
-      this.postcreated_at = this.postdetails["created_at"]
-      this.postprice = this.postdetails["price"];
-      this.postviews = this.postdetails["visits"];
-      this.poststate = this.postdetails["post_type_id"]
-      console.log(this.postviews);
-      this.postlocation = this.postdetails["country_code"];
-      this.postdescription = this.postdetails["description"];
-      this.postnegotiable = this.postdetails["negotiable"]
-      this.postcleandescription = this.removeHTMLTags(this.postdescription);
+      .subscribe(response => {
+        this.listing = response;
+        console.log(this.listing);
+        this.postdetails = this.listing['post-detail'][0];
+        this.posttitle = this.postdetails["title"];
+        this.postcontact = this.postdetails["contact_name"];
+        this.postcreated_at = this.postdetails["created_at"]
+        this.postprice = this.postdetails["price"];
+        this.postviews = this.postdetails["visits"];
+        this.poststate = this.postdetails["post_type_id"]
+        console.log(this.postviews);
+        this.postlocation = this.postdetails["country_code"];
+        this.postdescription = this.postdetails["description"];
+        this.postnegotiable = this.postdetails["negotiable"]
+        this.postcleandescription = this.removeHTMLTags(this.postdescription);
 
-      this.postreview = this.listing['product-review'];
-      console.log(this.postreview);
-      this.postreview_title = this.postreview["title"];
-      this.postreview_description= this.postreview["description"];
-      this.postreview_date= this.postreview["update_date"];
+        this.postreview = this.listing['product-review'];
+        console.log(this.postreview);
+        this.postreview_title = this.postreview["title"];
+        this.postreview_description = this.postreview["description"];
+        this.postreview_date = this.postreview["update_date"];
 
-      // this.sellerreview = this.listing['seller-rating'];
-      // console.log(this.sellerreview);
-      // this.sellername = this.sellerreview["name"];
-      // this.sellerlocation= this.sellerreview["name"];
-      // this.sellerrating = this.sellerrating["rating"]
-      console.log(this.posttitle);
-    });
+        // this.sellerreview = this.listing['seller-rating'];
+        // console.log(this.sellerreview);
+        // this.sellername = this.sellerreview["name"];
+        // this.sellerlocation= this.sellerreview["name"];
+        // this.sellerrating = this.sellerrating["rating"]
+        console.log(this.listing);
+      });
 
     this.seller = this.sellerdetails.getAll()
-    .subscribe((response) => { 
-      this.seller = response['Seller'];
-      console.log(this.seller);
-      this.seller_id = this.seller["id"];
-      this.seller_name = this.seller["name"];
-      this.seller_email= this.seller["email"];
-    });
+      .subscribe((response) => {
+        this.seller = response['Seller'];
+        console.log(this.seller);
+        this.seller_id = this.seller["id"];
+        this.seller_name = this.seller["name"];
+        this.seller_email = this.seller["email"];
+      });
   }
 
   //Sharing the url code starts from here
+  share() {
+    this.socialSharing.share(this.posttitle, null, null, 'https://google.com').then(() => {
+      console.log('sharing success')
+    }).catch(() => {
+      console.log('sharing failed');
+    });
+  }
 
-  async share() {
-    const actionSheet = await this.actionSheetController.create({
-      header: "Share the Link:",
-      buttons: [{
-        text: 'Facebook',
-        icon: "logo-facebook",
-        handler: () => {
-          //this.uploadImages();
-          this.shareFacebook();
-        }
-      },
-      {
-        text: 'Whatsapp',
-        icon: "logo-whatsapp",
-        handler: () => {
-          this.shareWhatsApp();
-        }
-      },
-      {
-        text: 'Twitter',
-        icon: "logo-twitter",
-        handler: () => {
-          this.shareTwitter();
-        }
-      },
-      {
-        text: 'Cancel',
-        role: 'cancel'
-      }
-      ]
-    });
-    await actionSheet.present();
-  }
-  async shareTwitter() {
-    // Either URL or Image
-    this.socialSharing.shareViaTwitter(null, null, this.url).then(() => {
-      // Success
-    }).catch((e) => {
-      // Error!
-    });
-  }
- 
-  async shareWhatsApp() {
-    // Text + Image or URL works
+  shareWhatsApp() {
     this.socialSharing.shareViaWhatsApp(this.text, null, this.url).then(() => {
-      // Success
-    }).catch((e) => {
-      // Error!
-    });
-  }
-  // async resolveLocalFile() {
-  //   return this.file.copyFile(`${this.file.applicationDirectory}www/assets/imgs/`, 'shapes.svg', this.file.cacheDirectory, `${new Date().getTime()}.svg`);
-  // }
- 
-  // removeTempFile(name) {
-  //   this.file.removeFile(this.file.cacheDirectory, name);
-  // }
- 
-  // async shareEmail() {
-  //  let file = await this.resolveLocalFile();
- 
-  //   this.socialSharing.shareViaEmail(this.text, 'My custom subject', ['saimon@devdactic.com'], null, null, file.nativeURL).then(() => {
-  //     this.removeTempFile(file.name);
-  //   }).catch((e) => {
-  //     // Error!
-  //   });
-  //}
- 
-  async shareFacebook() {
-   // let file = await this.resolveLocalFile();
- 
-    // Image or URL works
-    this.socialSharing.shareViaFacebook(null, null, this.url).then(() => {
-      console.log('shared');
+      console.log('data shared by whatsappp');
     }).catch((e) => {
       console.log(e);
     });
   }
-  removeHTMLTags(stringdata){
-  {
+
+  removeHTMLTags(stringdata) {
+    {
       var strInputCode = stringdata;
-       strInputCode = strInputCode.replace(/<\/?[^>]+(>|$)/g, "");
-       console.log(strInputCode);
-       return strInputCode;
-      }
+      strInputCode = strInputCode.replace(/<\/?[^>]+(>|$)/g, "");
+      console.log(strInputCode);
+      return strInputCode;
     }
-    
-    onGoToChat(){
-      this.chat.buddy = this.seller_id;
-      this.id = this.chat.buddy;
-      //this.chat.user_email = this.auth.currentUserEmail
-      console.log(this.seller_id);
-      this.router.navigate(['/buddychat/:'+this.id]);
-    }
- }
- 
+  }
+
+  onGoToChat() {
+    this.chat.buddy = this.seller_id;
+    this.id = this.chat.buddy;
+    //this.chat.user_email = this.auth.currentUserEmail
+    console.log(this.seller_id);
+    this.router.navigate(['/buddychat/:' + this.id]);
+  }
+
+}

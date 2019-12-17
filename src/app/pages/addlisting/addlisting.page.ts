@@ -3,11 +3,11 @@ import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
 import { CreatelistingService } from 'src/app/services/createlisting.service';
 import { AppError } from 'src/app/services/common/app-error';
 import { BadInput } from 'src/app/services/common/bad-input';
-//import { ImagePicker } from '@ionic-native/image-picker';
+// import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { File, FileEntry } from '@ionic-native/File/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
-import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/Camera/ngx';
+// import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/Camera/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { Storage } from '@ionic/storage';
 import { ActionSheetController, ToastController, Platform, LoadingController } from '@ionic/angular'
@@ -28,11 +28,11 @@ export class AddlistingPage implements OnInit {
   images: any[];
   public imageResponse: any = [];
   photos:any=[];
-  //imageString: string;
+  imageString: string;
   fileUrl: any = null;
   respData: any;
 
-  constructor(private formbuilder: FormBuilder, private createlistings: CreatelistingService, private camera: Camera, private file: File, private webview: WebView,
+  constructor(private formbuilder: FormBuilder, private createlistings: CreatelistingService, /*private camera: Camera,*/ private file: File, private webview: WebView,
     private actionSheetController: ActionSheetController, private toastController: ToastController, private storage: Storage, private plt: Platform, private loadingController: LoadingController,
     private ref: ChangeDetectorRef, private http: HttpClient, private transfer: FileTransfer, private filepath:FilePath) { }
   ngOnInit() {
@@ -88,30 +88,30 @@ export class AddlistingPage implements OnInit {
   // onImageUpload() {
   //   this.uploadImages();
   // }
-  async selectImage() {
-    const actionSheet = await this.actionSheetController.create({
-      header: "Select Image Source",
-      buttons: [{
-        text: 'Load from Library',
-        handler: () => {
-          //this.uploadImages();
-          this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
-        }
-      },
-      {
-        text: 'Use Camera',
-        handler: () => {
-          this.takePicture(this.camera.PictureSourceType.CAMERA);
-        }
-      },
-      {
-        text: 'Cancel',
-        role: 'cancel'
-      }
-      ]
-    });
-    await actionSheet.present();
-  }
+  // async selectImage() {
+  //   const actionSheet = await this.actionSheetController.create({
+  //     header: "Select Image Source",
+  //     buttons: [{
+  //       text: 'Load from Library',
+  //       handler: () => {
+  //         //this.uploadImages();
+  //         this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
+  //       }
+  //     },
+  //     {
+  //       text: 'Use Camera',
+  //       handler: () => {
+  //         this.takePicture(this.camera.PictureSourceType.CAMERA);
+  //       }
+  //     },
+  //     {
+  //       text: 'Cancel',
+  //       role: 'cancel'
+  //     }
+  //     ]
+  //   });
+  //   await actionSheet.present();
+  // }
 
 
   loadStoredImages() {
@@ -211,34 +211,34 @@ export class AddlistingPage implements OnInit {
   //     }
   //     }}, (err) => { alert(err) });
   // }
-  takePicture(sourceType: PictureSourceType) {
-    var options: CameraOptions = {
-      quality: 100,
-      sourceType: sourceType,
-      saveToPhotoAlbum: false,
-      correctOrientation: true,
-      destinationType: this.camera.DestinationType.FILE_URI,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
-    };
-    this.camera.getPicture(options).then(imagePath => {
-      this.filepath.resolveNativePath(imagePath).then((nativepath)=> {
-        this.photos.push(nativepath);
-      })
+  // takePicture(sourceType: PictureSourceType) {
+  //   var options: CameraOptions = {
+  //     quality: 100,
+  //     sourceType: sourceType,
+  //     saveToPhotoAlbum: false,
+  //     correctOrientation: true,
+  //     destinationType: this.camera.DestinationType.FILE_URI,
+  //     encodingType: this.camera.EncodingType.JPEG,
+  //     mediaType: this.camera.MediaType.PICTURE,
+  //   };
+  //   this.camera.getPicture(options).then(imagePath => {
+  //     this.filepath.resolveNativePath(imagePath).then((nativepath)=> {
+  //       this.photos.push(nativepath);
+  //     })
 
-    //          let arr = JSON.parse(imagePath);
-    //          for (var i = 0; i < imagePath.length; i++) {
-    //           this.images.push(imagePath[i]);}
-    //          for (let img of arr) {
-    //          let filePath = this.file.dataDirectory + img;
-    //          let resPath = this.pathForImage(filePath);
-    //          this.images.push({ name: img, path: resPath, filePath: filePath });    
-    //   var currentName = imagePath[i].substr(imagePath.lastIndexOf('/') + 1);
-    //   var correctPath = imagePath[i].substr(0, imagePath.lastIndexOf('/') + 1);
-    //   this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
-    // }});
-    });
-  }
+  //   //          let arr = JSON.parse(imagePath);
+  //   //          for (var i = 0; i < imagePath.length; i++) {
+  //   //           this.images.push(imagePath[i]);}
+  //   //          for (let img of arr) {
+  //   //          let filePath = this.file.dataDirectory + img;
+  //   //          let resPath = this.pathForImage(filePath);
+  //   //          this.images.push({ name: img, path: resPath, filePath: filePath });    
+  //   //   var currentName = imagePath[i].substr(imagePath.lastIndexOf('/') + 1);
+  //   //   var correctPath = imagePath[i].substr(0, imagePath.lastIndexOf('/') + 1);
+  //   //   this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+  //   // }});
+  //   });
+  // }
   UploadImages(){
     var interval = 0;
     function Innerfunc(){
