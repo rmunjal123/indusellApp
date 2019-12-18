@@ -19,7 +19,7 @@
         </ion-fab-button>
       </ion-fab>
     <!-- auto rotating slider at the top -->
-    <ion-slides autoplay= "1000" pager="true" [options]="slideOpts">
+    <ion-slides #mySlider pager="true" [options]="slideOpts">
         <ion-slide>
           <!-- <h1>Slide 1</h1> -->
           <ion-img style="width:100%;height: 120px;" src="https://www.indusell.com/storage/{{bannerarr.banner1}}"></ion-img>
@@ -180,10 +180,10 @@
        </ion-col>
      </ion-row>
     </ion-grid> -->
-    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
       <ion-infinite-scroll-content
         loadingSpinner="bubbles"
         loadingText="Loading more data...">
       </ion-infinite-scroll-content>
-    </ion-infinite-scroll>
+    </ion-infinite-scroll> -->
 </ion-content>

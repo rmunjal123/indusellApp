@@ -10,6 +10,7 @@ import { forEach } from '@angular/router/src/utils/collection';
 import { ListingdetailsService } from '../services/listingdetails.service';
 import { SellerdetailsService } from '../services/sellerdetails.service';
 import { GetbrandsService } from '../services/getbrands.service';
+import {ViewChild } from '@angular/core';
 
 
 
@@ -150,23 +151,28 @@ constructor(private getcategories:GetcategoriesService , private router:Router,p
     this.router.navigate(['/brands']);
 }
     // Optional parameters to pass to the swiper instance. See http://idangero.us/swiper/api/ for valid options.
-    slideOpts = {
-      initialSlide: 1,
-      speed: 5000
+  @ViewChild('mySlider') slider: IonSlides;
+  slideOpts = {
+    autoplay: true,
+    speed: 1000,
+    // loop: true,
+    zoom: {
+      maxRatio: 5
     }
-    loadData(event){
-    console.log(event);
-    setTimeout(() => {
-    console.log('Done');
-    event.target.complete();
-  
-      // App logic to determine if all data is loaded
-      // and disable the infinite scroll
-      if (this.data.length == 1000) {
-        event.target.disabled = true;
-      }
-    }, 5000);
   }
+  //   loadData(event){
+  //   console.log(event);
+  //   setTimeout(() => {
+  //   console.log('Done');
+  //   event.target.complete();
+  
+  //     // App logic to determine if all data is loaded
+  //     // and disable the infinite scroll
+  //     if (this.data.length == 1000) {
+  //       event.target.disabled = true;
+  //     }
+  //   }, 5000);
+  // }
   onGoToListingDetail(listing){
     this.listingdetails.id = listing;
     this.sellerdetails.id = listing;
