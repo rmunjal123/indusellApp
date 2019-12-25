@@ -8,6 +8,7 @@ import { ActionSheetController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ChatService } from 'src/app/services/chat.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { IonicRatingModule } from 'ionic4-rating'
 
 @Component({
   selector: 'app-addetails',
@@ -134,6 +135,9 @@ export class AddetailsPage implements OnInit {
     //this.chat.user_email = this.auth.currentUserEmail
     console.log(this.seller_id);
     this.router.navigate(['/buddychat/:' + this.id]);
+  }
+  onGoToReviewPage(){
+    this.router.navigate(['/createreview']);
   }
 
 }

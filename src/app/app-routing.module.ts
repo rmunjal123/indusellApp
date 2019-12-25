@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'allcategories', loadChildren: './pages/allcategories/allcategories.module#AllcategoriesPageModule' },
   { path: 'brands', loadChildren: './pages/brands/brands.module#BrandsPageModule' },
   { path: 'buddychat/:id', loadChildren: './pages/buddychat/buddychat.module#BuddychatPageModule' },
+  { path: 'createreview', loadChildren: './pages/createreview/createreview.module#CreatereviewPageModule' },
 
 
 ];

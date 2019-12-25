@@ -50,6 +50,7 @@
     "core-js": "^2.5.4",
     "es6-promise-plugin": "^4.2.2",
     "firebase": "^6.4.2",
+    "ionic4-rating": "^1.0.9",
     "npm": "^6.10.3",
     "rxjs": "~6.5.1",
     "rxjs-compat": "^6.5.2",

@@ -1,4 +1,4 @@
-import { NgModule, ErrorHandler } from '@angular/core';
+import { NgModule, ErrorHandler, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -34,6 +34,8 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { database } from 'firebase';
 import * as firebase from 'firebase';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { IonicRatingModule } from "ionic4-rating";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyB-I0oVXxgBHcniQXYQfOL6QxXEPawdM08",
@@ -50,6 +52,7 @@ firebase.initializeApp(firebaseConfig)
 
   declarations: [AppComponent],
   entryComponents: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 
   imports: [BrowserModule,
     IonicModule.forRoot(),
@@ -60,7 +63,8 @@ firebase.initializeApp(firebaseConfig)
     ReactiveFormsModule,
     HttpModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFirestoreModule],
+    AngularFirestoreModule,
+    IonicRatingModule],
 
   providers: [
     ListingService,

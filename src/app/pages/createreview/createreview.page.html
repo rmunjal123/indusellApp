@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>createreview</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <rating [(ngModel)]="rate"
+  readonly="false" 
+  size="default"
+  (ngModelChange)="onModelChange($event)">
+</rating>
+
+</ion-content>

@@ -34,6 +34,8 @@ export class Tab2Page implements OnInit {
   respData: any;
   capturedSnapURL: string;
   options: any;
+  photos_path:any = [];
+  image_data:any = [];
 
   constructor(private formbuilder: FormBuilder,
     private createlistings: CreatelistingService,
@@ -136,9 +138,8 @@ export class Tab2Page implements OnInit {
 
   selectImages() {
     this.options = {
-      maximumImagesCount: 3,
-      width: 100,
-      height: 100,
+      maximumImagesCount: 10,
+      width: 800,
       quality: 100,
       outputType: 1,
     }
@@ -211,7 +212,6 @@ export class Tab2Page implements OnInit {
     //   });
     // }
     // if (sourceType == 1) {
-    console.log(sourceType);
     var options: CameraOptions = {
       quality: 100,
       sourceType: sourceType,
@@ -228,25 +228,29 @@ export class Tab2Page implements OnInit {
       this.file.readAsDataURL(path, filename).then((base64data) => {
         console.log(base64data)
         this.photos.push(base64data);
+        this.photos_path.push(path)
+        this.image_data.push(imageData)
       });
       console.log(this.photos);
     }, (err) => {
       console.log('server error>>>>', err);
     });
   }
-
   UploadImages() {
     var interval = 0;
+    var photos_path = this.photos_path
+    var image_data = this.image_data
+    const fileTransfer: FileTransferObject = this.transfer.create()
+    console.log(photos_path)
     function Innerfunc() {
-      const fileTransfer = this.transfer.create();
       let options: FileUploadOptions = {
         fileKey: "images",
         chunkedMode: false,
         mimeType: "image/jpeg",
         headers: {}
       }
-      var serverurl = "https://indusell.com/api/post/182";
-      fileTransfer.upload(this.photos[interval], serverurl, options).then(() => {
+      var serverurl = "https://indusell.com/api/post-picture/138";
+      fileTransfer.upload(image_data[interval], serverurl, options).then(() => {
         interval++;
         if (interval < this.photos.length) {
           Innerfunc();

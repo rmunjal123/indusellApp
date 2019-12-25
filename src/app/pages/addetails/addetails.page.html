@@ -7,11 +7,13 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
+  <ion-card>
   <ion-slides class="scroll" [options]="slideOpts" pager="true">
     <ion-slide *ngFor="let item of listing?.pictures" scrollbar="true">
       <ion-img cache="true" src="https://indusell.com/storage/{{item.filename}}"></ion-img>
     </ion-slide>
   </ion-slides>
+</ion-card>
   <ion-card>
     <ion-card-content>
       <ion-list>
@@ -47,10 +49,10 @@
           <ion-icon name="share" position="right" slot="end" (click)="share()"></ion-icon>
         </ion-item>
       </ion-list>
+    </ion-card-content>
+    </ion-card>
       <br>
-      <div>
-        Product Review
-      </div>
+      <h3>Product Review</h3>
       <ion-card>
         <ion-list *ngFor="let postreview1 of postreview" lines="inset">
           <ion-list-header>
@@ -65,12 +67,13 @@
             <p>Posted By: {{postreview1.name}}<p>
           </ion-item>
         </ion-list>
-      </ion-card>
+        </ion-card>
+         <ion-button (click)="onGoToReviewPage()">WRITE REVIEW</ion-button>
       <br>
       <!-- <ion-card-content *ngFor = "let postreview1 of postreview">
          {{postreview1.title}} - {{postreview1.description}}
         </ion-card-content> -->
-      <div>Contact Seller</div>
+      <h3>Contact Seller</h3>
       <ion-card>
         <ion-card-header>
           <ion-card-title>
@@ -86,6 +89,4 @@
           <ion-icon name="chatbubbles" (click)="onGoToChat()"></ion-icon>
         </ion-card-content>
       </ion-card>
-    </ion-card-content>
-  </ion-card>
 </ion-content>
