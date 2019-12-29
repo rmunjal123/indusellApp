@@ -31,10 +31,12 @@ export class AddetailsPage implements OnInit {
   postreview_description: string;
   postreview_date: string;
   postcleandescription: string;
-  postcreated_at: string;
+  postupdated_at: string;
   postnegotiable: string;
   postviews: string;
   poststate: string;
+  postratings: any;
+  rating: any;
 
   seller: any;
   sellerinfo: any;
@@ -67,9 +69,12 @@ export class AddetailsPage implements OnInit {
         this.listing = response;
         console.log(this.listing);
         this.postdetails = this.listing['post-detail'][0];
+        this.postratings = this.listing['totalpostReviews_totalusersID'][0];
+        this.rating = this.postratings["totalrating"]
+        console.log(this.rating);
         this.posttitle = this.postdetails["title"];
         this.postcontact = this.postdetails["contact_name"];
-        this.postcreated_at = this.postdetails["created_at"]
+        this.postupdated_at = this.postdetails["updated_at"]
         this.postprice = this.postdetails["price"];
         this.postviews = this.postdetails["visits"];
         this.poststate = this.postdetails["post_type_id"]

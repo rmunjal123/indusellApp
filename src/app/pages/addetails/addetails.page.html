@@ -19,15 +19,18 @@
       <ion-list>
         <ion-item>
           <ion-icon name="time" position="start"></ion-icon>
-          <ion-input readonly="true">{{postcreated_at}}</ion-input>
+          <ion-input readonly="true">{{postupdated_at}}</ion-input>
           <ion-icon name="eye"></ion-icon>
           <ion-input readonly="true">{{postviews}}</ion-input>
-          <ion-badge color="medium">{{poststate}}</ion-badge>
+          <ion-badge *ngIf = "poststate == 2" color="light">U</ion-badge>
+          <ion-badge *ngIf = "poststate == 1" color="light">N</ion-badge>
         </ion-item>
         <ion-item>
           <ion-icon name="pin" position="start"></ion-icon>
           <ion-input readonly="true">{{postlocation}}</ion-input>
-          <ion-badge color="primary" position="right" slot="end">{{postnegotiable}}</ion-badge>
+          <ion-badge *ngIf = "postnegotiable== 1" color="light">Negotiable</ion-badge>
+          <ion-badge *ngIf = "postnegotiable== null" color="light">Fixed Price</ion-badge>
+          
         </ion-item>
       </ion-list>
 
@@ -41,11 +44,48 @@
 
       <ion-list>
         <ion-item>
+          <div *ngIf = "rating &lt; 0.5"> 
           <ion-icon name="star-outline"></ion-icon>
           <ion-icon name="star-outline"></ion-icon>
           <ion-icon name="star-outline"></ion-icon>
           <ion-icon name="star-outline"></ion-icon>
           <ion-icon name="star-outline"></ion-icon>
+        </div>
+        <div *ngIf = "rating &gt;= 0.5 && rating &lt; 1.5">
+          <ion-icon name="star"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+        </div>
+        <div *ngIf = "rating &gt;= 1.5 && rating &lt; 2.5">
+          <ion-icon name="star"></ion-icon>
+          <ion-icon name="star"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+        </div>
+        <div *ngIf = "rating &gt;= 2.5 && rating &lt; 3.5">
+          <ion-icon name="star"></ion-icon>
+          <ion-icon name="star"></ion-icon>
+          <ion-icon name="star"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+        </div>
+        <div *ngIf = "rating &gt;= 3.5 && rating &lt; 4.5">
+          <ion-icon name="star"></ion-icon>
+          <ion-icon name="star"></ion-icon>
+          <ion-icon name="star"></ion-icon>
+          <ion-icon name="star"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+        </div>
+        <div *ngIf = "rating &gt;= 4.5">
+          <ion-icon name="star"></ion-icon>
+          <ion-icon name="star"></ion-icon>
+          <ion-icon name="star"></ion-icon>
+          <ion-icon name="star"></ion-icon>
+          <ion-icon name="star"></ion-icon>
+        </div>
           <ion-icon name="share" position="right" slot="end" (click)="share()"></ion-icon>
         </ion-item>
       </ion-list>

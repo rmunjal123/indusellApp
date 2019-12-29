@@ -69,11 +69,6 @@ constructor(private getcategories:GetcategoriesService , private router:Router,p
       // this.imgforID = this.arr.filter(
       //  arr => arr.id === this.listing.id);
       //  console.log(this.imgforID);
-      // if (this.arr.post_type_id === "2") {
-      //   var post_type = "Used";
-      // } else {
-      //   var post_type = "New";
-      // }
       //console.log(this.arr[185].filename);
       this.listings.letest_ads.forEach(id => {
           // console.log(id);
