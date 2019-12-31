@@ -10,6 +10,7 @@ import { SellerdetailsService } from 'src/app/services/sellerdetails.service';
 import { AngularFireDatabase, snapshotChanges } from '@angular/fire/database';
 import * as firebase from 'firebase';
 import { Events } from '@ionic/angular';
+import { ListingdetailsService } from '../services/listingdetails.service';
 
 @Injectable({
   providedIn: 'root'
@@ -24,15 +25,12 @@ export class ChatService {
   arr: any = [];
   buddymessages: any =[];
   msg: any;
+  listingid: any;
 
   firebuddychats = firebase.database().ref('/buddychats');
 
-  constructor(public events: Events, public auth: AuthenticationService, public sellerdetails: SellerdetailsService) {
-    this.user_id = this.auth.currentUserId;
-    console.log(this.user_id);
-    this.othersellername = this.sellerdetails.seller_name;
-    console.log(this.buddy);
-  }
+  constructor(public events: Events, public auth: AuthenticationService, public sellerdetails: SellerdetailsService,
+              public listing:ListingdetailsService) {}
 
   initializebuddy() {
     this.buddy;
@@ -50,13 +48,15 @@ export class ChatService {
           //this.firebuddychats.child(this.user_email).child(this.buddy).push({
           username: this.user_id,
           message: message,
-          timestamp: firebase.database.ServerValue.TIMESTAMP
+          timestamp: firebase.database.ServerValue.TIMESTAMP,
+          listingid: this.listing.id
         }).then(() => {
           this.firebuddychats.child(this.buddy).child(this.user_id).push({
             //this.firebuddychats.child(this.buddy).child(this.user_email).push({  
             username: this.user_id,
             message: message,
-            timestamp: firebase.database.ServerValue.TIMESTAMP
+            timestamp: firebase.database.ServerValue.TIMESTAMP,
+            listingid: this.listing.id
           }).then(() => {
             resolve(true);
           }).catch((err) => {
@@ -69,15 +69,19 @@ export class ChatService {
   }
 
   getbuddymessages() {
+    this.user_id = this.auth.currentUserId;
+    console.log(this.user_id);
+    this.othersellername = this.sellerdetails.seller_name;
+    console.log(this.buddy);
     let msg;
     this.buddymessages = [];
     const that = this;
-    this.firebuddychats.child(this.user_id).child(this.buddy).on('child_added', function (snapshotChanges) {
+    this.firebuddychats.child(this.user_id).child(this.buddy).on('child_added', function (snapshotChanges ) {
       msg = snapshotChanges.val();
       console.log(snapshotChanges.val());
       that.buddymessages.push(msg);
       console.log(that.buddymessages);
-      that.events.publish('newmessages', that.buddymessages);
+      that.events.publish('newmessages', msg);
     })
 
     //this.events.publish('newmessages');

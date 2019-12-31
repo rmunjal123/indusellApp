@@ -7,10 +7,10 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content #content>
     <div class = "chatwindow">
         <ion-list lines = "none" >
-          <ion-item *ngFor="let item of allmessages; let i = index" text-wrap>
+          <ion-item *ngFor="let item of allmessages" text-wrap>
             <div class="bubble me" *ngIf="item.username === user_id">
             <h3>{{item.message}}</h3>
            </div> 
@@ -24,7 +24,7 @@
     
     <ion-footer>
       <ion-toolbar>
-        <ion-input type = "text" [(ngModel)]= "newmessage"></ion-input>
+        <ion-input type = "text" [(ngModel)]= "newmessage" placeholder = "Write your message"></ion-input>
         <ion-icon name="send" slot="end" (click)="addmessage()"></ion-icon>
     
       </ion-toolbar>

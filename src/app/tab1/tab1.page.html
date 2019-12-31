@@ -8,7 +8,7 @@
 
     <!-- floating button at the top for Add Listing -->
    <!-- fab placed to the top start -->
-   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+   <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
       <ion-fab-button expand="block" routerLink="/addlisting" routerDirection="forward">
         <ion-icon name="add"></ion-icon>
       </ion-fab-button>
@@ -17,7 +17,7 @@
         <ion-fab-button expand="block" routerLink="/createreview" routerDirection="forward">
           <ion-icon name="add"></ion-icon>
         </ion-fab-button>
-      </ion-fab>
+      </ion-fab> -->
     <!-- auto rotating slider at the top -->
     <ion-slides #mySlider pager="true" [options]="slideOpts">
         <ion-slide>
@@ -129,15 +129,17 @@
               <ion-badge *ngIf = "listing.post_type_id == 2" color="light">U</ion-badge>
               <ion-badge *ngIf = "listing.post_type_id == 1" color="light">N</ion-badge>
              </ion-item>
-             <ion-item class = "card-item">
+             <ion-item lines = none class = "card-item">
                 <ion-icon name="pin" position="start"></ion-icon>
                 <ion-input readonly="true">{{listing.country_code}}</ion-input>
-                <div *ngFor = "let rating of ratingarr">
-                    <div *ngIf = "listing.id === rating.id">
-                    <ion-input position = "end" readonly="true">{{rating.totalrating}}</ion-input>
-                    </div>
+                <div *ngFor="let rating of ratingarr">
+                  <div *ngIf="listing.id === rating.id">
+                    <ion-input readonly="true">
+                      <h3>{{rating.totalrating}}</h3>
+                    </ion-input>
+                  </div>
                 </div>
-                <ion-icon name="star" position="end"></ion-icon>
+              <ion-icon name="star"></ion-icon>
              </ion-item>
             </ion-list>
           

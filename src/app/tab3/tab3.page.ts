@@ -34,14 +34,15 @@ export class Tab3Page {
               public auth: AuthenticationService){
 
   this.user_id = this.auth.currentUserId;
-  this.othersellername = this.sellerdetails.seller_name;
   this.buddy = this.chat.buddy
-                
+  this.firebuddychats.child(this.user_id).once('value').then((r)=>{console.log(r)}) 
+    
 
-if ( this.firebuddychats.child(this.user_id).child(this.buddy))
-{
-  this.buddies.push(this.buddy)
-}
-console.log(this.buddies)
-}
+// if ( this.firebuddychats.child(this.user_id).child(this.buddy))
+// {
+//   this.buddies.push(this.buddy)
+// }
+// console.log(this.buddies)
+// }
+  }
 }
