@@ -36,10 +36,13 @@
           <h6>Category :</h6>
         </ion-list-header>
       </ion-row>
-      <ion-col>
+      <!-- <ion-col>
         <ion-textarea rows="1" cols="5" placeholder="Select a category" color="dark"></ion-textarea>
-      </ion-col>
-      <ion-select formControlName="category_id" multiple="false" cancelText="Cancel" okText="OK">
+      </ion-col> -->
+      <ion-select formControlName="category_id" multiple="false" cancelText="Cancel" okText="OK" (click)="onSelectCategoryDropDown()">
+        <!-- <div *ngFor = "let category of categories?.category" >
+        <ion-select-option value = category.id >{{category.name}}</ion-select-option>
+      </div> -->
         <ion-select-option value="1">Electrical</ion-select-option>
         <ion-select-option value="17">Mechanical</ion-select-option>
         <ion-select-option value="18">Piping</ion-select-option>
@@ -109,7 +112,7 @@
               <h6>Negotiable :</h6>
           </ion-list-header>
       </ion-row>
-      <ion-checkbox ></ion-checkbox>
+      <ion-checkbox formControlName="negotiable"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-row>
@@ -121,12 +124,11 @@
           <ion-textarea rows="1" cols="5" placeholder="Select Location" color="dark"></ion-textarea>
         </ion-col>
         <ion-select formControlName="country_code" multiple="false" cancelText="Cancel" okText="OK">
-          <ion-select-option value="Select Location">Select Location</ion-select-option>
           <ion-select-option value="SG">Singapore</ion-select-option>
         </ion-select>
       </ion-item>
 
-      <ion-item>
+      <!-- <ion-item>
         <ion-row>
           <ion-list-header>
             <h6>City :</h6>
@@ -139,8 +141,8 @@
           <ion-select-option value="Select Location">Select Location</ion-select-option>
           <ion-select-option value="15000000">Singapore</ion-select-option>
         </ion-select>
-      </ion-item>
-      <ion-item>
+      </ion-item> -->
+      <!-- <ion-item>
         <ion-row>
           <ion-list-header>
             <h6>Industry :</h6>
@@ -156,9 +158,9 @@
           <ion-select-option value="Instruments">Instruments</ion-select-option>
           <ion-select-option value="General">General</ion-select-option>
         </ion-select>
-      </ion-item>
+      </ion-item> -->
 
-      <ion-item>
+      <!-- <ion-item>
         <ion-row>
           <ion-list-header>
             <h6>Brands :</h6>
@@ -174,9 +176,9 @@
           <ion-select-option value="Syska">Syska</ion-select-option>
           <ion-select-option value="Kirloskar">Kirloskar</ion-select-option>
         </ion-select>
-      </ion-item>
+      </ion-item> -->
 
-      <ion-item>
+      <!-- <ion-item>
         <ion-row>
           <ion-list-header>
             <h6>Video Link :</h6>
@@ -185,7 +187,7 @@
         <ion-col>
           <ion-textarea rows="1" cols="5" placeholder="" color="dark"></ion-textarea>
         </ion-col>
-      </ion-item>
+      </ion-item> -->
 
       <ion-item>
         <ion-row>
@@ -194,7 +196,7 @@
           </ion-list-header>
         </ion-row>
         <ion-col>
-          <ion-textarea rows="1" cols="5" placeholder="add a tag" color="dark"></ion-textarea>
+          <ion-textarea formControlName="tags" rows="1" cols="5" placeholder="add a tag" color="dark"></ion-textarea>
         </ion-col>
       </ion-item>
       <br>

@@ -1,14 +1,32 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>createreview</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Write Review</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-  <rating [(ngModel)]="rate"
-  readonly="false" 
-  size="default"
-  (ngModelChange)="onModelChange($event)">
-</rating>
-
+<form class="form" [formGroup]="addreview" (ngSubmit)="onSubmit(addreview.value)">
+  <ion-list>
+<ion-item lines = "none">
+    <ion-label>Click to Rate :</ion-label>
+</ion-item>
+<ion-item>
+  <rating formControlName="rating" [(ngModel)]="rate" readonly="false" size="default" (ngModelChange)="onModelChange($event)">
+  </rating>
+</ion-item>
+<ion-item>
+  <ion-label>Title :</ion-label>
+  <ion-input type="text" formControlName="title" rows="1" cols="20" placeholder="Enter title here...">
+  </ion-input>
+</ion-item>
+<ion-item>
+  <ion-label>Description:</ion-label>
+  <ion-textarea formControlName="description" rows="8" cols="20" placeholder="Enter review here...">
+  </ion-textarea>
+</ion-item>
+</ion-list>
+<ion-button text-center type="submit">Submit</ion-button>
+</form>
 </ion-content>

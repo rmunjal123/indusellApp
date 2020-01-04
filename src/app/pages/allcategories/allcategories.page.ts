@@ -20,7 +20,7 @@ export class AllcategoriesPage implements OnInit {
     constructor(private getcategoriesService:GetcategoriesService , private router:Router){}
 
     ngOnInit(){
-     this.listings = this.getcategoriesService.getListings();
+    //  this.listings = this.getcategoriesService.getListings();
     }
   loadData(event){
   console.log(event);

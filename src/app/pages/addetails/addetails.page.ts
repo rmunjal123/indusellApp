@@ -37,6 +37,7 @@ export class AddetailsPage implements OnInit {
   poststate: string;
   postratings: any;
   rating: any;
+  listingId: any;
 
   seller: any;
   sellerinfo: any;
@@ -142,7 +143,8 @@ export class AddetailsPage implements OnInit {
     this.router.navigate(['/buddychat/:' + this.id]);
   }
   onGoToReviewPage(){
-    this.router.navigate(['/createreview']);
+    this.listingId = this.listingdetails.id 
+    this.router.navigate(['/createreview/:' + this.listingId]);
   }
 
 }

@@ -37,6 +37,9 @@ displayobj: any = {};
 displayobjarr: any = [];
 displaypic: string;
 bannerarr = {};
+element: any;
+ratingforID: any;
+
 
   sliderConfig_Category = {
     spaceBetween: 0,
@@ -65,6 +68,11 @@ constructor(private getcategories:GetcategoriesService , private router:Router,p
       console.log(this.bannerarr);
       this.arr = this.listings.latest_pictures;
       this.ratingarr = this.listings.post_reviews;
+      // this.ratingarr.forEach(element => {
+      //   if (element.id === this.listing.id) {
+      //     this.rating = this.element.totalrating
+      //   }
+      // });
       // this.listing = this.listings.letest_ads;
       // this.imgforID = this.arr.filter(
       //  arr => arr.id === this.listing.id);
@@ -77,6 +85,11 @@ constructor(private getcategories:GetcategoriesService , private router:Router,p
           // this.id_price=id['price'];
           this.listingid = id.id;
           console.log(this.listingid);
+          this.ratingforID = this.ratingarr.filter(
+            ratingarr => ratingarr.id === this.listingid)
+            if(this.ratingforID[0]){
+            console.log(this.ratingforID[0].totalrating);
+          this.ratingforID = this.ratingforID[0].totalrating }
           this.imgforID = this.arr.filter(
           arr => arr.id === this.listingid);
           console.log(this.imgforID);
@@ -86,11 +99,10 @@ constructor(private getcategories:GetcategoriesService , private router:Router,p
           this.displayobj = { id:this.listingid, displaypic: this.displaypic}
           this.displayobjarr.push(this.displayobj);
           console.log (this.displayobjarr);
-
-          });
-          
-      });
-    } 
+        
+        });
+    });
+  } 
     //createListing(input:HTMLImputElement){
     //   let listing = { title: input.value};
     //   input.value = '';

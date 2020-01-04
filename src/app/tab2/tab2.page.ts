@@ -14,6 +14,8 @@ import { finalize } from 'rxjs/operators'
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { GetcategoriesService } from 'src/app/services/getcategories.service';
+
 
 const STORAGE_KEY = "my_images";
 declare const window: any;
@@ -36,6 +38,7 @@ export class Tab2Page implements OnInit {
   options: any;
   photos_path:any = [];
   image_data:any = [];
+  categories:any= [];
 
   constructor(private formbuilder: FormBuilder,
     private createlistings: CreatelistingService,
@@ -52,7 +55,8 @@ export class Tab2Page implements OnInit {
     private transfer: FileTransfer,
     private filepath: FilePath,
     private authservice: AuthenticationService,
-    private imagePicker: ImagePicker
+    private imagePicker: ImagePicker,
+    private getcategories:GetcategoriesService
   ) {
   }
 
@@ -65,12 +69,12 @@ export class Tab2Page implements OnInit {
       description: new FormControl('', Validators.required),
       price: new FormControl('', Validators.required),
       country_code: new FormControl('', Validators.required),
-      city_id: new FormControl('', Validators.required),
+      city_id: new FormControl('15000000', Validators.required),
       email: new FormControl(this.authservice.currentUserEmail),
       user_id: new FormControl(this.authservice.currentUserId),
       ad_status: new FormControl(''),
       tags: new FormControl(''),
-      negotiable: new FormControl('1'),
+      negotiable: new FormControl(''),
       contact_name: new FormControl(this.authservice.currentUserName),
       phone: new FormControl(this.authservice.currentUserPhone),
       address: new FormControl(''),
@@ -310,6 +314,14 @@ export class Tab2Page implements OnInit {
           this.presentToast('File Upload Failed')
         }
       });
+  }
+
+  onSelectCategoryDropDown(){
+    this.getcategories.getCategories()
+    .subscribe(response => {
+      this.categories = response;
+      console.log(response)
+    })
   }
 
 }

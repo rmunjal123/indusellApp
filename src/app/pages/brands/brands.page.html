@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <!-- <ion-text *ngIf = "brandlistings?.brandlisting.length === 0" padding > Sorry, No item in this Brand exists</ion-text> -->
+  <ion-text padding > {{msg}}</ion-text>
   <ion-grid>
     <ion-row>
       <ion-col size="6" no-padding *ngFor="let listing of brandlistings?.brandlisting">
@@ -27,18 +27,26 @@
               <ion-item class="card-item">
                 <ion-icon name="eye" position="start"></ion-icon>
                 <ion-input readonly="true">{{listing.visits}}</ion-input>
-                <ion-badge color="light">{{listing.post_type_id}}</ion-badge>
-              </ion-item>
-              <ion-item class="card-item">
-                <ion-icon name="pin" position="end"></ion-icon>
-                <ion-input readonly="true">{{listing.country_code}}</ion-input>
-                <ion-icon name="star-outline"></ion-icon>
-              </ion-item>
-            </ion-list>
-          </ion-card>
-        </ion-card-content>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+                <ion-badge *ngIf = "listing.post_type_id == 2" color="light">U</ion-badge>
+                <ion-badge *ngIf = "listing.post_type_id == 1" color="light">N</ion-badge>
+               </ion-item>
+               <ion-item lines = none class = "card-item">
+                  <ion-icon name="pin" position="start"></ion-icon>
+                  <ion-input readonly="true">{{listing.country_code}}</ion-input>
+                  <div *ngFor="let rating of ratingarr">
+                      <ion-input *ngIf="listing.id === rating.id" readonly="true">
+                        <h3>{{rating.totalrating}}</h3>
+                      </ion-input>
+                    </div>
+                <!-- <ion-input readonly="true">{{ratingforID}}</ion-input> -->
+                <ion-icon name="star"></ion-icon>
+               </ion-item>
+              </ion-list>
+            
+            </ion-card>
+          </ion-card-content>
+            </ion-col>
+            </ion-row>
+            </ion-grid>
 
 </ion-content>

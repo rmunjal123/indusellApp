@@ -15,6 +15,8 @@ export class CategoriesPage implements OnInit {
   category: any;
   categoryname: any;
   objforcategoryname: any;
+  msg: string;
+  ratingarr =[];
 
   constructor(private getcategories:GetcategoriesService,private router:Router,private listingdetails: ListingdetailsService,) { }
               private sellerdetails: SellerdetailsService
@@ -24,11 +26,16 @@ export class CategoriesPage implements OnInit {
         this.categorylistings = response;
         console.log(this.categorylistings);
         this.category = response['listing']
-        if (this.category.length > 1) {
+        this.ratingarr = response['post_reviews']
+        console.log(this.ratingarr)
+        if(typeof(this.category) === 'undefined'){
+         this.msg = "Sorry, No Listing Exists in this category"
+        }
+        else {
           this.objforcategoryname = this.category[0]
           this.categoryname = this.objforcategoryname.subcategoryname;
           console.log(this.categoryname)
-        }
+        } 
       });
   }
   onGoToListingDetail(listing) {

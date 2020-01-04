@@ -14,6 +14,7 @@ export class BrandsPage implements OnInit {
   brands: any;
   brandname: any;
   objforbrandname: any ;
+  msg: string;
 
   constructor(private getbrands:GetbrandsService,private router:Router,private listingdetails: ListingdetailsService,
               private sellerdetails: SellerdetailsService) { }
@@ -24,7 +25,10 @@ export class BrandsPage implements OnInit {
       this.brandlistings = response;
       console.log(this.brandlistings);
       this.brands = response['brandlisting']
-      if (this.brands.length > 1) {
+      if(this.brands.length === 0){
+        this.msg = " Sorry, No Listing Exists in this Brand"
+      }
+      if (this.brands.length >= 1) {
         this.objforbrandname = this.brands[0]
         this.brandname = this.objforbrandname.brand_name;
         console.log(this.brandname)

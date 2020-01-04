@@ -1,6 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { IonicRatingModule } from 'ionic4-rating';
 
@@ -20,6 +20,7 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicRatingModule,
+    ReactiveFormsModule,
     IonicModule,
     RouterModule.forChild(routes)
   ],
