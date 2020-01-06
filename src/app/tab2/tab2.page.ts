@@ -40,6 +40,12 @@ export class Tab2Page implements OnInit {
   image_data:any = [];
   categories:any= [];
 
+  sliderConfig_Category = {
+    spaceBetween: 0,
+    centeredSlides: false,
+    slidesPerView: 2.4
+  }
+
   constructor(private formbuilder: FormBuilder,
     private createlistings: CreatelistingService,
     private camera: Camera,
