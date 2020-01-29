@@ -22,7 +22,7 @@ export class CreatereviewPage implements OnInit {
 
   ngOnInit() {
     this.addreview = new FormGroup({
-      rating: new FormControl(''),
+      over: new FormControl(''),
       title: new FormControl(''),
       description: new FormControl('', Validators.required),
       userID: new FormControl(this.auth.currentUserId)

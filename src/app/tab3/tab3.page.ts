@@ -6,7 +6,7 @@ import { AngularFireModule} from '@angular/fire';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { SellerdetailsService } from 'src/app/services/sellerdetails.service';
-import { AngularFireDatabase, snapshotChanges } from '@angular/fire/database';
+import { AngularFireDatabase, snapshotChanges, AngularFireList} from '@angular/fire/database';
 import * as firebase from 'firebase';
 import { Events } from '@ionic/angular';
 import { ChatService } from '../services/chat.service';
@@ -31,11 +31,17 @@ export class Tab3Page {
 
   constructor(public db: AngularFireDatabase, public authservice: AuthenticationService,
               public sellerdetails: SellerdetailsService, public chat: ChatService, public events: Events,
-              public auth: AuthenticationService){
+              public auth: AuthenticationService  ){
 
   this.user_id = this.auth.currentUserId;
   this.buddy = this.chat.buddy
   this.firebuddychats.child(this.user_id).once('value').then((r)=>{console.log(r)}) 
+  this.firebuddychats.child(this.user_id).limitToLast(100).on("child_added", function(snapshot) {
+    console.log(snapshot.key);
+    this.buddies.push(snapshot.key);
+    console.log(this.buddies);
+  })
+  
     
 
 // if ( this.firebuddychats.child(this.user_id).child(this.buddy))

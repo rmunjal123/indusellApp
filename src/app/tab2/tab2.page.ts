@@ -151,12 +151,14 @@ export class Tab2Page implements OnInit {
       maximumImagesCount: 10,
       width: 800,
       quality: 100,
-      outputType: 1,
+      outputType: 0,
     }
     this.imagePicker.getPictures(this.options).then((results) => {
       for (var i = 0; i < results.length; i++) {
-        this.photos.push('data:image/jpeg;base64,' + results[i]);
+        this.photos.push(results[i]);
+        this.image_data.push(results[i]);
       }
+      this.storage.set('photos',this.photos);
       console.log(this.photos);
     }, (err) => {
       alert(err);
@@ -198,30 +200,6 @@ export class Tab2Page implements OnInit {
 
   takePicture(sourceType: PictureSourceType) {
     console.log(sourceType);
-    // if (sourceType == 0) {
-    //   console.log(sourceType);
-    //   var options: CameraOptions = {
-    //     quality: 100,
-    //     sourceType: sourceType,
-    //     // saveToPhotoAlbum: false,
-    //     // correctOrientation: true,
-    //     destinationType: this.camera.DestinationType.DATA_URL,
-    //     encodingType: this.camera.EncodingType.JPEG,
-    //     mediaType: this.camera.MediaType.PICTURE,
-    //   };
-    //   this.camera.getPicture(options).then(imageData => {
-    //     console.log(imageData)
-    //     let base64Image = 'data:image/jpeg;base64,' + imageData;
-    //     this.capturedSnapURL = base64Image
-    //     console.log(this.capturedSnapURL)
-    //     this.photos.push(this.capturedSnapURL)
-    //     console.log(this.photos)
-
-    //   }, (err) => {
-    //     console.log('server error>>>>', err);
-    //   });
-    // }
-    // if (sourceType == 1) {
     var options: CameraOptions = {
       quality: 100,
       sourceType: sourceType,
@@ -238,7 +216,7 @@ export class Tab2Page implements OnInit {
       this.file.readAsDataURL(path, filename).then((base64data) => {
         console.log(base64data)
         this.photos.push(base64data);
-        this.photos_path.push(path)
+        this.photos_path.push(imageData)
         this.image_data.push(imageData)
       });
       console.log(this.photos);
@@ -251,18 +229,18 @@ export class Tab2Page implements OnInit {
     var photos_path = this.photos_path
     var image_data = this.image_data
     const fileTransfer: FileTransferObject = this.transfer.create()
-    console.log(photos_path)
+    console.log(photos_path.length)
     function Innerfunc() {
       let options: FileUploadOptions = {
-        fileKey: "images",
+        fileKey: "picture[]",
         chunkedMode: false,
         mimeType: "image/jpeg",
         headers: {}
       }
-      var serverurl = "https://indusell.com/api/post-picture/138";
-      fileTransfer.upload(image_data[interval], serverurl, options).then(() => {
+      var serverurl = "https://indusell.com/api/picture/138";
+      fileTransfer.upload(photos_path[interval], serverurl, options).then(() => {
         interval++;
-        if (interval < this.photos.length) {
+        if (interval < photos_path.length) {
           Innerfunc();
         }
         else {
