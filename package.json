@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "^7.2.2",
     "@angular/router": "^7.2.2",
     "@auth0/angular-jwt": "^2.1.0",
+    "@ionic-native/base64": "^5.21.0",
     "@ionic-native/camera": "^5.18.0",
     "@ionic-native/core": "^5.11.0",
     "@ionic-native/file": "^5.11.0",
@@ -35,6 +36,7 @@
     "@ionic-native/status-bar": "^5.0.0",
     "@ionic/angular": "^4.1.0",
     "@ionic/storage": "^2.2.0",
+    "com-badrit-base64": "0.2.0",
     "cordova-android": "8.1.0",
     "cordova-android-support-gradle-release": "^3.0.1",
     "cordova-ios": "5.0.1",
@@ -117,7 +119,8 @@
       "cordova-plugin-telerik-imagepicker": {},
       "cordova-plugin-camera": {
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
-      }
+      },
+      "com-badrit-base64": {}
     },
     "platforms": [
       "ios",

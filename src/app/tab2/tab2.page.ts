@@ -15,6 +15,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { GetcategoriesService } from 'src/app/services/getcategories.service';
+import { Base64 } from '@ionic-native/base64/ngx';
 
 
 const STORAGE_KEY = "my_images";
@@ -39,6 +40,7 @@ export class Tab2Page implements OnInit {
   photos_path:any = [];
   image_data:any = [];
   categories:any= [];
+  new_id:any
 
   sliderConfig_Category = {
     spaceBetween: 0,
@@ -62,7 +64,8 @@ export class Tab2Page implements OnInit {
     private filepath: FilePath,
     private authservice: AuthenticationService,
     private imagePicker: ImagePicker,
-    private getcategories:GetcategoriesService
+    private getcategories:GetcategoriesService,
+    private base64: Base64
   ) {
   }
 
@@ -92,9 +95,9 @@ export class Tab2Page implements OnInit {
       industry_ID: new FormControl('3'),
       industry_type: new FormControl(''),
     });
-    this.plt.ready().then(() => {
-      this.loadStoredImages();
-    });
+    // this.plt.ready().then(() => {
+    //   this.loadStoredImages();
+    // });
   }
 
   onSubmit() {
@@ -106,6 +109,11 @@ export class Tab2Page implements OnInit {
       .subscribe(
         response => {
           console.log(response);
+          if(response['status'] = 200){
+            this.new_id = response['id']
+            alert("Listing "+this.new_id+ " successfully created");
+            console.log(this.new_id)
+          }
           //addlisting['id'] = response.id;
           //this.addlisting.splice(0,0, addlisting);
         },
@@ -114,6 +122,7 @@ export class Tab2Page implements OnInit {
             this.addlist.setErrors(Error.originalError)
           }
           else throw Error;
+          alert(Error)
         });
   }
   // onImageUpload() {
@@ -155,30 +164,36 @@ export class Tab2Page implements OnInit {
     }
     this.imagePicker.getPictures(this.options).then((results) => {
       for (var i = 0; i < results.length; i++) {
-        this.photos.push(results[i]);
-        this.image_data.push(results[i]);
+        console.log(results[i])
+        let filePath: string = results[i]
+        this.base64.encodeFile(results[i]).then((base64File: string) => {
+        this.photos.push(base64File);
+        this.photos_path.push(filePath);
+        // this.storage.set('photos',this.photos);
+        console.log(this.photos);
+        console.log(this.photos_path);
+        })
       }
-      this.storage.set('photos',this.photos);
-      console.log(this.photos);
     }, (err) => {
       alert(err);
     });
   }
 
 
-  loadStoredImages() {
-    this.storage.get(STORAGE_KEY).then(images => {
-      if (images) {
-        let arr = JSON.parse(images);
-        this.images = [];
-        for (let img of arr) {
-          let filePath = this.file.dataDirectory + img;
-          let resPath = this.pathForImage(filePath);
-          this.images.push({ name: img, path: resPath, filePath: filePath });
-        }
-      }
-    });
-  }
+
+  // loadStoredImages() {
+  //   this.storage.get(STORAGE_KEY).then(images => {
+  //     if (images) {
+  //       let arr = JSON.parse(images);
+  //       this.images = [];
+  //       for (let img of arr) {
+  //         let filePath = this.file.dataDirectory + img;
+  //         let resPath = this.pathForImage(filePath);
+  //         this.images.push({ name: img, path: resPath, filePath: filePath });
+  //       }
+  //     }
+  //   });
+  // }
 
   pathForImage(img) {
     if (img === null) {
@@ -219,7 +234,7 @@ export class Tab2Page implements OnInit {
         this.photos_path.push(imageData)
         this.image_data.push(imageData)
       });
-      console.log(this.photos);
+      console.log(this.photos_path);
     }, (err) => {
       console.log('server error>>>>', err);
     });

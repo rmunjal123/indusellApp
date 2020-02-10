@@ -35,6 +35,7 @@ import { database } from 'firebase';
 import * as firebase from 'firebase';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { IonicRatingModule } from "ionic4-rating";
+import { Base64 } from '@ionic-native/base64/ngx';
 
 
 const firebaseConfig = {
@@ -83,6 +84,7 @@ firebase.initializeApp(firebaseConfig)
     FileTransfer,
     FilePath,
     WebView,
+    Base64,
     SocialSharing,
     { provide: ErrorHandler, useClass: AppErrorHandler },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
