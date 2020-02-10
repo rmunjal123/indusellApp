@@ -54,7 +54,7 @@
     "es6-promise-plugin": "^4.2.2",
     "firebase": "^6.4.2",
     "ionic4-rating": "^1.0.9",
-    "npm": "^6.10.3",
+    "npm": "^6.13.4",
     "rxjs": "~6.5.1",
     "rxjs-compat": "^6.5.2",
     "tslib": "^1.9.0",
