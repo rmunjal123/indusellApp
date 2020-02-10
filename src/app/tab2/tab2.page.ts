@@ -16,6 +16,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { GetcategoriesService } from 'src/app/services/getcategories.service';
 import { Base64 } from '@ionic-native/base64/ngx';
+import { Router } from '@angular/router';
 
 
 const STORAGE_KEY = "my_images";
@@ -65,7 +66,8 @@ export class Tab2Page implements OnInit {
     private authservice: AuthenticationService,
     private imagePicker: ImagePicker,
     private getcategories:GetcategoriesService,
-    private base64: Base64
+    private base64: Base64,
+    private router:Router  
   ) {
   }
 
@@ -111,8 +113,10 @@ export class Tab2Page implements OnInit {
           console.log(response);
           if(response['status'] = 200){
             this.new_id = response['id']
+            this.createlistings.service_new_id = this.new_id
             alert("Listing "+this.new_id+ " successfully created");
             console.log(this.new_id)
+            this.router.navigate(['/addimages/:'+this.new_id]);
           }
           //addlisting['id'] = response.id;
           //this.addlisting.splice(0,0, addlisting);
@@ -252,7 +256,7 @@ export class Tab2Page implements OnInit {
         mimeType: "image/jpeg",
         headers: {}
       }
-      var serverurl = "https://indusell.com/api/picture/138";
+      var serverurl = 'https://indusell.com/api/picture/'+this.new_id;
       fileTransfer.upload(photos_path[interval], serverurl, options).then(() => {
         interval++;
         if (interval < photos_path.length) {

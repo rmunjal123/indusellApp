@@ -214,7 +214,7 @@
 <h3 *ngIf = "images.length === 0 " text-center>Please select Image</h3>
 <ion-list>
   <ion-item *ngFor = " let img of images; index as pos "></ion-item>
-</ion-list> -->
+</ion-list> 
   <ion-grid>
     <ion-list>
         <ion-item (click)="selectImage()">
@@ -235,21 +235,21 @@
         </ion-slide>
       </ion-slides>
       <ion-item>
-        <!-- <ion-row *ngIf="photos.length > 0">
+        <ion-row *ngIf="photos.length > 0">
                           <ion-col style="padding:10px;" col-3 *ngFor="let img1 of photos;">
                             <ion-card>
                               <img src="{{img1}}" />
                             </ion-card>
                             <ion-item (click)= "deleteImage(imgEntry, position)">Delete Image</ion-item>
                           </ion-col>
-                        </ion-row> -->
+                        </ion-row> 
         <ion-col text-center>
           <ion-button (click)="UploadImages()">Upload Images</ion-button>
         </ion-col>
       </ion-item>
     </div>
-    </ion-grid>
-    <!--<ion-row>
+    </ion-grid> 
+    <ion-row>
       <ion-col>
          More Pinterest floating gallery style 
         <div class="images">

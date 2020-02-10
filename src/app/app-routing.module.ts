@@ -14,6 +14,7 @@ const routes: Routes = [
   { path: 'brands', loadChildren: './pages/brands/brands.module#BrandsPageModule' },
   { path: 'buddychat/:id', loadChildren: './pages/buddychat/buddychat.module#BuddychatPageModule' },
   { path: 'createreview/:listingId', loadChildren: './pages/createreview/createreview.module#CreatereviewPageModule' },
+  { path: 'addimages/:new_id', loadChildren: './pages/addimages/addimages.module#AddimagesPageModule' },
 
 
 ];

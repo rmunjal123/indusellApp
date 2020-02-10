@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/dashboard"></ion-back-button>
+  </ion-buttons>
+    <ion-title>Add Images</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-list>
+        <ion-item (click)="selectImage()">
+          <ion-label>Add Images</ion-label>
+          <ion-icon name="images" slot="end"></ion-icon>
+        </ion-item>
+    </ion-list>
+    <div *ngIf="photos.length > 0">
+      <ion-item>
+        <ion-label>Selected Images</ion-label>
+      </ion-item>
+      <ion-slides [options]="sliderConfig_Category">
+        <ion-slide *ngFor="let img1 of photos">
+          <ion-card class="category-slider ion-text-nowrap">
+            <ion-img style="width: 240px;height: 160px;" src="{{img1}}">
+            </ion-img>
+          </ion-card>
+        </ion-slide>
+      </ion-slides>
+      <ion-item>
+        <!-- <ion-row *ngIf="photos.length > 0">
+                          <ion-col style="padding:10px;" col-3 *ngFor="let img1 of photos;">
+                            <ion-card>
+                              <img src="{{img1}}" />
+                            </ion-card>
+                            <ion-item (click)= "deleteImage(imgEntry, position)">Delete Image</ion-item>
+                          </ion-col>
+                        </ion-row> -->
+        <ion-col text-center>
+          <ion-button (click)="UploadImages()">Upload Images</ion-button>
+        </ion-col>
+      </ion-item>
+  </div>
+    </ion-grid>
+
+</ion-content>

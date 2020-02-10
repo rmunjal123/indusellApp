@@ -7,6 +7,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CreatelistingService extends DataService{
 
+  service_new_id: any;
+
   constructor(http:HttpClient) {
     super('https://indusell.com/api/post',http);
   }
